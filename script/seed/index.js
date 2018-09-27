@@ -1,7 +1,8 @@
 'use strict'
+const {locationData, homeData, placeData, categoryData, userHomeData, userCategoryData, homePlaceData} = require('./seed')
 
-const db = require('../server/db')
-const {User} = require('../server/db/models')
+const db = require('../../server/db')
+const {User, Location, Home, Place, Category, UserHome, UserCategory, HomePlace} = require('../../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -11,6 +12,13 @@ async function seed() {
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
+
+  const locations = await Promise.all(locationData.map(location => Location.create(location)))
+
+  const homes = await Promise.all(homeData.map(home => Home.create(home)))
+  const userHomes = await Promise.all(userHomeData.map(data => U))
+  const places = await Promise.all(placeData.map(place => Place.create(place)))
+  const categories = await Promise.all(categoryData.map(category => Category.create({type: category})))
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
