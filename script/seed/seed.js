@@ -41,15 +41,19 @@ export const homeData = [{
   imageUrl: 'https://bit.ly/2N7GYnO',
 }]
 export const placeData = [{
+  id: 1,
   name: 'Work',
   locationId: 3,
 }, {
+  id: 2,
   name: 'Work',
   locationId: 4,
 }, {
+  id: 3,
   name: `Mom's House`,
   locationId: 5
 }, {
+  id: 4,
   name: 'OZ Animal Hospital',
   locationId: 6
 }]
@@ -60,4 +64,4 @@ export const userHomeData = [{userId: 1, homeId: 1}, {userId: 1, homeId: 2}, {us
 
 export const userCategoryData = [{userId: 1, categoryId: 1, priority: 1}, {userId: 1, categoryId: 2, priority: 2}, {userId: 1, categoryId: 11, priority: 3}, {userId: 2, categoryId: 1, priority: 1}, {userId: 2, categoryId: 3, priority: 2}, {userId: 3, categoryId: 5, priority: 3}]
 
-export const homePlaceData = [{homeId: 1, placeId: 1}, {homeId: 1, placeId: 3}, {homeId: 2, placeId: }]
+export const homePlaceData = [{homeId: 1, placeId: 1}, {homeId: 1, placeId: 3}, {homeId: 2, placeId: 2}, {homeId: 2, placeId: 4}]

@@ -12,15 +12,30 @@ async function seed() {
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
+  console.log(`seeded ${users.length} users`)
 
   const locations = await Promise.all(locationData.map(location => Location.create(location)))
+  console.log(`seeded ${locations.length} locations`)
 
   const homes = await Promise.all(homeData.map(home => Home.create(home)))
-  const userHomes = await Promise.all(userHomeData.map(data => U))
-  const places = await Promise.all(placeData.map(place => Place.create(place)))
-  const categories = await Promise.all(categoryData.map(category => Category.create({type: category})))
+  console.log(`seeded ${homes.length} homes`)
 
-  console.log(`seeded ${users.length} users`)
+  const places = await Promise.all(placeData.map(place => Place.create(place)))
+  console.log(`seeded ${places.length} places`)
+
+  const categories = await Promise.all(categoryData.map(category => Category.create({type: category})))
+  console.log(`seeded ${categories.length} categories`)
+
+  const userHomes = await Promise.all(userHomeData.map(data => UserHome.create(data)))
+  console.log(`seeded ${userHomes.length} userHomes`)
+
+  const userCategories = await Promise.all(userCategoryData.map(data => UserCategory.create(data)))
+  console.log(`seeded ${userCategories.length} userCategories`)
+
+  const homePlaces = await Promise.all(homePlaceData.map(data => HomePlace.create(data)))
+  console.log(`seeded ${homePlaces.length} homePlaces`)
+
+
   console.log(`seeded successfully`)
 }
 
