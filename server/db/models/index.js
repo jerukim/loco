@@ -13,12 +13,12 @@ Home.belongsToMany(User)
 User.belongsToMany(Home)
 
 // Home-Place
-Home.belongsToMany(Place)
-Place.belongsToMany(Home)
+Home.belongsToMany(Place, {through: HomePlace})
+Place.belongsToMany(Home, {through: HomePlace})
 
 //Category-User
-Category.belongsToMany(User)
-User.belongsToMany(Category)
+Category.belongsToMany(User, {through: UserCategory})
+User.belongsToMany(Category, {through: UserCategory})
 
 // Home/Place-Location
 Home.belongsTo(Location)
