@@ -6,3 +6,4 @@
 export {default as Navbar} from './navbar/navbar'
 export {default as UserHome} from './user/user-home'
 export {Login, Signup} from './auth/auth-form'
+export {default as Map} from './map/Map'
