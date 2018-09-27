@@ -1,7 +1,5 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const User = require('./user')
-const Category = require('./categorys')
 
 const UserCategory = db.define('user_category', {
   id: {

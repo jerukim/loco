@@ -1,9 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const Home = require('./home')
-const Place = require('./place')
 
-const HomePlace = db.define('home_palce', {
+const HomePlace = db.define('home_place', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
