@@ -8,7 +8,7 @@ const UserCategory = db.define('user_category', {
     autoIncrement: true
   },
   priority: {
-    priority: Sequelize.INTEGER
+    type: Sequelize.INTEGER
   }
 })
 

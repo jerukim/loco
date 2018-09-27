@@ -8,7 +8,7 @@ const Place = db.define('place', {
     validate: {
       notEmpty: true
     }
-  },
+  }
 })
 
 module.exports = Place
