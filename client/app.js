@@ -1,6 +1,7 @@
 import React from 'react'
 
-import {Navbar, Map} from './components'
+import {Navbar} from './components'
+import {ScreensMap} from './screens'
 import Routes from './routes'
 
 const App = () => {
@@ -8,7 +9,7 @@ const App = () => {
     <div>
       {/* <Navbar /> */}
       {/* <Routes /> */}
-      <Map />
+      <ScreensMap />
     </div>
   )
 }
