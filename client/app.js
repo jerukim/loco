@@ -1,7 +1,5 @@
 import React from 'react'
-
-// import {Navbar} from './components'
-import {ScreensMap, ScreensNavbar} from './screens'
+import {ScreensNavbar, ScreensMap, ScreenRankingTabs} from './screens'
 import Routes from './routes'
 
 const App = () => {
@@ -10,6 +8,7 @@ const App = () => {
       <ScreensNavbar />
       <Routes />
       <ScreensMap />
+      <ScreenRankingTabs />
     </div>
   )
 }
