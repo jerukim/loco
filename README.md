@@ -1,4 +1,4 @@
-# Boilermaker
+# loco
 
 _Good things come in pairs_
 
@@ -32,7 +32,7 @@ Now that you've got the code, follow these steps to get acclimated:
 
 * Update project name and description in `package.json` and `.travis.yml` files
 * `npm install`, or `yarn install` - whatever you're into
-* Create two postgres databases: `boilermaker` and `boilermaker-test` (you can substitute these with the name of your own application - just be sure to go through and change the `package.json` and `.travis.yml` to refer to the new name)
+* Create two postgres databases: `loco` and `loco-test` (you can substitute these with the name of your own application - just be sure to go through and change the `package.json` and `.travis.yml` to refer to the new name)
   * By default, running `npm test` will use `boilermaker-test`, while regular development uses `boilermaker`
 * Create a file called `secrets.js` in the project root
 
