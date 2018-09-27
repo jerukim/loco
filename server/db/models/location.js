@@ -6,12 +6,12 @@ const Location = db.define('location', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  latitude: {
-    type: Sequelize.STRING,
+  lat: {
+    type: Sequelize.FLOAT,
     allowNull: false
   },
-  longitude: {
-    type: Sequelize.STRING,
+  lng: {
+    type: Sequelize.FLOAT,
     allowNull: false
   }
 })
