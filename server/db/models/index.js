@@ -35,9 +35,10 @@ Place.belongsTo(Location)
 module.exports = {
   Category,
   Home,
-  HomePlace,
   Location,
   Place,
   User,
-  UserCategory
+  UserHome,
+  UserCategory,
+  HomePlace
 }

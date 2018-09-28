@@ -1,8 +1,25 @@
 'use strict'
-const {locationData, homeData, placeData, categoryData, userHomeData, userCategoryData, homePlaceData} = require('./seed')
+const {
+  locationData,
+  homeData,
+  placeData,
+  categoryData,
+  userHomeData,
+  userCategoryData,
+  homePlaceData
+} = require('./seed')
 
 const db = require('../../server/db')
-const {User, Location, Home, Place, Category, UserHome, UserCategory, HomePlace} = require('../../server/db/models')
+const {
+  User,
+  Location,
+  Home,
+  Place,
+  Category,
+  UserHome,
+  UserCategory,
+  HomePlace
+} = require('../../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -14,7 +31,9 @@ async function seed() {
   ])
   console.log(`seeded ${users.length} users`)
 
-  const locations = await Promise.all(locationData.map(location => Location.create(location)))
+  const locations = await Promise.all(
+    locationData.map(location => Location.create(location))
+  )
   console.log(`seeded ${locations.length} locations`)
 
   const homes = await Promise.all(homeData.map(home => Home.create(home)))
@@ -23,18 +42,25 @@ async function seed() {
   const places = await Promise.all(placeData.map(place => Place.create(place)))
   console.log(`seeded ${places.length} places`)
 
-  const categories = await Promise.all(categoryData.map(category => Category.create({type: category})))
+  const categories = await Promise.all(
+    categoryData.map(category => Category.create({type: category}))
+  )
   console.log(`seeded ${categories.length} categories`)
 
-  const userHomes = await Promise.all(userHomeData.map(data => UserHome.create(data)))
+  const userHomes = await Promise.all(
+    userHomeData.map(data => UserHome.create(data))
+  )
   console.log(`seeded ${userHomes.length} userHomes`)
 
-  const userCategories = await Promise.all(userCategoryData.map(data => UserCategory.create(data)))
+  const userCategories = await Promise.all(
+    userCategoryData.map(data => UserCategory.create(data))
+  )
   console.log(`seeded ${userCategories.length} userCategories`)
 
-  const homePlaces = await Promise.all(homePlaceData.map(data => HomePlace.create(data)))
+  const homePlaces = await Promise.all(
+    homePlaceData.map(data => HomePlace.create(data))
+  )
   console.log(`seeded ${homePlaces.length} homePlaces`)
-
 
   console.log(`seeded successfully`)
 }
