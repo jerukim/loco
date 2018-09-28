@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Modal, Input, Button} from '@material-ui/core/'
+import {Input, Button} from '@material-ui/core/'
 
 import {getCoordinates} from '../../store/coordinates'
 

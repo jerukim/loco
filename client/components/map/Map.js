@@ -4,8 +4,10 @@ import {withGoogleMap, GoogleMap} from 'react-google-maps'
 
 export const Map = withGoogleMap(props => {
   const {lat, lng} = props.coordinates
+  // if (lat) return <GoogleMap center={{lat, lng}} />
   return (
     <GoogleMap
+      defaultCenter={{lat: 41.8781136, lng: -87.6297982}}
       center={{lat, lng}}
       defaultZoom={13}
       defaultOptions={{
