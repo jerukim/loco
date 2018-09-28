@@ -3,7 +3,7 @@ const db = require('../db')
 const Place = require('./place')
 const Home = require('./home')
 const Location = require('./location')
-const {getDistance} = require('../../services')
+const {getDistanceFromGoogle} = require('../../services')
 
 const HomePlace = db.define('home_place', {
   id: {
@@ -44,20 +44,46 @@ const HomePlace = db.define('home_place', {
 })
 
 HomePlace.afterCreate(async instance => {
+  console.log('Home Id:', instance.homeId)
+  console.log('Place Id:', instance.placeId)
+  const modes = ['driving', 'walking', 'bicycling', 'transit']
+  const getLatLng = ({lat, lng}) => ({lat, lng})
+
   try {
+    // for (let i = 0)
     const data = await Place.findOne({
-      include: [{model: Home, include: [{model: Location}]}, {model: Location}]
+      where: {
+        id: instance.placeId
+      },
+      include: [
+        {
+          model: Home,
+          where: {id: instance.homeId},
+          include: [{model: Location}]
+        },
+        {model: Location}
+      ]
     })
-    const getLatLng = ({lat, lng}) => ({lat, lng})
+    console.log('place data:', data.name)
     const start = getLatLng(data.location)
     const end = getLatLng(data.homes[0].location)
-    // console.log('DATA', getLatLng(data.location))
-    // console.log('HOMES', getLatLng(data.homes[0].location))
-    const distance = await getDistance(start, end)
-    // console.log(distance)
+    console.log('Start', start)
+    console.log('End', end)
+
+    const googleData = await getDistanceFromGoogle(start, end, 'walking')
+    console.log('Google data:', googleData.rows[0].elements[0])
+    const {distance, duration} = googleData
+    instance.update({
+      distanceText: distance.text,
+      distanceValue: distance.value,
+      [`${'walking'}Text`]: duration.text,
+      [`${'walking'}Value`]: duration.value
+    })
   } catch (err) {
-    console.error(err)
+    console.error('An error occured while fetching distances', err)
   }
 })
 
 module.exports = HomePlace
+
+// const {distance, duration} = await googleData[0]

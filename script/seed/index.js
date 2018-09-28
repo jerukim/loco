@@ -57,9 +57,12 @@ async function seed() {
   )
   console.log(`seeded ${userCategories.length} userCategories`)
 
-  const homePlaces = await Promise.all(
-    homePlaceData.map(data => HomePlace.create(data))
-  )
+  const homePlaces = []
+  for (let i = 0; i < homePlaceData.length; i++) {
+    const result = await HomePlace.create(homePlaceData[i])
+    homePlaces.push(result)
+  }
+
   console.log(`seeded ${homePlaces.length} homePlaces`)
 
   console.log(`seeded successfully`)

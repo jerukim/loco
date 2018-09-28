@@ -33,8 +33,8 @@ const locationData = [
   },
   {
     id: 6,
-    lat: 41.9123269,
-    lng: -87.6467689,
+    lat: 41.922028,
+    lng: -87.6467147,
     address: '620 W Webster Ave, Chicago, IL 60614'
   },
   {
