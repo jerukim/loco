@@ -1,5 +1,5 @@
 import React from 'react'
-import {AddressBook, CategoryFilter} from '../../components'
+import {AddressBook, SelectedCategories, CategoryFilter} from '../../components'
 import {Link} from 'react-router-dom'
 
 class ScreensSidePanel extends React.Component {
@@ -32,6 +32,7 @@ class ScreensSidePanel extends React.Component {
           </div>
         ) : (
           <div>
+            <SelectedCategories />
             <CategoryFilter />
           </div>
         )}
