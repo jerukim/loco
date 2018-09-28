@@ -44,46 +44,45 @@ const HomePlace = db.define('home_place', {
 })
 
 HomePlace.afterCreate(async instance => {
-  console.log('Home Id:', instance.homeId)
-  console.log('Place Id:', instance.placeId)
   const modes = ['driving', 'walking', 'bicycling', 'transit']
   const getLatLng = ({lat, lng}) => ({lat, lng})
+  let updated
 
   try {
-    // for (let i = 0)
-    const data = await Place.findOne({
-      where: {
-        id: instance.placeId
-      },
-      include: [
-        {
-          model: Home,
-          where: {id: instance.homeId},
-          include: [{model: Location}]
+    for (let i = 0; i < modes.length; i++) {
+      const data = await Place.findOne({
+        where: {
+          id: instance.placeId
         },
-        {model: Location}
-      ]
-    })
-    console.log('place data:', data.name)
-    const start = getLatLng(data.location)
-    const end = getLatLng(data.homes[0].location)
-    console.log('Start', start)
-    console.log('End', end)
+        include: [
+          {
+            model: Home,
+            where: {id: instance.homeId},
+            include: [{model: Location}]
+          },
+          {model: Location}
+        ]
+      })
+      const start = getLatLng(data.location)
+      const end = getLatLng(data.homes[0].location)
 
-    const googleData = await getDistanceFromGoogle(start, end, 'walking')
-    console.log('Google data:', googleData.rows[0].elements[0])
-    const {distance, duration} = googleData
-    instance.update({
-      distanceText: distance.text,
-      distanceValue: distance.value,
-      [`${'walking'}Text`]: duration.text,
-      [`${'walking'}Value`]: duration.value
-    })
+      const googleData = await getDistanceFromGoogle(start, end, modes[i])
+      const {distance, duration} = googleData.rows[0].elements[0]
+      updated = await instance.update(
+        {
+          distanceText: distance.text,
+          distanceValue: distance.value,
+          [`${modes[i]}Text`]: duration.text,
+          [`${modes[i]}Value`]: duration.value
+        },
+        {where: {id: instance.id}, returning: true, plain: true}
+      )
+    }
+
+    return updated
   } catch (err) {
-    console.error('An error occured while fetching distances', err)
+    console.error('An error occured in HomePlace.afterCreate hook', err)
   }
 })
 
 module.exports = HomePlace
-
-// const {distance, duration} = await googleData[0]
