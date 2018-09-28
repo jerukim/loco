@@ -4,7 +4,7 @@ import {RankingTabs} from '../../components'
 class ScreenRankingTabs extends React.Component {
   render() {
     return (
-      <div>
+      <div id="ranking-tabs">
         <RankingTabs />
       </div>
     )

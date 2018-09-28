@@ -1,5 +1,10 @@
 import React from 'react'
-import {ScreensNavbar, ScreensMap, ScreenRankingTabs} from './screens'
+import {
+  ScreensNavbar,
+  ScreensMap,
+  ScreenRankingTabs,
+  ScreenSidePanel
+} from './screens'
 import Routes from './routes'
 
 const App = () => {
@@ -7,6 +12,7 @@ const App = () => {
     <div>
       <ScreensNavbar />
       <Routes />
+      <ScreenSidePanel />
       <ScreensMap />
       <ScreenRankingTabs />
     </div>
