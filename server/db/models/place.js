@@ -13,15 +13,15 @@ const Place = db.define('place', {
   }
 })
 
-Place.afterCreate(async place => {
-  try {
-    const data = await Place.findAll({
-      include: [{model: Home, through: {model: HomePlace}}]
-    })
-    // console.log(data)
-  } catch (err) {
-    console.error(err)
-  }
-})
+// Place.afterCreate(async place => {
+//   try {
+//     const data = await Place.findAll({
+//       include: [{model: Home}]
+//     })
+//     console.log(data)
+//   } catch (err) {
+//     console.error(err)
+//   }
+// })
 
 module.exports = Place

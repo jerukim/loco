@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const {Home, Place, Location} = require('../db')
+const Place = require('./place')
+const Home = require('./home')
+const Location = require('./location')
 const {getDistance} = require('../../services')
 
 const HomePlace = db.define('home_place', {
@@ -41,17 +43,21 @@ const HomePlace = db.define('home_place', {
   }
 })
 
-// HomePlace.afterCreate(async instance => {
-//   try {
-//     const data = await HomePlace.findAll({
-//       // include: [{model: Home}, {model: Place}],
-//       include: [{all: true, include: [{model: Location, raw: true}]}],
-//       raw: true
-//     })
-//     console.log(data)
-//   } catch (err) {
-//     console.error(`Error occurred in 'afterCreate' hook`)
-//   }
-// })
+HomePlace.afterCreate(async instance => {
+  try {
+    const data = await Place.findOne({
+      include: [{model: Home, include: [{model: Location}]}, {model: Location}]
+    })
+    const getLatLng = ({lat, lng}) => ({lat, lng})
+    const start = getLatLng(data.location)
+    const end = getLatLng(data.homes[0].location)
+    // console.log('DATA', getLatLng(data.location))
+    // console.log('HOMES', getLatLng(data.homes[0].location))
+    const distance = await getDistance(start, end)
+    // console.log(distance)
+  } catch (err) {
+    console.error(err)
+  }
+})
 
 module.exports = HomePlace
