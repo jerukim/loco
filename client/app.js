@@ -1,15 +1,20 @@
 import React from 'react'
-
-import {Navbar} from './components'
-import {ScreensMap} from './screens'
+import {
+  ScreensNavbar,
+  ScreensMap,
+  ScreensRankingTabs,
+  ScreensSidePanel
+} from './screens'
 import Routes from './routes'
 
 const App = () => {
   return (
     <div>
-      {/* <Navbar /> */}
-      {/* <Routes /> */}
+      <ScreensNavbar />
+      <Routes />
+      <ScreensSidePanel />
       <ScreensMap />
+      <ScreensRankingTabs />
     </div>
   )
 }
