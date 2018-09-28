@@ -2,8 +2,8 @@ import React from 'react'
 import {
   ScreensNavbar,
   ScreensMap,
-  ScreenRankingTabs,
-  ScreenSidePanel
+  ScreensRankingTabs,
+  ScreensSidePanel
 } from './screens'
 import Routes from './routes'
 
@@ -12,9 +12,9 @@ const App = () => {
     <div>
       <ScreensNavbar />
       <Routes />
-      <ScreenSidePanel />
+      <ScreensSidePanel />
       <ScreensMap />
-      <ScreenRankingTabs />
+      <ScreensRankingTabs />
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import {AddressBook, CategoryFilter} from '../../components'
 import {Link} from 'react-router-dom'
 
-class ScreensidePanel extends React.Component {
+class ScreensSidePanel extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -40,4 +40,4 @@ class ScreensidePanel extends React.Component {
   }
 }
 
-export default ScreensidePanel
+export default ScreensSidePanel

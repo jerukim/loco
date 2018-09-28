@@ -1,7 +1,7 @@
 import React from 'react'
 import {RankingTabs} from '../../components'
 
-class ScreenRankingTabs extends React.Component {
+class ScreensRankingTabs extends React.Component {
   render() {
     return (
       <div id="ranking-tabs">
@@ -11,4 +11,4 @@ class ScreenRankingTabs extends React.Component {
   }
 }
 
-export default ScreenRankingTabs
+export default ScreensRankingTabs
