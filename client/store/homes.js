@@ -1,17 +1,25 @@
 import axios from 'axios'
 
 const GOT_HOMES = 'GOT_HOMES'
+const POST_HOME = 'POST_HOME'
 
 const gotHomes = homes => ({type: GOT_HOMES, homes})
 
-export const fetchHomes = () => async dispatch => {
+export const fetchHomes = userId => async dispatch => {
   try {
-    const {data} = await axios.get('/api/homes')
-    dispatch(gotHomes(data))
+    const {data} = await axios.get(`/api/users/${userId}/homes`)
+    const homes = data.homes
+    dispatch(gotHomes(homes))
   } catch (err) {
     console.error(err)
   }
 }
+
+// export const postHome = userId => async dispatch => {
+//   try {
+//     const
+//   }
+// }
 
 const initialState = []
 
