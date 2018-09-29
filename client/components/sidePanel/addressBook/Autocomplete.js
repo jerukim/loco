@@ -1,9 +1,11 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from 'react-places-autocomplete'
 import Input from '@material-ui/core/Input'
+import {postHome} from '../../../store'
 
 const renderFunc = ({
   getInputProps,
@@ -25,7 +27,6 @@ const renderFunc = ({
         const className = suggestion.active
           ? 'suggestion-item--active'
           : 'suggestion-item'
-        // inline style for demonstration purpose
         const style = suggestion.active
           ? {backgroundColor: '#fafafa', cursor: 'pointer'}
           : {backgroundColor: '#ffffff', cursor: 'pointer'}
@@ -58,9 +59,11 @@ class Autocomplete extends React.Component {
   handleSelect = async address => {
     try {
       this.setState({address})
+      const {userId} = this.props
       const [res] = await geocodeByAddress(address)
-      const latLng = await getLatLng(res)
-      console.log('Success', latLng)
+      const {lat, lng} = await getLatLng(res)
+      console.log('Success', {lat, lng})
+      this.props.postHome({userId, address, lat, lng})
     } catch (err) {
       console.error(err)
     }
@@ -79,4 +82,8 @@ class Autocomplete extends React.Component {
   }
 }
 
-export default Autocomplete
+const mapDispatchToProps = dispatch => ({
+  postHome: payload => dispatch(postHome(payload))
+})
+
+export default connect(null, mapDispatchToProps)(Autocomplete)

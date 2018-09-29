@@ -1,7 +1,7 @@
 import axios from 'axios'
+import {getStreetViewUrl} from '../../server/services'
 
 const GOT_HOMES = 'GOT_HOMES'
-const POST_HOME = 'POST_HOME'
 
 const gotHomes = homes => ({type: GOT_HOMES, homes})
 
@@ -15,11 +15,31 @@ export const fetchHomes = userId => async dispatch => {
   }
 }
 
-// export const postHome = userId => async dispatch => {
-//   try {
-//     const
-//   }
-// }
+export const postHome = ({userId, address, lat, lng}) => async dispatch => {
+  console.log('in post homes thunk')
+  try {
+    // POST locations
+    const {id: locationId} = await axios.post('/api/locations', {
+      address,
+      lat,
+      lng
+    })
+
+    // POST homes
+    const imgUrl = getStreetViewUrl(lat, lng, 400, 400)
+    const {id: homeId} = axios.post('/api/homes', {imgUrl, locationId})
+
+    // POST user_homes
+    await axios.post('/api/users/homes', {userId, homeId})
+
+    // GET all user homes
+    const {data} = await axios.get(`/api/users/${userId}/homes`)
+    const homes = data.homes
+    dispatch(gotHomes(homes))
+  } catch (err) {
+    console.error('An error occurred while posting a new home')
+  }
+}
 
 const initialState = []
 
