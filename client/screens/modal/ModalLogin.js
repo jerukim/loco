@@ -10,9 +10,7 @@ const styles = theme => ({
     width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4
-  },
-  modal: {
+    padding: theme.spacing.unit * 4,
     top: `50%`,
     left: `50%`,
     transform: `translate(-50%, -50%)`
@@ -28,7 +26,7 @@ const ModalLogin = props => {
       open={true}
       onBackdropClick={() => history.push('/home')}
     >
-      <div styles={classes.modal} className={classes.paper}>
+      <div className={classes.paper}>
         <Login />
       </div>
       {/* <Button /> */}
