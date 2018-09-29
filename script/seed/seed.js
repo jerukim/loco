@@ -1,5 +1,20 @@
 'use strict'
 
+const userData = [
+  {
+    firstName: 'Cody',
+    lastName: 'Pug',
+    email: 'cody@email.com',
+    password: '123'
+  },
+  {
+    firstName: 'Murphy',
+    lastName: 'Dog',
+    email: 'murphy@email.com',
+    password: '123'
+  }
+]
+
 const locationData = [
   {
     id: 1,
@@ -138,6 +153,7 @@ const homePlaceData = [
 ]
 
 module.exports = {
+  userData,
   locationData,
   homeData,
   placeData,
