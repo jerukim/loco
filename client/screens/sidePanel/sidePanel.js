@@ -1,6 +1,7 @@
 import React from 'react'
 import {AddressBook, SelectedCategories, CategoryFilter} from '../../components'
 import {Link} from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 
 class ScreensSidePanel extends React.Component {
   constructor() {
@@ -19,12 +20,12 @@ class ScreensSidePanel extends React.Component {
     return (
       <div id="side-panel">
         <div>
-          <Link to="/addressBook" onClick={this.handleClick}>
+          <Button to="/addressBook" onClick={this.handleClick}>
             Address Book
-          </Link>
-          <Link to="/categoryFilter" onClick={this.handleClick}>
+          </Button>
+          <Button to="/categoryFilter" onClick={this.handleClick}>
             Category Filter
-          </Link>
+          </Button>
         </div>
         {this.state.addressBook ? (
           <div>

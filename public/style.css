@@ -25,7 +25,7 @@ form div {
   padding: 0px 10px;
 }
 
-#side-pan {
+#side-panel {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 250px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
@@ -33,7 +33,7 @@ form div {
   top: 0; /* Stay at the top */
   left: 0;
   overflow-x: hidden; /* Disable horizontal scroll */
-  background: gray;
+  background: #f8f9f9;
 }
 
 #main {
@@ -42,5 +42,5 @@ form div {
 }
 
 #ranking-tabs {
-  background-color: gray;
+  background-color: #f8f9f9;
 }
