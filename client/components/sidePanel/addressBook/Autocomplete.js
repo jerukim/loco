@@ -5,7 +5,7 @@ import PlacesAutocomplete, {
   getLatLng
 } from 'react-places-autocomplete'
 import Input from '@material-ui/core/Input'
-import {postHome} from '../../../store'
+import {postHome, fetchHomes} from '../../../store'
 
 const renderFunc = ({
   getInputProps,
@@ -62,8 +62,7 @@ class Autocomplete extends React.Component {
       const {userId} = this.props
       const [res] = await geocodeByAddress(address)
       const {lat, lng} = await getLatLng(res)
-      console.log('Success', {lat, lng})
-      this.props.postHome({userId, address, lat, lng})
+      await this.props.postHome({userId, address, lat, lng})
     } catch (err) {
       console.error(err)
     }
@@ -85,7 +84,8 @@ class Autocomplete extends React.Component {
 const mapStateToProps = state => ({userId: state.user.id})
 
 const mapDispatchToProps = dispatch => ({
-  postHome: payload => dispatch(postHome(payload))
+  postHome: payload => dispatch(postHome(payload)),
+  fetchHomes: userId => dispatch(fetchHomes(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Autocomplete)

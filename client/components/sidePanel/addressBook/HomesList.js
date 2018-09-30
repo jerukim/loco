@@ -9,10 +9,15 @@ class HomesList extends React.Component {
     }
   }
 
+  sortHomes() {
+    const {homes} = this.props
+    return homes.sort((a, b) => a.id - b.id)
+  }
+
   render() {
     return this.props.userId ? (
       <ul className="homes-list">
-        {this.props.homes.map(home => {
+        {this.sortHomes(this.props.homes).map(home => {
           return (
             <li key={home.id}>
               <div>

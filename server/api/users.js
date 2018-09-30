@@ -33,6 +33,7 @@ router.post('/homes', async (req, res, next) => {
   const {userId, homeId} = req.body
   try {
     await UserHome.create({userId, homeId})
+    res.status(201).end()
   } catch (err) {
     next(err)
   }

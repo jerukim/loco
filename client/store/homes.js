@@ -7,8 +7,7 @@ const gotHomes = homes => ({type: GOT_HOMES, homes})
 
 export const fetchHomes = userId => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/users/${userId}/homes`)
-    const homes = data.homes
+    const {data: {homes}} = await axios.get(`/api/users/${userId}/homes`)
     dispatch(gotHomes(homes))
   } catch (err) {
     console.error(err)
@@ -32,10 +31,7 @@ export const postHome = ({userId, address, lat, lng}) => async dispatch => {
 
     // POST user_homes
     await axios.post('/api/users/homes', {userId, homeId})
-
-    // GET all user homes
-    const {data} = await axios.get(`/api/users/${userId}/homes`)
-    const homes = data.homes
+    const {data: {homes}} = await axios.get(`/api/users/${userId}/homes`)
     dispatch(gotHomes(homes))
   } catch (err) {
     console.error('An error occurred while posting a new home')
