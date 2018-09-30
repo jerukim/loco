@@ -29,7 +29,6 @@ const ModalLogin = props => {
       <div className={classes.paper}>
         <Login />
       </div>
-      {/* <Button /> */}
     </Modal>
   )
 }
