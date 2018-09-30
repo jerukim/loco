@@ -3,6 +3,11 @@
 
 const seed = require('./index')
 
-describe('seed script', () => {
-  it('completes successfully', seed)
+describe('seed script', done => {
+  it('completes successfully', () => {
+    seed(err => {
+      if (err) done(err)
+      else done()
+    })
+  })
 })
