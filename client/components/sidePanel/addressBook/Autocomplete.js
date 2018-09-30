@@ -82,8 +82,10 @@ class Autocomplete extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({userId: state.user.id})
+
 const mapDispatchToProps = dispatch => ({
   postHome: payload => dispatch(postHome(payload))
 })
 
-export default connect(null, mapDispatchToProps)(Autocomplete)
+export default connect(mapStateToProps, mapDispatchToProps)(Autocomplete)

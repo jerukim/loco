@@ -16,18 +16,19 @@ export const fetchHomes = userId => async dispatch => {
 }
 
 export const postHome = ({userId, address, lat, lng}) => async dispatch => {
-  console.log('in post homes thunk')
   try {
     // POST locations
-    const {id: locationId} = await axios.post('/api/locations', {
+    const {data: {id: locationId}} = await axios.post('/api/locations', {
       address,
       lat,
       lng
     })
-
     // POST homes
-    const imgUrl = getStreetViewUrl(lat, lng, 400, 400)
-    const {id: homeId} = axios.post('/api/homes', {imgUrl, locationId})
+    const imgUrl = await getStreetViewUrl(lat, lng, 400, 400)
+    const {data: {id: homeId}} = await axios.post('/api/homes', {
+      imgUrl,
+      locationId
+    })
 
     // POST user_homes
     await axios.post('/api/users/homes', {userId, homeId})
