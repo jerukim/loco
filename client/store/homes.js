@@ -23,9 +23,7 @@ export const postHome = ({userId, address, lat, lng}) => async dispatch => {
       lng
     })
     // POST homes
-    const imgUrl = await getStreetViewUrl(lat, lng, 400, 400)
     const {data: {id: homeId}} = await axios.post('/api/homes', {
-      imgUrl,
       locationId
     })
 

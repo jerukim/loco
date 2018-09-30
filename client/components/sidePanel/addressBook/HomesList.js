@@ -21,7 +21,7 @@ class HomesList extends React.Component {
           return (
             <li key={home.id}>
               <div>
-                <img src={home.imageUrl} />
+                <img src={home.imgUrl} />
                 <h3>{home.location.address}</h3>
                 <p>{home.price}</p>
               </div>
