@@ -1,7 +1,7 @@
 {
   "name": "loco",
   "version": "1.0.0",
-  "description": "it helps you decide which apartment to choose",
+  "description": "A web application that makes moving easier for users by rating and ranking a list of prospective new homes according to their accessibility to important places in the area (e.g. pharmacies, gyms, work, transit stations, etc.)",
   "engines": {
     "node": ">= 7.0.0"
   },

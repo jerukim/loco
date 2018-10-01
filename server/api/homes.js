@@ -1,9 +1,22 @@
 const router = require('express').Router()
-const {Home} = require('../db/models')
+const {User, Home} = require('../db/models')
 module.exports = router
 
-router.get('/places', require('./places'))
+// GET user_homes
+router.get('/', async (req, res, next) => {
+  const {userId} = req.params
+  try {
+    const homes = await User.findOne({
+      where: {id: userId},
+      include: [{model: Home, include: [{model: Location}]}]
+    })
+    res.json(homes)
+  } catch (err) {
+    next(err)
+  }
+})
 
+// POST homes
 router.post('/', async (req, res, next) => {
   const {imgUrl, locationId} = req.body
   try {

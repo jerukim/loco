@@ -22,6 +22,7 @@ export const postHome = ({userId, address, lat, lng}) => async dispatch => {
       lat,
       lng
     })
+
     // POST homes
     const {data: {id: homeId}} = await axios.post('/api/homes', {
       locationId
