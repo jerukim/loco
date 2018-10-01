@@ -10,7 +10,7 @@ class AddressBook extends React.Component {
       <div>
         <Autocomplete
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${
-            process.env.GOOGLE_GEO_KEY
+            process.env.GOOGLE_API_KEY
           }&libraries=places`}
           loadingElement={<div style={{height: `100%`}} />}
         />
