@@ -25,15 +25,12 @@ router.get('/', async (req, res, next) => {
 
 // GET user_homes
 router.get('/:userId/homes', async (req, res, next) => {
-  console.log('In GET /api/user/:userId/homes route')
   const {userId} = req.params
-  console.log('userId:', userId)
   try {
     const userHomes = await User.findOne({
       where: {id: userId},
       include: [{model: Home, include: [{model: Location}]}]
     })
-    console.log('userHomes', userHomes)
     res.json(userHomes)
   } catch (err) {
     next(err)
@@ -69,7 +66,7 @@ router.get('/:userId/places', async (req, res, next) => {
 router.post('/places', async (req, res, next) => {
   const {userId, placeId} = req.body
   try {
-    await UserHome.create({userId, placeId})
+    await UserPlace.create({userId, placeId})
     res.status(201).end()
   } catch (err) {
     next(err)
