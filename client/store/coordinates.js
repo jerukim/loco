@@ -14,7 +14,7 @@ export const getCoordinates = (city, state) => {
     try {
       const {data} = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?address=,+${city},+${state}&key=${
-          process.env.GOOGLE_GEO_KEY
+          process.env.GOOGLE_API_KEY
         }`
       )
       const {lat, lng} = data.results[0].geometry.location
