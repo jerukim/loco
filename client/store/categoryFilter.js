@@ -19,7 +19,6 @@ const fetchCategoriesError = () => ({type: FETCH_CATEGORIES_ERROR})
 
 export const fetchCategories = () => async dispatch => {
   try {
-    console.log("I'M RUNNING")
     dispatch(fetchCategoriesRequest())
     const {data} = await axios.get('/api/categories')
     dispatch(fetchCategoriesSuccess(data))
@@ -51,7 +50,3 @@ export default function(state = initialState, action) {
       return state
   }
 }
-
-// SELECTORS
-
-//export const getCategoryItems = state => state.items
