@@ -1,3 +1,5 @@
+//-------------WORK IN PROGRESS--------------------
+
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchSelectedCategories} from '../../../store/'
@@ -67,19 +69,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectedCategories)
-
-//
-//
-//
-//-------PREVIOUS PLACEHOLDER-------------------
-//
-//
-//
-// import React, {Component} from 'react'
-
-// class SelectedCategories extends Component {
-//   render() {
-//     return <p>placeholder</p>
-//   }
-// }
-// export default SelectedCategories

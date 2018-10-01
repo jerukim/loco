@@ -9,6 +9,8 @@ const {
   Place
 } = require('../db/models')
 
+module.exports = router
+
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -74,6 +76,7 @@ router.post('/places', async (req, res, next) => {
 })
 
 //GET user_categories
+//THIS ROUTE IS STILL A WORK IN PROGRESS
 router.get('/:userId/categories', async (req, res, next) => {
   try {
     let {userId} = req.params
