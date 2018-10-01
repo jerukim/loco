@@ -1,25 +1,24 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import Button from '@material-ui/core/Button'
+// import Button from '@material-ui/core/Button'
 // import MenuList from '@material-ui/core/MenuList'
-import MenuItem from '@material-ui/core/MenuItem'
-import {fetchCategories, getCategoryItems} from '../../../store/categoryFilter'
+// import MenuItem from '@material-ui/core/MenuItem'
+import {fetchCategories} from '../../../store/'
 
-export class CategoryFilter extends Component {
+class CategoryFilter extends Component {
   componentDidMount() {
     this.props.fetchCategories()
   }
 
   render() {
     const categories = this.props.items
-    console.log('THIS.PROPS: ', this.props)
 
-    if (this.props.hasErrored) {
+    if (this.props.errored) {
       return <p>Sorry! There was an error loading the items</p>
     }
 
-    if (this.props.isLoading) {
-      return <p>Loading…</p>
+    if (this.props.fetching) {
+      return <p>Loading...</p>
     }
 
     return (
@@ -28,9 +27,10 @@ export class CategoryFilter extends Component {
           <h5>SELECT FILTERS</h5>
         </div>
         <ul>
-          {categories.map(category => (
-            <li key={category.id}>{category.type}</li>
-          ))}
+          {categories &&
+            categories.map(category => {
+              return <li key={category.id}>{category.type}</li>
+            })}
         </ul>
       </div>
     )
@@ -38,11 +38,10 @@ export class CategoryFilter extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('STATE: ', state)
   return {
-    items: state.items,
-    errored: state.errored,
-    fetching: state.fetching
+    items: state.categoryFilter.items,
+    errored: state.categoryFilter.errored,
+    fetching: state.categoryFilter.fetching
   }
 }
 

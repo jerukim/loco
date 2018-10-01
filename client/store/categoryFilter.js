@@ -2,30 +2,30 @@ import axios from 'axios'
 
 // ACTION TYPES
 
-const FETCH_CATEGORY_REQUEST = 'FETCH_CATEGORY_REQUEST'
-const FETCH_CATEGORY_SUCCESS = 'FETCH_CATEGORY_SUCCESS'
-const FETCH_CATEGORY_ERROR = 'FETCH_CATEGORY_ERROR'
+const FETCH_CATEGORIES_REQUEST = 'FETCH_CATEGORIES_REQUEST'
+const FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS'
+const FETCH_CATEGORIES_ERROR = 'FETCH_CATEGORIES_ERROR'
 
-// ACTION CREATOR
+// ACTION CREATORS
 
-const fetchCategoryRequest = () => ({type: FETCH_CATEGORY_REQUEST})
-const fetchCategorySuccess = items => ({
-  type: FETCH_CATEGORY_SUCCESS,
+const fetchCategoriesRequest = () => ({type: FETCH_CATEGORIES_REQUEST})
+const fetchCategoriesSuccess = items => ({
+  type: FETCH_CATEGORIES_SUCCESS,
   payload: items
 })
-const fetchCategoryError = () => ({type: FETCH_CATEGORY_ERROR})
+const fetchCategoriesError = () => ({type: FETCH_CATEGORIES_ERROR})
 
-// THUNK CREATOR
+// THUNK CREATORS
 
 export const fetchCategories = () => async dispatch => {
   try {
-    dispatch(fetchCategoryRequest())
+    console.log("I'M RUNNING")
+    dispatch(fetchCategoriesRequest())
     const {data} = await axios.get('/api/categories')
-    console.log('DATA IN THUNK: ', data)
-    dispatch(fetchCategorySuccess(data))
+    dispatch(fetchCategoriesSuccess(data))
   } catch (error) {
     console.error(error)
-    dispatch(fetchCategoryError())
+    dispatch(fetchCategoriesError())
   }
 }
 
@@ -39,20 +39,18 @@ const initialState = {
 
 // REDUCER
 
-const categoryReducer = (state = initialState, action) => {
+export default function(state = initialState, action) {
   switch (action.type) {
-    case FETCH_CATEGORY_REQUEST:
+    case FETCH_CATEGORIES_REQUEST:
       return {...state, fetching: true}
-    case FETCH_CATEGORY_ERROR:
-      return {...state, errored: true}
-    case FETCH_CATEGORY_SUCCESS:
-      return {...state, items: action.payload}
+    case FETCH_CATEGORIES_ERROR:
+      return {...state, fetching: false, errored: true}
+    case FETCH_CATEGORIES_SUCCESS:
+      return {...state, fetching: false, items: action.payload}
     default:
       return state
   }
 }
-
-export default categoryReducer
 
 // SELECTORS
 
