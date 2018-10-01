@@ -85,12 +85,12 @@ const placeData = [
     locationId: 3
   },
   {
-    name: 'Work',
-    locationId: 4
-  },
-  {
     name: `Mom's House`,
     locationId: 5
+  },
+  {
+    name: 'Work',
+    locationId: 4
   },
   {
     name: 'OZ Animal Hospital',
@@ -131,9 +131,20 @@ const userCategoryData = [
 
 const homePlaceData = [
   {homeId: 1, placeId: 1},
-  {homeId: 1, placeId: 3},
+  {homeId: 1, placeId: 2},
+  {homeId: 2, placeId: 1},
   {homeId: 2, placeId: 2},
-  {homeId: 2, placeId: 4}
+  {homeId: 3, placeId: 3},
+  {homeId: 3, placeId: 4},
+  {homeId: 4, placeId: 3},
+  {homeId: 4, placeId: 4}
+]
+
+const userPlaceData = [
+  {userId: 1, placeId: 1},
+  {userId: 1, placeId: 2},
+  {userId: 2, placeId: 3},
+  {userId: 2, placeId: 4}
 ]
 
 module.exports = {
@@ -143,6 +154,7 @@ module.exports = {
   placeData,
   categoryData,
   userHomeData,
+  userPlaceData,
   userCategoryData,
   homePlaceData
 }
