@@ -1,14 +1,13 @@
 const router = require('express').Router()
-const {Place, Home, Location} = require('../db/models')
+const {Place} = require('../db/models')
 module.exports = router
 
-router.get('/:homeId', async (req, res, next) => {
-  const {homeId} = req.params
+// POST places
+router.post('/', async (req, res, next) => {
+  const {name, locationId} = req.body
   try {
-    const places = await Place.findAll({
-      include: [{model: Location}, {model: Home, where: {id: homeId}}]
-    })
-    res.json(places)
+    const place = await Place.create({name, locationId})
+    res.json(place)
   } catch (err) {
     next(err)
   }
