@@ -21,7 +21,7 @@ export const fetchCategories = () => async dispatch => {
   try {
     dispatch(fetchCategoryRequest())
     const {data} = await axios.get('/api/categories')
-    console.log('DATA: ', data)
+    console.log('DATA IN THUNK: ', data)
     dispatch(fetchCategorySuccess(data))
   } catch (error) {
     console.error(error)
@@ -56,4 +56,4 @@ export default categoryReducer
 
 // SELECTORS
 
-export const getCategoryItems = state => state.items
+//export const getCategoryItems = state => state.items

@@ -6,64 +6,43 @@ import MenuItem from '@material-ui/core/MenuItem'
 import {fetchCategories, getCategoryItems} from '../../../store/categoryFilter'
 
 export class CategoryFilter extends Component {
-  constructor() {
-    super()
-    this.state = {
-      showMenu: false
-    }
-
-    this.showMenu = this.showMenu.bind(this)
-    this.closeMenu = this.closeMenu.bind(this)
-  }
-
   componentDidMount() {
     this.props.fetchCategories()
   }
 
-  showMenu(event) {
-    event.preventDefault()
-
-    this.setState({showMenu: true}, () => {
-      document.addEventListener('click', this.closeMenu)
-    })
-  }
-
-  closeMenu(event) {
-    if (!this.dropdownMenu.contains(event.target)) {
-      this.setState({showMenu: false}, () => {
-        document.removeEventListener('click', this.closeMenu)
-      })
-    }
-  }
-
   render() {
     const categories = this.props.items
-    console.log('CATEGORIES:', categories)
+    console.log('THIS.PROPS: ', this.props)
+
+    if (this.props.hasErrored) {
+      return <p>Sorry! There was an error loading the items</p>
+    }
+
+    if (this.props.isLoading) {
+      return <p>Loading…</p>
+    }
+
     return (
       <div>
         <div>
           <h5>SELECT FILTERS</h5>
         </div>
-        <Button onClick={this.showMenu}>Category Filter</Button>
-        {this.state.showMenu ? (
-          <div
-            className="menu"
-            ref={categories.map((category, id) => (
-              <MenuItem value={category.type} key={category.id}>
-                {category}
-              </MenuItem>
-            ))}
-          />
-        ) : null}
+        <ul>
+          {categories.map(category => (
+            <li key={category.id}>{category.type}</li>
+          ))}
+        </ul>
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
+  console.log('STATE: ', state)
   return {
-    // items: getCategoryItems(state)
-    items: state.items
+    items: state.items,
+    errored: state.errored,
+    fetching: state.fetching
   }
 }
 
@@ -75,6 +54,74 @@ const mapDispatchToProps = dispatch => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryFilter)
 
+
+
+//
+//
+//
+//----------VERSION WITH MENU-------------------
+//
+//
+// constructor() {
+//   super()
+//   this.state = {
+//     showMenu: false
+//   }
+
+//   this.showMenu = this.showMenu.bind(this)
+//   this.closeMenu = this.closeMenu.bind(this)
+// }
+
+// showMenu(event) {
+//   event.preventDefault()
+
+//   this.setState({showMenu: true}, () => {
+//     document.addEventListener('click', this.closeMenu)
+//   })
+// }
+
+// closeMenu(event) {
+//   if (!this.dropdownMenu.contains(event.target)) {
+//     this.setState({showMenu: false}, () => {
+//       document.removeEventListener('click', this.closeMenu)
+//     })
+//   }
+// }
+
+// render() {
+//   console.log('THIS.PROPS: ', this.props)
+//   if (this.props.errored) {
+//     return <p>Sorry! There was an error loading the categories</p>
+//   }
+//   if (this.props.fetching) {
+//     return <p>Loading...</p>
+//   }
+//   const categories = this.props.items
+//   return (
+//     <div>
+//       <div>
+//         <h5>SELECT FILTERS</h5>
+//       </div>
+//       <Button onClick={this.showMenu}>Category Filter</Button>
+//       {this.state.showMenu ? (
+//         <div
+//           className="menu"
+//           ref={categories.map((category, id) => (
+//             <MenuItem value={category.type} key={category.id}>
+//               {category}
+//             </MenuItem>
+//           ))}
+//         />
+//       ) : null}
+//     </div>
+//   )
+// }
+
+//
+//
+//
+//
+//STATIC MENU
 // {/* <Button onClick={this.showMenu}>Category Filter</Button>
 
 // {this.state.showMenu ? (
