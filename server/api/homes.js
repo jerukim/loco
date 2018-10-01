@@ -2,6 +2,7 @@ const router = require('express').Router()
 const {Home} = require('../db/models')
 module.exports = router
 
+// POST homes
 router.post('/', async (req, res, next) => {
   const {imgUrl, locationId} = req.body
   try {

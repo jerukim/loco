@@ -6,6 +6,7 @@ const {
   placeData,
   categoryData,
   userHomeData,
+  userPlaceData,
   userCategoryData,
   homePlaceData
 } = require('./seed')
@@ -18,6 +19,7 @@ const {
   Place,
   Category,
   UserHome,
+  UserPlace,
   UserCategory,
   HomePlace
 } = require('../../server/db/models')
@@ -49,6 +51,11 @@ async function seed() {
     userHomeData.map(data => UserHome.create(data))
   )
   console.log(`seeded ${userHomes.length} userHomes`)
+
+  const userPlaces = await Promise.all(
+    userPlaceData.map(data => UserPlace.create(data))
+  )
+  console.log(`seeded ${userPlaces.length} userPlaces`)
 
   const userCategories = await Promise.all(
     userCategoryData.map(data => UserCategory.create(data))

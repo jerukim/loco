@@ -6,9 +6,13 @@ const Place = require('./place')
 const User = require('./user')
 const UserCategory = require('./user_category')
 const UserHome = require('./user_home')
+const UserPlace = require('./user_place')
 
 Home.belongsToMany(User, {through: UserHome})
 User.belongsToMany(Home, {through: UserHome})
+
+User.belongsToMany(Place, {through: UserPlace})
+Place.belongsToMany(User, {through: UserPlace})
 
 Home.belongsToMany(Place, {through: HomePlace})
 Place.belongsToMany(Home, {through: HomePlace})
@@ -26,6 +30,7 @@ module.exports = {
   Place,
   User,
   UserHome,
+  UserPlace,
   UserCategory,
   HomePlace
 }

@@ -4,10 +4,10 @@ const {
   Home,
   Location,
   User,
-  UserHome
+  UserHome,
+  UserPlace,
+  Place
 } = require('../db/models')
-
-module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
@@ -23,19 +23,21 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// GET user_homes
 router.get('/:userId/homes', async (req, res, next) => {
   const {userId} = req.params
   try {
-    const homes = await User.findOne({
+    const userHomes = await User.findOne({
       where: {id: userId},
       include: [{model: Home, include: [{model: Location}]}]
     })
-    res.status(200).json(homes)
+    res.status(200).json(userHomes)
   } catch (err) {
     next(err)
   }
 })
 
+// POST user_homes
 router.post('/homes', async (req, res, next) => {
   const {userId, homeId} = req.body
   try {
@@ -46,6 +48,32 @@ router.post('/homes', async (req, res, next) => {
   }
 })
 
+// GET user_places
+router.get('/:userId/places', async (req, res, next) => {
+  const {userId} = req.params
+  try {
+    const places = await User.findOne({
+      where: {id: userId},
+      include: [{model: Place, includes: [{model: Location}]}]
+    })
+    res.json(places)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// POST user_places
+router.post('/places', async (req, res, next) => {
+  const {userId, placeId} = req.body
+  try {
+    await UserPlace.create({userId, placeId})
+    res.status(201).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+//GET user_categories
 router.get('/:userId/categories', async (req, res, next) => {
   try {
     let {userId} = req.params
@@ -56,7 +84,7 @@ router.get('/:userId/categories', async (req, res, next) => {
           model: Category,
           attributes: {exclude: ['createdAt', 'updatedAt']}
         }
-      ],
+      ]
     })
     res.status(200).json(selectedCategories)
   } catch (err) {
