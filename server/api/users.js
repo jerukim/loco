@@ -1,5 +1,12 @@
 const router = require('express').Router()
-const {User, UserHome, UserPlace} = require('../db/models')
+const {
+  User,
+  UserHome,
+  Home,
+  Location,
+  Place,
+  UserPlace
+} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -17,7 +24,21 @@ router.get('/', async (req, res, next) => {
 })
 
 // GET user_homes
-router.use('/:userId/homes', require('./homes'))
+router.get('/:userId/homes', async (req, res, next) => {
+  console.log('In GET /api/user/:userId/homes route')
+  const {userId} = req.params
+  console.log('userId:', userId)
+  try {
+    const userHomes = await User.findOne({
+      where: {id: userId},
+      include: [{model: Home, include: [{model: Location}]}]
+    })
+    console.log('userHomes', userHomes)
+    res.json(userHomes)
+  } catch (err) {
+    next(err)
+  }
+})
 
 // POST user_homes
 router.post('/homes', async (req, res, next) => {
@@ -31,7 +52,18 @@ router.post('/homes', async (req, res, next) => {
 })
 
 // GET user_places
-router.use('/:userId/places', require('./places'))
+router.get('/:userId/places', async (req, res, next) => {
+  const {userId} = req.params
+  try {
+    const places = await User.findOne({
+      where: {id: userId},
+      include: [{model: Place, includes: [{model: Location}]}]
+    })
+    res.json(places)
+  } catch (err) {
+    next(err)
+  }
+})
 
 // POST user_places
 router.post('/places', async (req, res, next) => {

@@ -143,8 +143,8 @@ const homePlaceData = [
 const userPlaceData = [
   {userId: 1, placeId: 1},
   {userId: 1, placeId: 2},
-  {userId: 1, placeId: 3},
-  {userId: 1, placeId: 4}
+  {userId: 2, placeId: 3},
+  {userId: 2, placeId: 4}
 ]
 
 module.exports = {
@@ -154,6 +154,7 @@ module.exports = {
   placeData,
   categoryData,
   userHomeData,
+  userPlaceData,
   userCategoryData,
   homePlaceData
 }
