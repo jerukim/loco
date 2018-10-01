@@ -1,5 +1,12 @@
 const router = require('express').Router()
-const {User, Home, Location, UserHome, UserCategory} = require('../db/models')
+const {
+  Category,
+  Home,
+  Location,
+  User,
+  UserHome
+} = require('../db/models')
+
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -10,7 +17,7 @@ router.get('/', async (req, res, next) => {
       // send everything to anyone who asks!
       attributes: ['id', 'email']
     })
-    res.json(users)
+    res.status(200).json(users)
   } catch (err) {
     next(err)
   }
@@ -23,7 +30,7 @@ router.get('/:userId/homes', async (req, res, next) => {
       where: {id: userId},
       include: [{model: Home, include: [{model: Location}]}]
     })
-    res.json(homes)
+    res.status(200).json(homes)
   } catch (err) {
     next(err)
   }
@@ -42,8 +49,14 @@ router.post('/homes', async (req, res, next) => {
 router.get('/:userId/categories', async (req, res, next) => {
   try {
     let {userId} = req.params
-    let selectedCategories = await UserCategory.findAll({
-      where: {userId: userId}
+    let selectedCategories = await User.findOne({
+      where: {id: userId},
+      include: [
+        {
+          model: Category,
+          attributes: {exclude: ['createdAt', 'updatedAt']}
+        }
+      ],
     })
     res.status(200).json(selectedCategories)
   } catch (err) {
