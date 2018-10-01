@@ -7,6 +7,7 @@ import storage from 'redux-persist/lib/storage'
 
 import user from './user'
 import coordinates from './coordinates'
+import homes from './homes'
 
 const persistConfig = {
   key: 'root',
@@ -15,6 +16,7 @@ const persistConfig = {
 
 const reducer = combineReducers({
   user,
+  homes,
   coordinates
 })
 
@@ -23,7 +25,6 @@ const persistedReducer = persistReducer(persistConfig, reducer)
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
-// const store = createStore(persistedReducer, middleware)
 
 export const store = createStore(persistedReducer, middleware)
 export const persistor = persistStore(store)
@@ -35,3 +36,4 @@ export const persistor = persistStore(store)
 // }
 export * from './user'
 export * from './coordinates'
+export * from './homes'

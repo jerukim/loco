@@ -1,9 +1,19 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import Autocomplete from './Autocomplete'
+import HomesList from './HomesList'
 
-const AddressBook = () => (
-  <div>
-    <h4>ADDRESS BOOK</h4>
-  </div>
-)
+class AddressBook extends React.Component {
+  render() {
+    return (
+      <div>
+        <Autocomplete />
+        <HomesList />
+      </div>
+    )
+  }
+}
 
-export default AddressBook
+const mapStateToProps = state => ({homes: state.homes})
+
+export default connect(mapStateToProps)(AddressBook)
