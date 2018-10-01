@@ -13,8 +13,15 @@ const getDistanceFromGoogle = async (start, end, mode) => {
     })
     return data
   } catch (err) {
-    console.error(err)
+    console.error(
+      'And error occurred while calling Google Distance Matrix',
+      err
+    )
   }
 }
 
-module.exports = {getDistanceFromGoogle}
+const getStreetViewUrl = async (lat, lng, height, width) => {
+  return `https://maps.googleapis.com/maps/api/streetview?size=${width}x${height}&location=${lat},${lng}&key=${key}`
+}
+
+module.exports = {getDistanceFromGoogle, getStreetViewUrl}
