@@ -26,6 +26,7 @@ describe('Home model', () => {
       }
 
       const data = await Home.create(house)
+
       expect(data.price).to.equal(house.price)
       expect(data.locationId).to.equal(house.locationId)
     })

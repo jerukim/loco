@@ -4,7 +4,7 @@ const db = require('../db')
 const Home = db.define('home', {
   imgUrl: {
     type: Sequelize.STRING,
-    defaultValue: 'img/book.jpg'
+    defaultValue: 'https://bit.ly/2DDPIm8'
   },
   price: {
     type: Sequelize.INTEGER
