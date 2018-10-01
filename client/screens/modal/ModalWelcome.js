@@ -21,7 +21,6 @@ const styles = theme => ({
 class WelcomeModal extends React.Component {
   render() {
     const {classes} = this.props
-    console.log(!this.props.coordinates.lat)
     return (
       <div>
         <Modal
@@ -30,10 +29,7 @@ class WelcomeModal extends React.Component {
           open={!this.props.coordinates.lat}
         >
           <div className={classes.paper}>
-            {/* <Typography variant="title" id="modal-title">
-              Text in a modal
-            </Typography> */}
-            <Welcome goAway={this.goAway} />
+            <Welcome />
           </div>
         </Modal>
       </div>
