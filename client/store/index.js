@@ -29,11 +29,6 @@ const middleware = composeWithDevTools(
 export const store = createStore(persistedReducer, middleware)
 export const persistor = persistStore(store)
 
-// export default () => {
-//   let store = createStore(persistedReducer, middleware)
-//   let persistor = persistStore(store)
-//   return {store, persistor}
-// }
 export * from './user'
 export * from './coordinates'
 export * from './homes'
