@@ -30,8 +30,6 @@ class GMap extends React.Component {
   }
 }
 
-// Map.setCenter({lat: 39.9568, lng: -86.0134})
-
 const mapState = state => {
   return {
     coordinates: state.coordinates

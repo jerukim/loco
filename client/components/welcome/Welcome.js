@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Input, Button} from '@material-ui/core/'
 
-import {getCoordinates} from '../../store/coordinates'
+import {getCoordinates} from '../../store'
 
 class Welcome extends React.Component {
   constructor() {
