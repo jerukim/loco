@@ -25,7 +25,10 @@ export const getCoordinates = (city, state) => {
   }
 }
 
-const coordinatesReducer = (state = {}, action) => {
+const coordinatesReducer = (
+  state = {lat: 41.8781136, lng: -87.6297982},
+  action
+) => {
   switch (action.type) {
     case GOT_COORDINATES:
       return {lat: action.lat, lng: action.lng}
