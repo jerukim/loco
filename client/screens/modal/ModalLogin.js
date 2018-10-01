@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {withStyles} from '@material-ui/core/styles'
-import Modal from '@material-ui/core/Modal'
+import {withStyles, Modal} from '@material-ui/core/'
 import {Login} from '../../components'
 
 const styles = theme => ({

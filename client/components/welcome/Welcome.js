@@ -5,8 +5,8 @@ import {Input, Button} from '@material-ui/core/'
 import {getCoordinates} from '../../store'
 
 class Welcome extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       city: '',
       state: ''

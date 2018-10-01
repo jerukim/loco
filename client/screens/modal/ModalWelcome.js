@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Input, Button, Modal} from '@material-ui/core/'
+import PropTypes from 'prop-types'
+import {Modal, withStyles} from '@material-ui/core/'
 
-import {Welcome} from '../../components/welcome'
+import {Welcome} from '../../components'
 
 const styles = theme => ({
   paper: {
@@ -10,13 +11,33 @@ const styles = theme => ({
     width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4
+    padding: theme.spacing.unit * 4,
+    top: `50%`,
+    left: `50%`,
+    transform: `translate(-50%, -50%)`
   }
 })
 
-class ScreensModalWelcome extends React.Component {
+class WelcomeModal extends React.Component {
   render() {
-    if ()
+    const {classes} = this.props
+    console.log(!this.props.coordinates.lat)
+    return (
+      <div>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={!this.props.coordinates.lat}
+        >
+          <div className={classes.paper}>
+            {/* <Typography variant="title" id="modal-title">
+              Text in a modal
+            </Typography> */}
+            <Welcome goAway={this.goAway} />
+          </div>
+        </Modal>
+      </div>
+    )
   }
 }
 
@@ -26,4 +47,10 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(ScreensModalWelcome)
+WelcomeModal.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+const ScreensWelcomeModal = withStyles(styles)(WelcomeModal)
+
+export default connect(mapState)(ScreensWelcomeModal)
