@@ -29,6 +29,8 @@ export const postHome = ({userId, address, lat, lng}) => async dispatch => {
 
     // POST user_homes
     await axios.post('/api/users/homes', {userId, homeId})
+
+    // GET all homes
     const {data: {homes}} = await axios.get(`/api/users/${userId}/homes`)
     dispatch(gotHomes(homes))
   } catch (err) {
