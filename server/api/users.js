@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Home, Location, UserHome} = require('../db/models')
+const {User, Home, Location, UserHome, UserCategory} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -34,6 +34,18 @@ router.post('/homes', async (req, res, next) => {
   try {
     await UserHome.create({userId, homeId})
     res.status(201).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:userId/categories', async (req, res, next) => {
+  try {
+    let {userId} = req.params
+    let selectedCategories = await UserCategory.findAll({
+      where: {userId: userId}
+    })
+    res.status(200).json(selectedCategories)
   } catch (err) {
     next(err)
   }
