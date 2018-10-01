@@ -6,6 +6,7 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete'
 import Input from '@material-ui/core/Input'
 import {postHome, fetchHomes} from '../../../store'
+import {withScriptjs} from 'react-google-maps'
 
 const renderFunc = ({
   getInputProps,
@@ -88,4 +89,6 @@ const mapDispatchToProps = dispatch => ({
   fetchHomes: userId => dispatch(fetchHomes(userId))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Autocomplete)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withScriptjs(Autocomplete)
+)

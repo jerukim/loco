@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Map} from '../../components'
 import ScreensWelcomeModal from '../modal/ModalWelcome'
+import '../../../secrets'
 
 class ScreensMap extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class ScreensMap extends React.Component {
         <Map
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${
             process.env.GOOGLE_GEO_KEY
-          }`}
+          }&libraries=places`}
           loadingElement={<div style={{height: `100%`}} />}
           containerElement={<div style={{height: `100vh`}} />}
           mapElement={<div style={{height: `100%`}} />}
