@@ -56,7 +56,7 @@ router.get('/:userId/places', async (req, res, next) => {
       where: {id: userId},
       include: [{model: Place, includes: [{model: Location}]}]
     })
-    res.json(places)
+    res.status(200).json(places)
   } catch (err) {
     next(err)
   }
