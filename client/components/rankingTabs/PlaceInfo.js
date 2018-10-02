@@ -7,10 +7,18 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import DirectionsBike from '@material-ui/icons/DirectionsBike'
+import DirectionsCar from '@material-ui/icons/DirectionsCar'
+import DirectionsWalk from '@material-ui/icons/DirectionsWalk'
+import DirectionsTransit from '@material-ui/icons/DirectionsTransit'
 
 const styles = theme => ({
   root: {
     width: '100%'
+  },
+  icon: {
+    margin: theme.spacing.unit,
+    fontSize: 32
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -19,20 +27,28 @@ const styles = theme => ({
 })
 
 const PlaceInfo = props => {
-  const {classes, places} = props
+  const {classes, places, homeId} = props
   return (
     <div className={classes.root}>
       {places.map(place => {
+        const info = place.homes[homeId].home_place
         return (
           <ExpansionPanel key={place.id}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>{place.name}</Typography>
+              <Typography className={classes.heading}>
+                {place.name} - {info.distanceText}
+              </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                <DirectionsCar className={classes.icon} />
+                {info.drivingText}
+                <DirectionsTransit className={classes.icon} />
+                {info.transitText}
+                <DirectionsBike className={classes.icon} />
+                {info.bicyclingText}
+                <DirectionsWalk className={classes.icon} />
+                {info.walkingText}
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
