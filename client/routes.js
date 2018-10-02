@@ -2,13 +2,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, UserHome} from './components'
 import {ScreensModalLogin, ScreensModalSignup} from './screens'
 import {me} from './store'
 
-/**
- * COMPONENT
- */
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
@@ -21,11 +17,6 @@ class Routes extends Component {
       <Switch>
         <Route path="/login" component={ScreensModalLogin} />
         <Route path="/signup" component={ScreensModalSignup} />
-        {/* {isLoggedIn && (
-          <Switch>
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )} */}
       </Switch>
     )
   }

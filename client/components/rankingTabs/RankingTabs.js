@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {withStyles, AppBar, Tabs, Tab, Typography} from '@material-ui/core/'
+import {withStyles, AppBar, Tabs, Tab} from '@material-ui/core/'
 import {RankTab} from '../'
 
 const styles = theme => ({
@@ -40,7 +40,6 @@ class ScrollableTabsButtonAuto extends React.Component {
           </Tabs>
         </AppBar>
         <RankTab homeId={value} home={homes[value]} />
-        {/* {value === 0 && <TabContainer>Item One</TabContainer>} */}
       </div>
     )
   }

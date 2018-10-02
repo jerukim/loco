@@ -10,7 +10,6 @@ import Routes from './routes'
 const App = () => {
   return (
     <div id="main">
-      {/* <ScreensNavbar /> */}
       <div id="top">
         <ScreensSidePanel />
         <ScreensMap />
