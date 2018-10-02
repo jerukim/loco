@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {withStyles, AppBar, Tabs, Tab, Typography} from '@material-ui/core/'
 import {HomeCard, PlaceInfo} from '..'
 
 import {fetchHomes, fetchPlaces} from '../../store'
