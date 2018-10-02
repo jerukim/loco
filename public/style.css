@@ -52,6 +52,18 @@ form div {
   background-color: #f8f9f9;
 }
 
+.flex-container {
+  display: flex;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.content-wrap {
+  width: 100%;
+}
 /* #nav-bar { keep 4 phan?
   margin-left: 250px;
   padding: 0px 10px;
