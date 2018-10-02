@@ -1,5 +1,17 @@
 const router = require('express').Router()
-const {Category, UserCategory} = require('../db/models')
+const Sequelize = require('sequelize')
+const {Category} = require('../db/models')
+
+const pkg = require('../../package.json')
+
+const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
+
+const db = new Sequelize(
+  process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`,
+  {
+    logging: false
+  }
+)
 
 module.exports = router
 
@@ -11,5 +23,22 @@ router.get('/', async (req, res, next) => {
     res.status(200).json(categories)
   } catch (error) {
     next(error)
+  }
+})
+
+router.get('/:userId', async (req, res, next) => {
+  let {userId} = req.params
+  try {
+    let UserCategories = await db.query(
+      `SELECT user_categories.priority, categories.type, categories.id
+      FROM categories
+      JOIN user_categories ON "user_categories"."categoryId" = categories.id
+      WHERE "user_categories"."userId" = :userId;`,
+      {replacements: {userId: userId}, type: Sequelize.QueryTypes.SELECT}
+    )
+    console.log('USER CATEGORIES: ', UserCategories)
+    res.status(200).json(UserCategories)
+  } catch (err) {
+    next(err)
   }
 })

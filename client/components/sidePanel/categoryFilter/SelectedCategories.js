@@ -19,8 +19,8 @@ class SelectedCategories extends Component {
 
   render() {
     const {classes} = this.props
-    const selectedCategories = this.props.selectedCategories.categories
-    console.log('SELECTED CATEGORIES: ', selectedCategories)
+    const selectedCategories = this.props
+    console.log('SELECTED CATEGORIES (THIS.PROPS): ', selectedCategories)
 
     if (this.props.selectedCategoriesErrored) {
       return <p>Sorry! There was an error loading your selected filters</p>

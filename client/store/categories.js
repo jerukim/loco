@@ -48,7 +48,7 @@ export const fetchFilterCategories = () => async dispatch => {
 export const fetchSelectedCategories = userId => async dispatch => {
   try {
     dispatch(fetchSelectedCategoriesRequest())
-    const {data} = await axios.get(`/api/users/${userId}/categories`)
+    const {data} = await axios.get(`/api/categories/${userId}`)
     dispatch(fetchSelectedCategoriesSuccess(data))
   } catch (error) {
     console.error(error)

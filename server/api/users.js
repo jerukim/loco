@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {
-  Category,
   Home,
   Location,
   User,
@@ -85,26 +84,6 @@ router.post('/places', async (req, res, next) => {
   try {
     await UserPlace.create({userId, placeId})
     res.status(201).end()
-  } catch (err) {
-    next(err)
-  }
-})
-
-// GET user_categories
-// WORKING VERSION - DEEPLY NESTED RESULT
-router.get('/:userId/categories', async (req, res, next) => {
-  let {userId} = req.params
-  try {
-    let UserCategories = await User.findOne({
-      include: [
-        {
-          model: Category,
-          attributes: {exclude: ['createdAt', 'updatedAt']}
-        }
-      ],
-      where: {id: userId},
-    })
-    res.status(200).json(UserCategories)
   } catch (err) {
     next(err)
   }
