@@ -44,3 +44,12 @@ form div {
 #ranking-tabs {
   background-color: #f8f9f9;
 }
+
+.flex-container {
+  display: flex;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}

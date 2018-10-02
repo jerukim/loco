@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchHomes} from '../../../store'
+import AddressCard from './AddressCard'
 
 class HomesList extends React.Component {
   componentDidMount() {
@@ -16,15 +17,11 @@ class HomesList extends React.Component {
 
   render() {
     return this.props.userId ? (
-      <ul className="homes-list">
+      <ul className="list homes-list">
         {this.sortHomes(this.props.homes).map(home => {
           return (
-            <li key={home.id}>
-              <div>
-                <img src={home.imgUrl} />
-                <h3>{home.location.address}</h3>
-                <p>{home.price}</p>
-              </div>
+            <li className="li-item" key={home.id}>
+              <AddressCard home={home} />
             </li>
           )
         })}
