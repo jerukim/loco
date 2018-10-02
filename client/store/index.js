@@ -8,6 +8,7 @@ import storage from 'redux-persist/lib/storage'
 import user from './user'
 import coordinates from './coordinates'
 import homes from './homes'
+import categories from './categories'
 
 const persistConfig = {
   key: 'root',
@@ -17,7 +18,8 @@ const persistConfig = {
 const reducer = combineReducers({
   user,
   homes,
-  coordinates
+  coordinates,
+  categories
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)
@@ -32,3 +34,4 @@ export const persistor = persistStore(store)
 export * from './user'
 export * from './coordinates'
 export * from './homes'
+export * from './categories'

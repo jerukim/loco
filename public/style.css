@@ -33,7 +33,7 @@ form div {
   top: 0; /* Stay at the top */
   left: 0;
   overflow-x: hidden; /* Disable horizontal scroll */
-  background: gray;
+  background: #f8f9f9;
 }
 
 #main {
@@ -42,5 +42,5 @@ form div {
 }
 
 #ranking-tabs {
-  background-color: gray;
+  background-color: #f8f9f9;
 }

@@ -1,12 +1,14 @@
 const router = require('express').Router()
 const {
-  User,
-  UserHome,
+  Category,
   Home,
   Location,
-  Place,
-  UserPlace
+  User,
+  UserHome,
+  UserPlace,
+  Place
 } = require('../db/models')
+
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -17,7 +19,7 @@ router.get('/', async (req, res, next) => {
       // send everything to anyone who asks!
       attributes: ['id', 'email']
     })
-    res.json(users)
+    res.status(200).json(users)
   } catch (err) {
     next(err)
   }
@@ -31,7 +33,7 @@ router.get('/:userId/homes', async (req, res, next) => {
       where: {id: userId},
       include: [{model: Home, include: [{model: Location}]}]
     })
-    res.json(userHomes)
+    res.status(200).json(userHomes)
   } catch (err) {
     next(err)
   }
@@ -56,7 +58,7 @@ router.get('/:userId/places', async (req, res, next) => {
       where: {id: userId},
       include: [{model: Place, includes: [{model: Location}]}]
     })
-    res.json(places)
+    res.status(200).json(places)
   } catch (err) {
     next(err)
   }
@@ -68,6 +70,26 @@ router.post('/places', async (req, res, next) => {
   try {
     await UserPlace.create({userId, placeId})
     res.status(201).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+//GET user_categories
+//THIS ROUTE IS STILL A WORK IN PROGRESS
+router.get('/:userId/categories', async (req, res, next) => {
+  try {
+    let {userId} = req.params
+    let selectedCategories = await User.findOne({
+      where: {id: userId},
+      include: [
+        {
+          model: Category,
+          attributes: {exclude: ['createdAt', 'updatedAt']}
+        }
+      ]
+    })
+    res.status(200).json(selectedCategories)
   } catch (err) {
     next(err)
   }
