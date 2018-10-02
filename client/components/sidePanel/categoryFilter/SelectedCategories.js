@@ -12,17 +12,21 @@ function handleDelete() {
 
 class SelectedCategories extends Component {
   componentDidMount() {
-    this.props.fetchSelectedCategories()
+    if (this.props.userId) {
+      this.props.fetchSelectedCategories(this.props.userId)
+    }
   }
 
   render() {
     const {classes} = this.props
-    const selectedCategories = this.props.selectedItems
-    if (this.props.selectedErrored) {
+    const selectedCategories = this.props.selectedCategories.categories
+    console.log('SELECTED CATEGORIES: ', selectedCategories)
+
+    if (this.props.selectedCategoriesErrored) {
       return <p>Sorry! There was an error loading your selected filters</p>
     }
 
-    if (this.props.selectedFetching) {
+    if (this.props.selectedCategoriesFetching) {
       return <p>Loading...</p>
     }
 
@@ -56,15 +60,16 @@ class SelectedCategories extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedErrored: state.categories.selectedErrored,
-    selectedFetching: state.categories.selectedFetching,
-    selectedItems: state.categories.selectedItems
+    userId: state.user.id,
+    selectedCategoriesErrored: state.categories.selectedCategoriesErrored,
+    selectedCategoriesFetching: state.categories.selectedCategoriesFetching,
+    selectedCategories: state.categories.selectedCategories
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchSelectedCategories: () => dispatch(fetchSelectedCategories())
+    fetchSelectedCategories: (userId) => dispatch(fetchSelectedCategories(userId))
   }
 }
 

@@ -4,6 +4,7 @@ const {
   Home,
   Location,
   User,
+  UserCategory,
   UserHome,
   UserPlace,
   Place
@@ -75,21 +76,39 @@ router.post('/places', async (req, res, next) => {
   }
 })
 
-//GET user_categories
-//THIS ROUTE IS STILL A WORK IN PROGRESS
+// GET user_categories
+// WORKING VERSION - DEEPLY NESTED RESULT
+// router.get('/:userId/categories', async (req, res, next) => {
+//   let {userId} = req.params
+//   try {
+//     let UserCategories = await User.findOne({
+//       include: [
+//         {
+//           model: Category,
+//           attributes: {exclude: ['createdAt', 'updatedAt']}
+//         }
+//       ],
+//       where: {id: userId},
+//     })
+//     res.status(200).json(UserCategories)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
 router.get('/:userId/categories', async (req, res, next) => {
+  let {userId} = req.params
   try {
-    let {userId} = req.params
-    let selectedCategories = await User.findOne({
-      where: {id: userId},
+    let UserCategories = await User.findOne({
       include: [
         {
           model: Category,
           attributes: {exclude: ['createdAt', 'updatedAt']}
         }
-      ]
+      ],
+      where: {id: userId},
     })
-    res.status(200).json(selectedCategories)
+    res.status(200).json(UserCategories)
   } catch (err) {
     next(err)
   }

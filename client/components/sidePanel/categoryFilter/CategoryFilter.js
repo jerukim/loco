@@ -27,13 +27,13 @@ class CategoryFilter extends Component {
 
   render() {
     const {anchorEl} = this.state
-    const categories = this.props.filterItems
+    const categories = this.props.filterCategories
 
-    if (this.props.filterErrored) {
+    if (this.props.filterCategoriesErrored) {
       return <p>Sorry! There was an error loading the filter categories</p>
     }
 
-    if (this.props.filterFetching) {
+    if (this.props.filterCategoriesFetching) {
       return <p>Loading...</p>
     }
 
@@ -66,9 +66,9 @@ class CategoryFilter extends Component {
 
 const mapStateToProps = state => {
   return {
-    filterErrored: state.categories.filterErrored,
-    filterFetching: state.categories.filterFetching,
-    filterItems: state.categories.filterItems
+    filterCategoriesErrored: state.categories.filterCategoriesErrored,
+    filterCategoriesFetching: state.categories.filterCategoriesFetching,
+    filterCategories: state.categories.filterCategories
   }
 }
 
