@@ -16,6 +16,6 @@ export {
 export {default as Map} from './map/Map'
 export {default as Welcome} from './welcome/Welcome'
 export {default as RankingTabs} from './rankingTabs/RankingTabs'
-export {default as RankTab} from './rankingTabs/RankTab'
+export {default as HomeTab} from './rankingTabs/HomeTab'
 export {default as HomeCard} from './rankingTabs/HomeCard'
 export {default as PlaceInfo} from './rankingTabs/PlaceInfo'

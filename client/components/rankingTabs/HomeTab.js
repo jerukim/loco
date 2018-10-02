@@ -4,7 +4,7 @@ import {HomeCard, PlaceInfo} from '..'
 
 import {fetchHomes, fetchPlaces} from '../../store'
 
-class RankTab extends React.Component {
+class HomeTab extends React.Component {
   componentDidMount() {
     if (this.props.userId) {
       this.props.fetchPlaces(this.props.userId)
@@ -36,4 +36,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(RankTab)
+export default connect(mapState, mapDispatch)(HomeTab)
