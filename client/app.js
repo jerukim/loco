@@ -9,12 +9,16 @@ import Routes from './routes'
 
 const App = () => {
   return (
-    <div>
+    <div id="main">
       <ScreensNavbar />
+      <div id="top">
+        <ScreensSidePanel />
+        <ScreensMap />
+      </div>
+      <div id="bottom">
+        <ScreensRankingTabs />
+      </div>
       <Routes />
-      <ScreensSidePanel />
-      <ScreensMap />
-      <ScreensRankingTabs />
     </div>
   )
 }
