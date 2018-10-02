@@ -4,18 +4,20 @@ import {withStyles} from '@material-ui/core/styles'
 import classnames from 'classnames'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
-import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import Collapse from '@material-ui/core/Collapse'
 import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Clear from '@material-ui/icons/Clear'
-import AddressForm from './AddressForm'
+import HomeDetail from './home/HomeDetail'
+import HomeForm from './home/HomeForm'
+import PlaceDetail from './place/PlaceDetail'
+import PlaceForm from './place/PlaceForm'
 
 const styles = theme => ({
   card: {
-    maxWidth: 400
+    maxWidth: 400,
+    paddingBottom: '0px'
   },
   title: {
     fontSize: '8px'
@@ -26,10 +28,6 @@ const styles = theme => ({
     padding: '0px 0px'
   },
   cancel: {padding: '0px 0px'},
-  media: {
-    height: '50px',
-    width: '50px'
-  },
   actions: {
     display: 'flex'
   },
@@ -51,8 +49,7 @@ const styles = theme => ({
     paddingTop: '0px',
     paddingBottom: '0px',
     display: 'flex',
-    flexWrap: 'wrap',
-    flexFlow: 'column'
+    flexWrap: 'wrap'
   }
 })
 
@@ -64,11 +61,11 @@ class AddressCard extends React.Component {
   }
 
   render() {
-    const {classes, home} = this.props
+    const {classes, home, place} = this.props
 
     return (
-      <Card className={classes.card}>
-        <CardContent>
+      <Card>
+        <CardContent className={classes.card}>
           <CardHeader
             action={
               <IconButton className={classes.cancel}>
@@ -77,14 +74,8 @@ class AddressCard extends React.Component {
             }
             className={classes.header}
           />
-          <div className="flex-container">
-            <div className="media-wrap">
-              <CardMedia image={home.imgUrl} className={classes.media} />
-            </div>
-            <Typography variant="body2">{home.location.address}</Typography>
-          </div>
-          <Typography variant="body1">{home.price}</Typography>
-
+          {home && <HomeDetail home={home} />}
+          {place && <PlaceDetail place={place} />}
           <IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded
@@ -98,7 +89,8 @@ class AddressCard extends React.Component {
         </CardContent>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent className={classes.content}>
-            <AddressForm home={home} />
+            {home && <HomeForm home={home} />}
+            {place && <PlaceForm place={place} />}
           </CardContent>
         </Collapse>
       </Card>

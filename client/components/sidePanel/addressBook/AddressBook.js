@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Autocomplete from './Autocomplete'
-import HomesList from './HomesList'
+import List from './List'
 import '../../../../secrets'
 
 class AddressBook extends React.Component {
@@ -14,12 +14,19 @@ class AddressBook extends React.Component {
           }&libraries=places`}
           loadingElement={<div style={{height: `100%`}} />}
         />
-        <HomesList />
+        {this.props.userId ? (
+          <List />
+        ) : (
+          <div>
+            <p>Add addresses</p>
+            <small>e.g. apartments, mom's house, pet hospital</small>
+          </div>
+        )}
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({homes: state.homes})
+const mapStateToProps = state => ({userId: state.user.id})
 
 export default connect(mapStateToProps)(AddressBook)

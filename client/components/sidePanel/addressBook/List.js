@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {fetchHomes} from '../../../store'
 import AddressCard from './AddressCard'
 
-class HomesList extends React.Component {
+class List extends React.Component {
   componentDidMount() {
     if (this.props.userId) {
       this.props.fetchHomes(this.props.userId)
@@ -16,21 +16,25 @@ class HomesList extends React.Component {
   }
 
   render() {
-    return this.props.userId ? (
-      <ul className="list homes-list">
-        {this.sortHomes(this.props.homes).map(home => {
+    return (
+      this.props.userId && (
+        <ul className="list homes-list">
+          {this.sortHomes(this.props.homes).map(home => {
+            return (
+              <li className="li-item" key={home.id}>
+                <AddressCard home={home} />
+              </li>
+            )
+          })}
+          {/* {this.sortPlaces(this.props.places).map(place => {
           return (
-            <li className="li-item" key={home.id}>
-              <AddressCard home={home} />
+            <li className="li-item" key={place.id}>
+
             </li>
           )
-        })}
-      </ul>
-    ) : (
-      <div>
-        <p>Add addresses</p>
-        <small>e.g. apartments, mom's house, pet hospital</small>
-      </div>
+        })} */}
+        </ul>
+      )
     )
   }
 }
@@ -43,4 +47,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomesList)
+export default connect(mapStateToProps, mapDispatchToProps)(List)
