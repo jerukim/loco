@@ -7,7 +7,7 @@ import '../../../secrets'
 class ScreensMap extends React.Component {
   render() {
     return (
-      <div id="main">
+      <div id="map">
         <ScreensWelcomeModal />
         <Map
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${
