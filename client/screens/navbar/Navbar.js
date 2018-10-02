@@ -4,7 +4,7 @@ import {Navbar} from '../../components'
 class ScreensNavbar extends React.Component {
   render() {
     return (
-      <div>
+      <div id="nav-bar">
         <Navbar />
       </div>
     )

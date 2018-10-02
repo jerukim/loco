@@ -7,7 +7,8 @@ const {
   UserCategory,
   UserHome,
   UserPlace,
-  Place
+  Place,
+  HomePlace
 } = require('../db/models')
 
 module.exports = router
@@ -32,7 +33,16 @@ router.get('/:userId/homes', async (req, res, next) => {
   try {
     const userHomes = await User.findOne({
       where: {id: userId},
-      include: [{model: Home, include: [{model: Location}]}]
+      include: [
+        {
+          model: Home,
+          include: [
+            {
+              model: Location
+            }
+          ]
+        }
+      ]
     })
     res.status(200).json(userHomes)
   } catch (err) {
@@ -57,7 +67,12 @@ router.get('/:userId/places', async (req, res, next) => {
   try {
     const places = await User.findOne({
       where: {id: userId},
-      include: [{model: Place, includes: [{model: Location}]}]
+      include: [
+        {
+          model: Place,
+          include: [{model: Home}]
+        }
+      ]
     })
     res.status(200).json(places)
   } catch (err) {
@@ -113,3 +128,5 @@ router.get('/:userId/categories', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:userId/home_place', async (req, res, next) => {})
