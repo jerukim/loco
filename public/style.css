@@ -48,6 +48,9 @@ form div {
 #home-info {
   display: flex;
 }
+#ranking-tabs {
+  background-color: #f8f9f9;
+}
 
 /* #nav-bar { keep 4 phan?
   margin-left: 250px;

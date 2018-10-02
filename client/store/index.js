@@ -9,6 +9,7 @@ import user from './user'
 import coordinates from './coordinates'
 import homes from './homes'
 import places from './places'
+import categories from './categories'
 
 const persistConfig = {
   key: 'root',
@@ -19,7 +20,8 @@ const reducer = combineReducers({
   user,
   homes,
   places,
-  coordinates
+  coordinates,
+  categories
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)
@@ -35,3 +37,4 @@ export * from './user'
 export * from './coordinates'
 export * from './homes'
 export * from './places'
+export * from './categories'
