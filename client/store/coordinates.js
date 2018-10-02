@@ -17,6 +17,7 @@ export const getCoordinates = (city, state) => {
           process.env.GOOGLE_API_KEY
         }`
       )
+      console.log(data)
       const {lat, lng} = data.results[0].geometry.location
       dispatch(gotCoordinates(lat, lng))
     } catch (err) {

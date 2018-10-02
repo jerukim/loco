@@ -21,11 +21,11 @@ class Routes extends Component {
       <Switch>
         <Route path="/login" component={ScreensModalLogin} />
         <Route path="/signup" component={ScreensModalSignup} />
-        {isLoggedIn && (
+        {/* {isLoggedIn && (
           <Switch>
             <Route path="/home" component={UserHome} />
           </Switch>
-        )}
+        )} */}
       </Switch>
     )
   }

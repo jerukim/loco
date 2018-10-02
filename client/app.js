@@ -6,7 +6,6 @@ import {
   ScreensSidePanel
 } from './screens'
 import Routes from './routes'
-import Grid from '@material-ui/core/Grid'
 
 const App = () => {
   return (
