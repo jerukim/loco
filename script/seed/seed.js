@@ -120,15 +120,6 @@ const userHomeData = [
   {userId: 2, homeId: 4}
 ]
 
-const userCategoryData = [
-  {userId: 1, categoryId: 1, priority: 1},
-  {userId: 1, categoryId: 2, priority: 2},
-  {userId: 1, categoryId: 11, priority: 3},
-  {userId: 2, categoryId: 1, priority: 1},
-  {userId: 2, categoryId: 3, priority: 2},
-  {userId: 2, categoryId: 5, priority: 3}
-]
-
 const homePlaceData = [
   {homeId: 1, placeId: 1},
   {homeId: 1, placeId: 2},
@@ -140,11 +131,17 @@ const homePlaceData = [
   {homeId: 4, placeId: 4}
 ]
 
-const userPlaceData = [
-  {userId: 1, placeId: 1},
-  {userId: 1, placeId: 2},
-  {userId: 2, placeId: 3},
-  {userId: 2, placeId: 4}
+const prioritiesData = [
+  {userId: 1, placeId: 1, priority: 1},
+  {userId: 1, categoryId: 1, priority: 2},
+  {userId: 1, placeId: 2, priority: 3},
+  {userId: 1, categoryId: 2, priority: 4},
+  {userId: 1, categoryId: 11, priority: 5},
+  {userId: 2, placeId: 3, priority: 1},
+  {userId: 2, categoryId: 1, priority: 2},
+  {userId: 2, categoryId: 3, priority: 3},
+  {userId: 2, placeId: 4, priority: 4},
+  {userId: 2, categoryId: 5, priority: 5}
 ]
 
 module.exports = {
@@ -154,7 +151,6 @@ module.exports = {
   placeData,
   categoryData,
   userHomeData,
-  userPlaceData,
-  userCategoryData,
+  prioritiesData,
   homePlaceData
 }

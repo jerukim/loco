@@ -5,8 +5,7 @@ const {
   User,
   UserHome,
   UserPlace,
-  Place,
-  HomePlace
+  Place
 } = require('../db/models')
 
 const Sequelize = require('sequelize')
