@@ -8,7 +8,6 @@ router.post('/', async (req, res, next) => {
     const [location] = await Location.findOrCreate({
       where: {address, lat, lng}
     })
-    console.log('Location found or created', location)
     res.json(location)
   } catch (err) {
     next(err)

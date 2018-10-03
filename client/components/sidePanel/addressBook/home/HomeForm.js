@@ -26,7 +26,7 @@ class HomeForm extends React.Component {
     this.state = {
       address: this.props.home.location.address,
       price: this.props.home.price || 0,
-      link: '',
+      link: this.props.home.link || '',
       lat: 0,
       lng: 0
     }
@@ -49,10 +49,8 @@ class HomeForm extends React.Component {
     if (this.state.lat === 0 && this.state.lng === 0) {
       const {price, link} = this.state
       payload = {userId, homeId, price, link}
-      console.log('Submission form:', payload)
     } else {
       payload = {userId, homeId, ...this.state}
-      console.log('Submission form:', payload)
     }
     this.props.putHome(payload)
   }
