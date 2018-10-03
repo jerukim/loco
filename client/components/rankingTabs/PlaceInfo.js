@@ -31,7 +31,7 @@ const PlaceInfo = props => {
   return (
     <div className={classes.root}>
       {places.map(place => {
-        const info = homePlaces[place.id]
+        const info = homePlaces[homeId][place.id]
         return (
           <ExpansionPanel key={place.id}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>

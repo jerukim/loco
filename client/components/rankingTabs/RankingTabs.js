@@ -12,6 +12,11 @@ const styles = theme => ({
   }
 })
 
+const dummyRank = {
+  0: 2,
+  1: 1
+}
+
 class ScrollableTabsButtonAuto extends React.Component {
   state = {
     value: 0
@@ -36,10 +41,10 @@ class ScrollableTabsButtonAuto extends React.Component {
             scrollable
             scrollButtons="auto"
           >
-            {homes.map(home => <Tab key={home.id} label={home.id} />)}
+            {homes.map((home, i) => <Tab key={home.id} label={i + 1} />)}
           </Tabs>
         </AppBar>
-        <HomeTab homeId={value} home={homes[value]} />
+        <HomeTab homeId={dummyRank[value]} />
       </div>
     )
   }
