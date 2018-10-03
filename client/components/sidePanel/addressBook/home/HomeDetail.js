@@ -2,6 +2,7 @@ import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
+import NumberFormat from 'react-number-format'
 
 const styles = () => ({
   media: {
@@ -29,7 +30,15 @@ const HomeDetail = props => {
             {home.location.address}
           </Typography>
         )}
-        <Typography variant="body1">{home.price}</Typography>
+        <Typography variant="body1">
+          <NumberFormat
+            value={home.price}
+            displayType={'text'}
+            thousandSeparator={true}
+            prefix={'$'}
+            renderText={value => value}
+          />
+        </Typography>
       </div>
     </div>
   )

@@ -4,9 +4,9 @@ module.exports = router
 
 // POST homes
 router.post('/', async (req, res, next) => {
-  const {imgUrl, locationId} = req.body
+  const {locationId} = req.body
   try {
-    const home = await Home.create({imgUrl, locationId})
+    const home = await Home.create({locationId})
     res.json(home)
   } catch (err) {
     next(err)

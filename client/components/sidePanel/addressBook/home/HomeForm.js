@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import NumberFormat from 'react-number-format'
 import {withStyles} from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -10,6 +11,24 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete'
 import {renderFuncEdit} from '../../../../utilities'
 import {putHome} from '../../../../store'
+
+const NumberField = props => {
+  const {classes, price, handleChange} = props
+  return (
+    <TextField
+      label="Price"
+      value={price}
+      className={classes.textField}
+      placeholder="0"
+      InputProps={{
+        className: classes.input,
+        type: 'number',
+        startAdornment: <InputAdornment position="start">$</InputAdornment>
+      }}
+      onChange={handleChange('price')}
+    />
+  )
+}
 
 const styles = theme => ({
   textField: {
@@ -25,7 +44,7 @@ class HomeForm extends React.Component {
     super(props)
     this.state = {
       address: this.props.home.location.address,
-      price: this.props.home.price || 0,
+      price: this.props.home.price,
       link: this.props.home.link || '',
       lat: 0,
       lng: 0
@@ -82,16 +101,28 @@ class HomeForm extends React.Component {
         >
           {renderFuncEdit}
         </PlacesAutocomplete>
-        <TextField
+        <NumberFormat
+          inputRef={elem => (this.elem = elem)}
+          customInput={NumberField}
+          thousandSeparator={true}
+          allowNegative={false}
+          decimalScale={0}
+          classes={classes}
+          price={price}
+          handleChange={this.handleChange}
+        />
+        {/* <TextField
           label="Price"
           value={price}
           className={classes.textField}
+          placeholder="0"
           InputProps={{
             className: classes.input,
+            type: 'number',
             startAdornment: <InputAdornment position="start">$</InputAdornment>
           }}
           onChange={this.handleChange('price')}
-        />
+        /> */}
         <TextField
           label="Link"
           value={link}
