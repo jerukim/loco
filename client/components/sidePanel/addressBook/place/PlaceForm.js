@@ -2,7 +2,12 @@ import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng
+} from 'react-places-autocomplete'
+import {renderFuncEdit} from '../../../../utilities'
+import {putPlace} from '../../../../store'
 
 const styles = theme => ({
   textField: {
@@ -18,7 +23,9 @@ class PlaceForm extends React.Component {
     super(props)
     this.state = {
       address: this.props.home.location.address,
-      name: this.props.name
+      name: this.props.name,
+      lat: 0,
+      lng: 0
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -36,36 +43,41 @@ class PlaceForm extends React.Component {
     console.log('Submission form:', this.state)
   }
 
+  handleAutoChange = address => {
+    this.setState({address})
+  }
+
+  handleAutoSelect = async address => {
+    try {
+      const [res] = await geocodeByAddress(address)
+      const {lat, lng} = await getLatLng(res)
+      this.setState({address, lat, lng})
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   render() {
     const {classes} = this.props
-    const {address, price, link} = this.state
+    const {name, address} = this.state
 
     return (
       <form onSubmit={this.handleSubmit}>
         <TextField
-          label="Address"
+          label="Label"
           className={classes.textField}
+          value={name}
+          InputProps={{className: classes.input}}
+          onChange={this.handleChange('name')}
+        />
+
+        <PlacesAutocomplete
           value={address}
-          InputProps={{className: classes.input}}
-          onChange={this.handleChange('address')}
-        />
-        <TextField
-          label="Price"
-          value={price}
-          className={classes.textField}
-          InputProps={{
-            className: classes.input,
-            startAdornment: <InputAdornment position="start">$</InputAdornment>
-          }}
-          onChange={this.handleChange('price')}
-        />
-        <TextField
-          label="Link"
-          value={link}
-          className={classes.textField}
-          InputProps={{className: classes.input}}
-          onChange={this.handleChange('link')}
-        />
+          onChange={this.handleAutoChange}
+          onSelect={this.handleAutoSelect}
+        >
+          {renderFuncEdit}
+        </PlacesAutocomplete>
         <Button type="submit">Save</Button>
       </form>
     )

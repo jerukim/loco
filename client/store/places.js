@@ -45,6 +45,38 @@ export const postPlaces = ({
   }
 }
 
+export const putPlace = ({
+  userId,
+  placeId,
+  address,
+  name,
+  lat,
+  lng
+}) => async dispatch => {
+  let placePayload
+
+  try {
+    if (address) {
+      const {data: {id: locationId}} = await axios.post('/api/locations', {
+        address,
+        lat,
+        lng
+      })
+      placePayload = {locationId, name}
+    } else {
+      placePayload = {name}
+    }
+
+    await axios.put(`/api/places/${placeId}`, placePayload)
+
+    // GET all places
+    const {data: {places}} = await axios.get(`/api/users/${userId}/places`)
+    dispatch(gotPlaces(places))
+  } catch (err) {
+    console.error('An error occured while updating places')
+  }
+}
+
 const initialState = []
 
 export default function(state = initialState, action) {

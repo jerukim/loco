@@ -12,3 +12,7 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/:placeId', async (req, res, next) => {
+  const {placeId} = req.params
+})
