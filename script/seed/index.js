@@ -6,8 +6,7 @@ const {
   placeData,
   categoryData,
   userHomeData,
-  userPlaceData,
-  userCategoryData,
+  prioritiesData,
   homePlaceData
 } = require('./seed')
 
@@ -19,8 +18,7 @@ const {
   Place,
   Category,
   UserHome,
-  UserPlace,
-  UserCategory,
+  Priority,
   HomePlace
 } = require('../../server/db/models')
 
@@ -52,15 +50,10 @@ async function seed() {
   )
   console.log(`seeded ${userHomes.length} userHomes`)
 
-  const userPlaces = await Promise.all(
-    userPlaceData.map(data => UserPlace.create(data))
+  const priorities = await Promise.all(
+    prioritiesData.map(data => Priority.create(data))
   )
-  console.log(`seeded ${userPlaces.length} userPlaces`)
-
-  const userCategories = await Promise.all(
-    userCategoryData.map(data => UserCategory.create(data))
-  )
-  console.log(`seeded ${userCategories.length} userCategories`)
+  console.log(`seeded ${priorities.length} priorities`)
 
   const homePlaces = []
   for (let i = 0; i < homePlaceData.length; i++) {
