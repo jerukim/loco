@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {
-  Category,
   Home,
   Location,
   User,
@@ -89,25 +88,3 @@ router.post('/places', async (req, res, next) => {
     next(err)
   }
 })
-
-//GET user_categories
-//THIS ROUTE IS STILL A WORK IN PROGRESS
-router.get('/:userId/categories', async (req, res, next) => {
-  try {
-    let {userId} = req.params
-    let selectedCategories = await User.findOne({
-      where: {id: userId},
-      include: [
-        {
-          model: Category,
-          attributes: {exclude: ['createdAt', 'updatedAt']}
-        }
-      ]
-    })
-    res.status(200).json(selectedCategories)
-  } catch (err) {
-    next(err)
-  }
-})
-
-router.get('/:userId/home_place', async (req, res, next) => {})
