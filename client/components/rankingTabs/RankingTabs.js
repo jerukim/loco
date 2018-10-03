@@ -25,7 +25,7 @@ class ScrollableTabsButtonAuto extends React.Component {
     const {classes} = this.props
     const {value} = this.state
     const homes = this.props.homes
-    return (
+    return homes[0] ? (
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Tabs
@@ -41,6 +41,8 @@ class ScrollableTabsButtonAuto extends React.Component {
         </AppBar>
         <RankTab homeId={value} home={homes[value]} />
       </div>
+    ) : (
+      <div />
     )
   }
 }

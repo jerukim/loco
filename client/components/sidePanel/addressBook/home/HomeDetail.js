@@ -17,7 +17,7 @@ const HomeDetail = props => {
       <div className="media-wrap">
         <CardMedia image={home.imgUrl} className={classes.media} />
       </div>
-      <div className="flex-wrap content-wrap">
+      <div className="flex-wrap content-wrap card-title">
         <Typography variant="body2">{home.location.address}</Typography>
         <Typography variant="body1">{home.price}</Typography>
       </div>

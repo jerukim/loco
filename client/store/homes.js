@@ -39,6 +39,41 @@ export const postHome = ({userId, address, lat, lng}) => async dispatch => {
   }
 }
 
+export const putHome = ({
+  userId,
+  homeId,
+  address,
+  price,
+  link,
+  lat,
+  lng
+}) => async dispatch => {
+  let homePayload
+  try {
+    // POST locations
+    // checks if address changed
+    if (address) {
+      const {data: {id: locationId}} = await axios.post('/api/locations', {
+        address,
+        lat,
+        lng
+      })
+      homePayload = {locationId, link, price}
+    } else {
+      homePayload = {link, price}
+    }
+
+    // PUT homes
+    await axios.put(`/api/homes/${homeId}`, homePayload)
+
+    // GET all homes
+    const {data: {homes}} = await axios.get(`/api/users/${userId}/homes`)
+    dispatch(gotHomes(homes))
+  } catch (err) {
+    console.error('An error occurred while updating homes')
+  }
+}
+
 const initialState = []
 
 export default function(state = initialState, action) {

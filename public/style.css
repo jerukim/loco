@@ -32,13 +32,13 @@ form div {
 }
 
 #map {
-  width: calc(100vw - 250px);
+  width: calc(100vw - 408px);
 }
 
 #side-panel {
   height: 100vh;
-  width: 250px;
-  background: gray;
+  width: 408px;
+  background: rgb(252, 252, 252);
 }
 
 #bottom {
@@ -64,7 +64,17 @@ form div {
 .content-wrap {
   width: 100%;
 }
-/* #nav-bar { keep 4 phan?
-  margin-left: 250px;
-  padding: 0px 10px;
-} */
+
+.no-margins {
+  margin: 0px 0px;
+}
+
+.card-title {
+  margin: 0 15px;
+}
+
+.button-wrap {
+  display: flex;
+  width: 100%;
+  justify-content: right;
+}

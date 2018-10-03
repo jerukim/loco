@@ -13,10 +13,12 @@ class RankTab extends React.Component {
 
   render() {
     return this.props.userId ? (
-      <div id="home-info">
-        <HomeCard homeId={this.props.homeId} />
-        <PlaceInfo homeId={this.props.homeId} />
-      </div>
+      this.props.homeId && (
+        <div id="home-info">
+          <HomeCard homeId={this.props.homeId} />
+          <PlaceInfo homeId={this.props.homeId} />
+        </div>
+      )
     ) : (
       <h1>add a place</h1>
     )
