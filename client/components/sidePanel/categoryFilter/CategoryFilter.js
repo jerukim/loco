@@ -1,9 +1,6 @@
-//-------------WORK IN PROGRESS--------------------
-
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchFilterCategories} from '../../../store/'
-// Material UI
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -44,7 +41,7 @@ class CategoryFilter extends Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          Select Filters
+          SELECT FILTERS
         </Button>
         <Menu
           id="simple-menu"

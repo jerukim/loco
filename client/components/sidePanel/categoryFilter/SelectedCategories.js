@@ -1,14 +1,7 @@
-//-------------WORK IN PROGRESS--------------------
-
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchSelectedCategories} from '../../../store/'
-// Material UI
-import Chip from '@material-ui/core/Chip'
-
-function handleDelete() {
-  alert('You clicked the delete icon.')
-}
+import CategoryChips from './CategoryChips'
 
 class SelectedCategories extends Component {
   componentDidMount() {
@@ -18,9 +11,7 @@ class SelectedCategories extends Component {
   }
 
   render() {
-    const {classes} = this.props
-    const selectedCategories = this.props
-    console.log('SELECTED CATEGORIES (THIS.PROPS): ', selectedCategories)
+    const userCategories = this.props.selectedCategories
 
     if (this.props.selectedCategoriesErrored) {
       return <p>Sorry! There was an error loading your selected filters</p>
@@ -33,25 +24,22 @@ class SelectedCategories extends Component {
     return (
       <div>
         <div>
-          <h4>CATEGORY FILTERS</h4>
-        </div>
-        <div>
           <h5>SELECTED CATEGORIES</h5>
         </div>
         <div>
-          {selectedCategories &&
-            selectedCategories.map(category => (
-              <Chip
-                key={category.id}
-                label="Deletable Primary Chip"
-                onDelete={handleDelete}
-                className={classes.chip}
-                color="primary"
-                variant="outlined"
-              >
-                {selectedCategories.type.replace(/_/g, ' ')}
-              </Chip>
-            ))}
+          <ul className="list selected-categories">
+            {userCategories &&
+              userCategories.map(category => {
+                return (
+                  <li className="list-items" key={category.id}>
+                    <CategoryChips
+                      label={category.type.replace(/_/g, ' ')}
+                      priority={category.priority}
+                    />
+                  </li>
+                )
+              })}
+          </ul>
         </div>
       </div>
     )
@@ -69,7 +57,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchSelectedCategories: (userId) => dispatch(fetchSelectedCategories(userId))
+    fetchSelectedCategories: userId => dispatch(fetchSelectedCategories(userId))
   }
 }
 

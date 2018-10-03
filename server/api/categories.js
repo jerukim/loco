@@ -1,11 +1,9 @@
 const router = require('express').Router()
 const Sequelize = require('sequelize')
 const {Category} = require('../db/models')
-
+// Neded for RAW query
 const pkg = require('../../package.json')
-
 const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
-
 const db = new Sequelize(
   process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`,
   {
@@ -15,6 +13,7 @@ const db = new Sequelize(
 
 module.exports = router
 
+// All Categories for Category Filter menu
 router.get('/', async (req, res, next) => {
   try {
     let categories = await Category.findAll({
@@ -26,6 +25,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// User's Selected Categories
 router.get('/:userId', async (req, res, next) => {
   let {userId} = req.params
   try {
@@ -33,7 +33,8 @@ router.get('/:userId', async (req, res, next) => {
       `SELECT user_categories.priority, categories.type, categories.id
       FROM categories
       JOIN user_categories ON "user_categories"."categoryId" = categories.id
-      WHERE "user_categories"."userId" = :userId;`,
+      WHERE "user_categories"."userId" = :userId
+      ORDER BY user_categories.priority;`,
       {replacements: {userId: userId}, type: Sequelize.QueryTypes.SELECT}
     )
     console.log('USER CATEGORIES: ', UserCategories)
