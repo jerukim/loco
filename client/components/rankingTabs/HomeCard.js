@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import NumberFormat from 'react-number-format'
 import PropTypes from 'prop-types'
 import {withStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
@@ -20,7 +21,7 @@ const styles = {
 
 const HomeCard = props => {
   const {classes, homes, homeId} = props
-  const home = homes[homeId]
+  const home = homes.find(home => home.id === homeId)
   return (
     <Card className={classes.card}>
       <CardMedia className={classes.media} image={home.imgUrl} />
@@ -29,7 +30,12 @@ const HomeCard = props => {
           {home.location.address}
         </Typography>
         <Typography variant="headline" component="h2">
-          ${home.price}
+          <NumberFormat
+            value={home.price}
+            displayType="text"
+            thousandSeparator={true}
+            prefix="$"
+          />
         </Typography>
       </CardContent>
 
