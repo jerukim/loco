@@ -16,14 +16,12 @@ router.post('/', async (req, res, next) => {
 router.put('/:homeId', async (req, res, next) => {
   const {locationId, link, price} = req.body
   const {homeId} = req.params
+  const payload = locationId ? {locationId, link, price} : {link, price}
 
   try {
-    await Home.update(
-      {locationId, link, price},
-      {
-        where: {id: homeId}
-      }
-    )
+    await Home.update(payload, {
+      where: {id: homeId}
+    })
     res.json(204).end()
   } catch (err) {
     next(err)

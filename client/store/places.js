@@ -77,6 +77,18 @@ export const putPlace = ({
   }
 }
 
+export const deletePlace = ({userId, placeId}) => async dispatch => {
+  try {
+    await axios.delete(`/api/places/${placeId}`)
+
+    // GET all places
+    const {data: {places}} = await axios.get(`/api/users/${userId}/places`)
+    dispatch(gotPlaces(places))
+  } catch (err) {
+    console.log('An error occurred while deleting places')
+  }
+}
+
 const initialState = []
 
 export default function(state = initialState, action) {

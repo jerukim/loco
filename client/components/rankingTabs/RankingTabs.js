@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {withStyles, AppBar, Tabs, Tab} from '@material-ui/core/'
-import {RankTab} from '../'
+import {HomeTab} from '../'
 
 const styles = theme => ({
   root: {
@@ -12,7 +12,12 @@ const styles = theme => ({
   }
 })
 
-class ScrollableTabsButtonAuto extends React.Component {
+const dummyRank = {
+  0: 2, // value: homeId
+  1: 1
+}
+
+class RankingTabs extends React.Component {
   state = {
     value: 0
   }
@@ -36,10 +41,10 @@ class ScrollableTabsButtonAuto extends React.Component {
             scrollable
             scrollButtons="auto"
           >
-            {homes.map(home => <Tab key={home.id} label={home.id} />)}
+            {homes.map((home, i) => <Tab key={home.id} label={i + 1} />)}
           </Tabs>
         </AppBar>
-        <RankTab homeId={value} home={homes[value]} />
+        <HomeTab homeId={dummyRank[value]} />
       </div>
     ) : (
       <div />
@@ -53,8 +58,8 @@ const mapState = state => {
   }
 }
 
-ScrollableTabsButtonAuto.propTypes = {
+RankingTabs.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default connect(mapState)(withStyles(styles)(ScrollableTabsButtonAuto))
+export default connect(mapState)(withStyles(styles)(RankingTabs))

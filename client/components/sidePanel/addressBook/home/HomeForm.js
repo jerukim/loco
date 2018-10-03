@@ -64,12 +64,12 @@ class HomeForm extends React.Component {
     event.preventDefault()
     const {userId} = this.props
     const {id: homeId} = this.props.home
-    let payload
+    let payload = {userId, homeId}
     if (this.state.lat === 0 && this.state.lng === 0) {
       const {price, link} = this.state
-      payload = {userId, homeId, price, link}
+      payload = {...payload, price, link}
     } else {
-      payload = {userId, homeId, ...this.state}
+      payload = {...payload, ...this.state}
     }
     this.props.putHome(payload)
   }

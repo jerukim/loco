@@ -84,3 +84,7 @@ export const renderFuncEdit = ({
     </div>
   </div>
 )
+
+export const sort = arr => {
+  return arr.sort((a, b) => a.id - b.id)
+}

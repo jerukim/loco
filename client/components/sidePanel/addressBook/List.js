@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchHomes, fetchPlaces} from '../../../store'
 import AddressCard from './AddressCard'
+import {sort} from '../../../utilities'
 
 class List extends React.Component {
   componentDidMount() {
@@ -11,35 +12,38 @@ class List extends React.Component {
     }
   }
 
-  sort(arr) {
-    return arr.sort((a, b) => a.id - b.id)
-  }
-
   render() {
+    const {homes, places} = this.props
     return (
       this.props.userId && (
         <ul className="list homes-list">
-          {this.sortHomes(this.props.homes).map(home => {
-            return (
-              <li className="li-item" key={home.id}>
-                <AddressCard home={home} />
-              </li>
-            )
-          })}
-          {this.sort(this.props.places).map(place => {
-            return (
-              <li className="li-item" key={place.id}>
-                <AddressCard place={place} />
-              </li>
-            )
-          })}
+          {homes &&
+            sort(homes).map(home => {
+              return (
+                <li className="li-item" key={home.id}>
+                  <AddressCard home={home} />
+                </li>
+              )
+            })}
+          {places &&
+            sort(places).map(place => {
+              return (
+                <li className="li-item" key={place.id}>
+                  <AddressCard place={place} />
+                </li>
+              )
+            })}
         </ul>
       )
     )
   }
 }
 
-const mapStateToProps = state => ({userId: state.user.id, homes: state.homes})
+const mapStateToProps = state => ({
+  userId: state.user.id,
+  homes: state.homes,
+  places: state.places
+})
 
 const mapDispatchToProps = dispatch => {
   return {

@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {withStyles} from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -22,8 +23,8 @@ class PlaceForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      address: this.props.home.location.address,
-      name: this.props.name,
+      address: this.props.place.location.address,
+      name: this.props.place.name,
       lat: 0,
       lng: 0
     }
@@ -40,7 +41,16 @@ class PlaceForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log('Submission form:', this.state)
+    const {userId} = this.props
+    const {id: placeId} = this.props.place
+    let payload = {userId, placeId}
+    if (this.state.lat === 0 && this.state.lng === 0) {
+      const {name} = this.state
+      payload = {...payload, name}
+    } else {
+      payload = {...payload, ...this.state}
+    }
+    this.props.putPlace(payload)
   }
 
   handleAutoChange = address => {
@@ -84,4 +94,12 @@ class PlaceForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(PlaceForm)
+const mapStateToProps = state => ({userId: state.user.id})
+
+const mapDispatchToProps = dispatch => ({
+  putPlace: payload => dispatch(putPlace(payload))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(PlaceForm)
+)

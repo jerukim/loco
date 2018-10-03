@@ -33,9 +33,9 @@ const HomeDetail = props => {
         <Typography variant="body1">
           <NumberFormat
             value={home.price}
-            displayType={'text'}
+            displayType="text"
             thousandSeparator={true}
-            prefix={'$'}
+            prefix="$"
             renderText={value => value}
           />
         </Typography>

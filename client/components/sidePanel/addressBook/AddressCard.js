@@ -14,7 +14,7 @@ import HomeDetail from './home/HomeDetail'
 import HomeForm from './home/HomeForm'
 import PlaceDetail from './place/PlaceDetail'
 import PlaceForm from './place/PlaceForm'
-import {deleteHome} from '../../../store'
+import {deleteHome, deletePlace} from '../../../store'
 
 const styles = theme => ({
   card: {
@@ -59,11 +59,10 @@ class AddressCard extends React.Component {
     const {userId} = this.props
     if (this.props.home) {
       const {id: homeId} = this.props.home
-      console.log('User Id', userId)
       this.props.deleteHome({userId, homeId})
     } else {
-      // const {id: {placeId}} = this.props.place
-      // this.props.deletePlace({userId, homeId})
+      const {id: placeId} = this.props.place
+      this.props.deletePlace({userId, placeId})
     }
   }
 
@@ -119,7 +118,8 @@ AddressCard.propTypes = {
 const mapStateToProps = state => ({userId: state.user.id})
 
 const mapDispatchToProps = dispatch => ({
-  deleteHome: payload => dispatch(deleteHome(payload))
+  deleteHome: payload => dispatch(deleteHome(payload)),
+  deletePlace: payload => dispatch(deletePlace(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(

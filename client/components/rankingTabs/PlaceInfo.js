@@ -27,11 +27,11 @@ const styles = theme => ({
 })
 
 const PlaceInfo = props => {
-  const {classes, places, homeId} = props
+  const {classes, places, homeId, homePlaces} = props
   return (
     <div className={classes.root}>
       {places.map(place => {
-        const info = place.homes[homeId].home_place
+        const info = homePlaces[homeId][place.id]
         return (
           <ExpansionPanel key={place.id}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -60,7 +60,8 @@ const PlaceInfo = props => {
 
 const mapState = state => {
   return {
-    places: state.places
+    places: state.places,
+    homePlaces: state.homePlaces
   }
 }
 

@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {
-  Category,
   Home,
   Location,
   User,
@@ -9,6 +8,19 @@ const {
   Place,
   HomePlace
 } = require('../db/models')
+
+const Sequelize = require('sequelize')
+const pkg = require('../../package.json')
+
+const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
+
+const db = new Sequelize(
+  process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`,
+  {
+    logging: false
+  }
+)
+module.exports = db
 
 module.exports = router
 
@@ -69,7 +81,11 @@ router.get('/:userId/places', async (req, res, next) => {
       include: [
         {
           model: Place,
-          include: [{model: Home}]
+          include: [
+            {
+              model: Location
+            }
+          ]
         }
       ]
     })
@@ -110,4 +126,22 @@ router.get('/:userId/categories', async (req, res, next) => {
   }
 })
 
-router.get('/:userId/home_place', async (req, res, next) => {})
+// get users home_place
+router.get('/:userId/home_places', async (req, res, next) => {
+  try {
+    let {userId} = req.params
+    let homePlaces = await db.query(
+      `SELECT home_places.*
+    FROM home_places
+    JOIN user_homes ON "home_places"."homeId"= "user_homes"."homeId"
+    WHERE "user_homes"."userId" = :userId`,
+      {
+        replacements: {userId},
+        type: db.QueryTypes.SELECT
+      }
+    )
+    res.json(homePlaces)
+  } catch (err) {
+    next(err)
+  }
+})
