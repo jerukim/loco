@@ -5,6 +5,7 @@ import CategoryChips from './CategoryChips'
 
 class SelectedCategories extends Component {
   componentDidMount() {
+    console.log('THIS.PROPS - SELECTED CSATEGORIES', this.props)
     if (this.props.userId) {
       this.props.fetchSelectedCategories(this.props.userId)
     }

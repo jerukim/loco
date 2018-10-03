@@ -1,6 +1,5 @@
 import React from 'react'
-import {AddressBook, SelectedCategories, CategoryFilter} from '../../components'
-import {Link} from 'react-router-dom'
+import {AddressBook, CategoryFilter} from '../../components'
 import Button from '@material-ui/core/Button'
 
 class ScreensSidePanel extends React.Component {
@@ -33,12 +32,7 @@ class ScreensSidePanel extends React.Component {
           </div>
         ) : (
           <div>
-            <div>
-              <CategoryFilter />
-            </div>
-            <div>
-              <SelectedCategories />
-            </div>
+            <CategoryFilter />
           </div>
         )}
       </div>

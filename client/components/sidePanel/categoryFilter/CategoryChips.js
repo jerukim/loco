@@ -25,7 +25,6 @@ function handleClick() {
 
 const CategoryChips = props => {
   const {classes} = props
-  console.log('CHIPS PROPS:  ', props)
   return (
     <div className={classes.root}>
       <Chip
