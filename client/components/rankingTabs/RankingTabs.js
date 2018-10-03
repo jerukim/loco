@@ -17,7 +17,7 @@ const dummyRank = {
   1: 1
 }
 
-class ScrollableTabsButtonAuto extends React.Component {
+class RankingTabs extends React.Component {
   state = {
     value: 0
   }
@@ -56,8 +56,8 @@ const mapState = state => {
   }
 }
 
-ScrollableTabsButtonAuto.propTypes = {
+RankingTabs.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default connect(mapState)(withStyles(styles)(ScrollableTabsButtonAuto))
+export default connect(mapState)(withStyles(styles)(RankingTabs))

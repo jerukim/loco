@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+
 import {HomeCard, PlaceInfo} from '..'
 
 import {fetchHomes, fetchPlaces, fetchHomePlaces} from '../../store'

@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import NumberFormat from 'react-number-format'
 import PropTypes from 'prop-types'
 import {withStyles} from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
@@ -29,7 +30,12 @@ const HomeCard = props => {
           {home.location.address}
         </Typography>
         <Typography variant="headline" component="h2">
-          ${home.price}
+          <NumberFormat
+            value={home.price}
+            displayType="text"
+            thousandSeparator={true}
+            prefix="$"
+          />
         </Typography>
       </CardContent>
 
