@@ -6,7 +6,7 @@
 export {default as Navbar} from './navbar/Navbar'
 export {default as UserHome} from './user/user-home'
 export {Login, Signup} from './auth/auth-form'
-export {default as AddressBook} from './sidePanel/addressBook/AddressBook'
+export {default as AddressBook} from '../screens/sidePanel/AddressBook'
 export {
   default as SelectedCategories
 } from './sidePanel/categoryFilter/SelectedCategories'

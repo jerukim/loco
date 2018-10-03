@@ -1,13 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Autocomplete from './Autocomplete'
-import List from './List'
-import '../../../../secrets'
+import Autocomplete from '../../components/sidePanel/addressBook/Autocomplete'
+import List from '../../components/sidePanel/addressBook/List'
+import '../../../secrets'
 
 class AddressBook extends React.Component {
   render() {
     return (
-      <div>
+      <div className="addressbook-display side-panel-body">
         <Autocomplete
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${
             process.env.GOOGLE_API_KEY
