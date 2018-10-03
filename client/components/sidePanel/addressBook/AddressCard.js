@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {withStyles} from '@material-ui/core/styles'
 import classnames from 'classnames'
@@ -13,6 +14,7 @@ import HomeDetail from './home/HomeDetail'
 import HomeForm from './home/HomeForm'
 import PlaceDetail from './place/PlaceDetail'
 import PlaceForm from './place/PlaceForm'
+import {deleteHome} from '../../../store'
 
 const styles = theme => ({
   card: {
@@ -53,6 +55,18 @@ class AddressCard extends React.Component {
     this.setState(state => ({expanded: !state.expanded}))
   }
 
+  handleDelete = () => {
+    const {userId} = this.props
+    if (this.props.home) {
+      const {id: homeId} = this.props.home
+      console.log('User Id', userId)
+      this.props.deleteHome({userId, homeId})
+    } else {
+      // const {id: {placeId}} = this.props.place
+      // this.props.deletePlace({userId, homeId})
+    }
+  }
+
   render() {
     const {classes, home, place} = this.props
 
@@ -61,7 +75,10 @@ class AddressCard extends React.Component {
         <CardContent>
           <CardHeader
             action={
-              <IconButton className={classes.cancel}>
+              <IconButton
+                className={classes.cancel}
+                onClick={this.handleDelete}
+              >
                 <Clear />
               </IconButton>
             }
@@ -99,4 +116,12 @@ AddressCard.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(AddressCard)
+const mapStateToProps = state => ({userId: state.user.id})
+
+const mapDispatchToProps = dispatch => ({
+  deleteHome: payload => dispatch(deleteHome(payload))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(AddressCard)
+)

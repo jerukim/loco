@@ -29,3 +29,16 @@ router.put('/:homeId', async (req, res, next) => {
     next(err)
   }
 })
+
+router.delete('/:homeId', async (req, res, next) => {
+  const {homeId} = req.params
+
+  try {
+    await Home.destroy({
+      where: {id: homeId}
+    })
+    res.status(202).end()
+  } catch (err) {
+    next(err)
+  }
+})

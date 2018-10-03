@@ -74,6 +74,18 @@ export const putHome = ({
   }
 }
 
+export const deleteHome = ({userId, homeId}) => async dispatch => {
+  try {
+    await axios.delete(`/api/homes/${homeId}`)
+
+    // GET all homes
+    const {data: {homes}} = await axios.get(`/api/users/${userId}/homes`)
+    dispatch(gotHomes(homes))
+  } catch (err) {
+    console.log('An error occurred while deleting homes')
+  }
+}
+
 const initialState = []
 
 export default function(state = initialState, action) {

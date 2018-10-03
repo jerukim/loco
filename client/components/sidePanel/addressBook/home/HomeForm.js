@@ -111,7 +111,8 @@ class HomeForm extends React.Component {
           price={price}
           handleChange={this.handleChange}
         />
-        {/* <TextField
+        {/* keep for now - trying to get an alternative component to work
+        <TextField
           label="Price"
           value={price}
           className={classes.textField}
