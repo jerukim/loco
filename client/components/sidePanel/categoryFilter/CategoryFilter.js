@@ -1,9 +1,6 @@
-//-------------WORK IN PROGRESS--------------------
-
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchFilterCategories} from '../../../store/'
-// Material UI
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -24,16 +21,17 @@ class CategoryFilter extends Component {
   handleClose = () => {
     this.setState({anchorEl: null})
   }
+  
 
   render() {
     const {anchorEl} = this.state
-    const categories = this.props.filterItems
+    const categories = this.props.filterCategories
 
-    if (this.props.filterErrored) {
+    if (this.props.filterCategoriesErrored) {
       return <p>Sorry! There was an error loading the filter categories</p>
     }
 
-    if (this.props.filterFetching) {
+    if (this.props.filterCategoriesFetching) {
       return <p>Loading...</p>
     }
 
@@ -44,7 +42,7 @@ class CategoryFilter extends Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          Select Filters
+          SELECT FILTERS
         </Button>
         <Menu
           id="simple-menu"
@@ -59,6 +57,7 @@ class CategoryFilter extends Component {
               </MenuItem>
             ))}
         </Menu>
+
       </div>
     )
   }
@@ -66,9 +65,9 @@ class CategoryFilter extends Component {
 
 const mapStateToProps = state => {
   return {
-    filterErrored: state.categories.filterErrored,
-    filterFetching: state.categories.filterFetching,
-    filterItems: state.categories.filterItems
+    filterCategoriesErrored: state.categories.filterCategoriesErrored,
+    filterCategoriesFetching: state.categories.filterCategoriesFetching,
+    filterCategories: state.categories.filterCategories
   }
 }
 

@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {
-  Category,
   Home,
   Location,
   User,

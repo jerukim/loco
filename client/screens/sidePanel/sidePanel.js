@@ -34,10 +34,10 @@ class ScreensSidePanel extends React.Component {
         ) : (
           <div>
             <div>
-              <SelectedCategories />
+              <CategoryFilter />
             </div>
             <div>
-              <CategoryFilter />
+              <SelectedCategories />
             </div>
           </div>
         )}
