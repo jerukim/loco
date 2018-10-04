@@ -13,9 +13,8 @@ export const fetchPlaces = userId => async dispatch => {
   }
 }
 
-export const postPlace = ({
+export const postPlaces = ({
   userId,
-  homeId,
   name,
   address,
   lat,
@@ -35,63 +34,14 @@ export const postPlace = ({
       locationId
     })
 
-    // POST user_places
-    await axios.post('/api/users/places', {userId, placeId})
-
     // POST home_places
-    await axios.post('/api/homes/places', {homeId, placeId})
-
-    // need query for user's homes and map the homeIds to create rows in home_place table
+    await axios.post('/api/users/places', {userId, placeId})
 
     // GET all places
     const {data: {places}} = await axios.get(`/api/users/${userId}/places`)
     dispatch(gotPlaces(places))
   } catch (err) {
     console.error('An error occurred while posting a new place')
-  }
-}
-
-export const putPlace = ({
-  userId,
-  placeId,
-  address,
-  name,
-  lat,
-  lng
-}) => async dispatch => {
-  let placePayload
-
-  try {
-    if (address) {
-      const {data: {id: locationId}} = await axios.post('/api/locations', {
-        address,
-        lat,
-        lng
-      })
-      placePayload = {locationId, name}
-    } else {
-      placePayload = {name}
-    }
-
-    await axios.put(`/api/places/${placeId}`, placePayload)
-
-    // GET all places
-    const {data: {places}} = await axios.get(`/api/users/${userId}/places`)
-    dispatch(gotPlaces(places))
-  } catch (err) {
-    console.error('An error occured while updating places')
-  }
-}
-
-export const deletePlace = ({userId, placeId}) => async dispatch => {
-  try {
-    await axios.delete(`/api/places/${placeId}`)
-
-    // GET all places
-    const {data: {places}} = await axios.get(`/api/users/${userId}/places`)
-    dispatch(gotPlaces(places))
-  } catch (err) {
-    console.log('An error occurred while deleting places')
   }
 }
 

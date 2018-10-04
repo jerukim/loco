@@ -77,16 +77,7 @@ router.get('/:userId/places', async (req, res, next) => {
   try {
     const places = await User.findOne({
       where: {id: userId},
-      include: [
-        {
-          model: Place,
-          include: [
-            {
-              model: Location
-            }
-          ]
-        }
-      ]
+      include: [{model: Place}]
     })
     res.status(200).json(places)
   } catch (err) {

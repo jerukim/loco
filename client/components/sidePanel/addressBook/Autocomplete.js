@@ -4,9 +4,48 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from 'react-places-autocomplete'
-import {postHome, postPlace} from '../../../store'
+import Input from '@material-ui/core/Input'
+import {postHome, fetchHomes} from '../../../store'
 import {withScriptjs} from 'react-google-maps'
-import {renderFuncSearch} from '../../../utilities'
+
+const renderFunc = ({
+  getInputProps,
+  suggestions,
+  getSuggestionItemProps,
+  loading
+}) => (
+  <div>
+    <Input
+      {...getInputProps({
+        placeholder: 'Search Places ...',
+        className: 'location-search-input'
+      })}
+    />
+
+    <div className="autocomplete-dropdown-container">
+      {loading && <div>Loading...</div>}
+      {suggestions.map((suggestion, i) => {
+        const className = suggestion.active
+          ? 'suggestion-item--active'
+          : 'suggestion-item'
+        const style = suggestion.active
+          ? {backgroundColor: '#fafafa', cursor: 'pointer'}
+          : {backgroundColor: '#ffffff', cursor: 'pointer'}
+        return (
+          <div
+            key={i}
+            {...getSuggestionItemProps(suggestion, {
+              className,
+              style
+            })}
+          >
+            <span>{suggestion.description}</span>
+          </div>
+        )
+      })}
+    </div>
+  </div>
+)
 
 class Autocomplete extends React.Component {
   constructor(props) {
@@ -14,26 +53,17 @@ class Autocomplete extends React.Component {
     this.state = {address: ''}
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.type !== this.props.type) {
-      this.setState({address: ''})
-    }
-  }
-
   handleChange = address => {
     this.setState({address})
   }
 
   handleSelect = async address => {
-    const {type} = this.props
-    const name = type === 'Place' ? address.split(',')[0] : ''
     try {
-      console.log('name', name)
       this.setState({address})
       const {userId} = this.props
       const [res] = await geocodeByAddress(address)
       const {lat, lng} = await getLatLng(res)
-      await this.props[`post${type}`]({userId, address, lat, lng, name})
+      await this.props.postHome({userId, address, lat, lng})
     } catch (err) {
       console.error(err)
     }
@@ -46,7 +76,7 @@ class Autocomplete extends React.Component {
         onChange={this.handleChange}
         onSelect={this.handleSelect}
       >
-        {renderFuncSearch(this.props.type)}
+        {renderFunc}
       </PlacesAutocomplete>
     )
   }
@@ -56,7 +86,7 @@ const mapStateToProps = state => ({userId: state.user.id})
 
 const mapDispatchToProps = dispatch => ({
   postHome: payload => dispatch(postHome(payload)),
-  postPlace: payload => dispatch(postPlace(payload))
+  fetchHomes: userId => dispatch(fetchHomes(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
