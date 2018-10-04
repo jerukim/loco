@@ -8,7 +8,7 @@ import user from './user'
 import coordinates from './coordinates'
 import homes from './homes'
 import places from './places'
-import userCategories from './userCategories'
+import selectedCategories from './selectedCategories'
 import categoryFilter from './categoryFilter'
 import homePlaces from './homePlaces'
 
@@ -22,7 +22,7 @@ const reducer = combineReducers({
   homes,
   places,
   coordinates,
-  userCategories,
+  selectedCategories,
   categoryFilter,
   homePlaces
 })
@@ -40,6 +40,6 @@ export * from './user'
 export * from './coordinates'
 export * from './homes'
 export * from './places'
-export * from './userCategories'
+export * from './selectedCategories'
 export * from './categoryFilter'
 export * from './homePlaces'

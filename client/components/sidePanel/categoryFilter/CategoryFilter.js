@@ -98,7 +98,7 @@ const mapStateToProps = state => {
     selectedCategoriesErrored,
     selectedCategoriesFetching,
     selectedCategories
-  } = state.userCategories
+  } = state.selectedCategories
 
   return {
     userId: state.user.id,
