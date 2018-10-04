@@ -1,64 +1,39 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {fetchSelectedCategories} from '../../../store/'
+import React from 'react'
 import CategoryChips from './CategoryChips'
+import CompareButton from './CompareButton'
 
-class SelectedCategories extends Component {
-  componentDidMount() {
-    if (this.props.userId) {
-      this.props.fetchSelectedCategories(this.props.userId)
-    }
-  }
+const SelectedCategories = props => {
+  console.log('SELECTED CATEGORIES PROPS: ', props)
 
-  render() {
-    const userCategories = this.props.selectedCategories
+  const {selectedCategories} = props
 
-    if (this.props.selectedCategoriesErrored) {
-      return <p>Sorry! There was an error loading your selected filters</p>
-    }
-
-    if (this.props.selectedCategoriesFetching) {
-      return <p>Loading...</p>
-    }
-
-    return (
+  return (
+    <div>
       <div>
-        <div>
-          <h5>SELECTED CATEGORIES</h5>
-        </div>
-        <div>
-          <ul className="list selected-categories">
-            {userCategories &&
-              userCategories.map(category => {
-                return (
-                  <li className="list-items" key={category.id}>
-                    <CategoryChips
-                      label={category.type.replace(/_/g, ' ')}
-                      priority={category.priority}
-                    />
-                  </li>
-                )
-              })}
-          </ul>
-        </div>
+        <h5>SELECTED CATEGORIES</h5>
       </div>
-    )
-  }
+      <div>
+        <ul className="list selected-categories">
+          {selectedCategories &&
+            selectedCategories.map(category => {
+              return (
+                <li className="list-items" key={category.label}>
+                  <CategoryChips
+                    chipId={category.categoryId || category.placeId}
+                    placeId={category.placeId}
+                    label={category.label.replace(/_/g, ' ')}
+                    priority={category.priority}
+                  />
+                </li>
+              )
+            })}
+        </ul>
+      </div>
+      <div>
+        <CompareButton />
+      </div>
+    </div>
+  )
 }
 
-const mapStateToProps = state => {
-  return {
-    userId: state.user.id,
-    selectedCategoriesErrored: state.categories.selectedCategoriesErrored,
-    selectedCategoriesFetching: state.categories.selectedCategoriesFetching,
-    selectedCategories: state.categories.selectedCategories
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchSelectedCategories: userId => dispatch(fetchSelectedCategories(userId))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SelectedCategories)
+export default SelectedCategories

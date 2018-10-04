@@ -5,9 +5,6 @@ import axios from 'axios'
 const FETCH_FILTER_CATEGORIES_REQUEST = 'FETCH_FILTER_CATEGORIES_REQUEST'
 const FETCH_FILTER_CATEGORIES_SUCCESS = 'FETCH_FILTER_CATEGORIES_SUCCESS'
 const FETCH_FILTER_CATEGORIES_ERROR = 'FETCH_FILTER_CATEGORIES_ERROR'
-const FETCH_SELECTED_CATEGORIES_REQUEST = 'FETCH_SELECTED_CATEGORIES_REQUEST'
-const FETCH_SELECTED_CATEGORIES_SUCCESS = 'FETCH_SELECTED_CATEGORIES_SUCCESS'
-const FETCH_SELECTED_CATEGORIES_ERROR = 'FETCH_SELECTED_CATEGORIES_ERROR'
 
 // ACTION CREATORS
 
@@ -20,16 +17,6 @@ const fetchFilterCategoriesSuccess = filterCategories => ({
 })
 const fetchFilterCategoriesError = () => ({
   type: FETCH_FILTER_CATEGORIES_ERROR
-})
-const fetchSelectedCategoriesRequest = () => ({
-  type: FETCH_SELECTED_CATEGORIES_REQUEST
-})
-const fetchSelectedCategoriesSuccess = selectedCategories => ({
-  type: FETCH_SELECTED_CATEGORIES_SUCCESS,
-  payload: selectedCategories
-})
-const fetchSelectedCategoriesError = () => ({
-  type: FETCH_SELECTED_CATEGORIES_ERROR
 })
 
 // THUNK CREATORS
@@ -45,26 +32,12 @@ export const fetchFilterCategories = () => async dispatch => {
   }
 }
 
-export const fetchSelectedCategories = userId => async dispatch => {
-  try {
-    dispatch(fetchSelectedCategoriesRequest())
-    const {data} = await axios.get(`/api/categories/${userId}`)
-    dispatch(fetchSelectedCategoriesSuccess(data))
-  } catch (error) {
-    console.error(error)
-    dispatch(fetchSelectedCategoriesError())
-  }
-}
-
 // INITIAL STATE
 
 const initialState = {
   filterCategoriesErrored: false,
   filterCategoriesFetching: false,
-  filterCategories: [],
-  selectedCategoriesErrored: false,
-  selectedCategoriesFetching: false,
-  selectedCategories: []
+  filterCategories: []
 }
 
 // REDUCER
@@ -84,20 +57,6 @@ export default function(state = initialState, action) {
         ...state,
         filterCategoriesFetching: false,
         filterCategories: action.payload
-      }
-    case FETCH_SELECTED_CATEGORIES_REQUEST:
-      return {...state, selectedCategoriesFetching: true}
-    case FETCH_SELECTED_CATEGORIES_ERROR:
-      return {
-        ...state,
-        selectedCategoriesFetching: false,
-        selectedCategoriesErrored: true
-      }
-    case FETCH_SELECTED_CATEGORIES_SUCCESS:
-      return {
-        ...state,
-        selectedCategoriesFetching: false,
-        selectedCategories: action.payload
       }
     default:
       return state

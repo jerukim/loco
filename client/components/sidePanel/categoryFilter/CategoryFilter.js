@@ -1,12 +1,18 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
-import {fetchFilterCategories} from '../../../store/'
-import Button from '@material-ui/core/Button'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
+import {
+  fetchFilterCategories,
+  fetchSelectedCategories,
+  addNewSelectedFilter
+} from '../../../store'
+import FilterDropDown from './FilterDropDown'
+import SelectedCategories from './SelectedCategories'
 
-class CategoryFilter extends Component {
+class CategoryFilter extends React.Component {
   componentDidMount() {
+    if (this.props.userId) {
+      this.props.fetchSelectedCategories(this.props.userId)
+    }
     this.props.fetchFilterCategories()
   }
 
@@ -14,66 +20,103 @@ class CategoryFilter extends Component {
     anchorEl: null
   }
 
-  handleClick = event => {
+  // ACTION HANDLERS
+  handleMenuClick = event => {
     this.setState({anchorEl: event.currentTarget})
   }
 
-  handleClose = () => {
+  handleMenuClose = (event, category) => {
     this.setState({anchorEl: null})
+    if (category !== 'backdropClick') {
+      const {type, id, priority} = category
+      const payload = {
+        label: type,
+        categoryId: id,
+        priority
+      }
+      this.props.addFilter(payload)
+    }
   }
-  
 
   render() {
+    const {
+      filterCategories,
+      selectedCategories,
+      filterCategoriesErrored,
+      filterCategoriesFetching,
+      selectedCategoriesErrored,
+      selectedCategoriesFetching
+    } = this.props
     const {anchorEl} = this.state
-    const categories = this.props.filterCategories
 
-    if (this.props.filterCategoriesErrored) {
+    // FILTER DROP-DOWN (LOADING/ERROR),
+    if (filterCategoriesErrored) {
       return <p>Sorry! There was an error loading the filter categories</p>
     }
 
-    if (this.props.filterCategoriesFetching) {
+    if (filterCategoriesFetching) {
       return <p>Loading...</p>
     }
 
+    // SELECTED CATEGORIES (LOADING/ERROR)
+    if (selectedCategoriesErrored) {
+      return <p>Sorry! There was an error loading your selected filters</p>
+    }
+
+    if (selectedCategoriesFetching) {
+      return <p>Loading...</p>
+    }
+
+    // DISPLAY
     return (
       <div>
-        <Button
-          aria-owns={anchorEl ? 'simple-menu' : null}
-          aria-haspopup="true"
-          onClick={this.handleClick}
-        >
-          SELECT FILTERS
-        </Button>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={this.handleClose}
-        >
-          {categories &&
-            categories.map(category => (
-              <MenuItem key={category.id} onClick={this.handleClose}>
-                {category.type.replace(/_/g, ' ')}
-              </MenuItem>
-            ))}
-        </Menu>
-
+        <div>
+          <FilterDropDown
+            availableCategories={filterCategories}
+            selectedCategories={selectedCategories}
+            anchorEl={anchorEl}
+            handleMenuClick={this.handleMenuClick}
+            handleMenuClose={this.handleMenuClose}
+          />
+        </div>
+        <div>
+          <SelectedCategories selectedCategories={selectedCategories} />
+        </div>
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
+  const {
+    filterCategoriesErrored,
+    filterCategoriesFetching,
+    filterCategories
+  } = state.categoryFilter
+
+  const {
+    selectedCategoriesErrored,
+    selectedCategoriesFetching,
+    selectedCategories
+  } = state.selectedCategories
+
   return {
-    filterCategoriesErrored: state.categories.filterCategoriesErrored,
-    filterCategoriesFetching: state.categories.filterCategoriesFetching,
-    filterCategories: state.categories.filterCategories
+    userId: state.user.id,
+    selectedCategoriesErrored,
+    selectedCategoriesFetching,
+    selectedCategories,
+    filterCategoriesErrored,
+    filterCategoriesFetching,
+    filterCategories
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchFilterCategories: () => dispatch(fetchFilterCategories())
+    fetchSelectedCategories: userId =>
+      dispatch(fetchSelectedCategories(userId)),
+    fetchFilterCategories: () => dispatch(fetchFilterCategories()),
+    addFilter: payload => dispatch(addNewSelectedFilter(payload))
   }
 }
 
