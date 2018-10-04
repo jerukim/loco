@@ -8,10 +8,11 @@ const Home = db.define('home', {
   },
   price: {
     type: Sequelize.INTEGER
-  },
-  link: {
-    type: Sequelize.STRING
   }
+  // link: {
+  //   type: Sequelize.STRING
+  // }
+  // keep !! will be used later
 })
 
 module.exports = Home
