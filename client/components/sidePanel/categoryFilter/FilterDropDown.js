@@ -22,7 +22,7 @@ const FilterDropDown = props => {
         {props.availableCategories &&
           props.availableCategories.map(category => (
             <MenuItem
-              key={category.id}
+              key={category.categoryId}
               onClick={(e) => props.handleClose(e, {...category, priority: props.selectedCategories.length +1})}
             >
               {category.type.replace(/_/g, ' ')}
