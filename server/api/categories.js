@@ -1,7 +1,18 @@
 const router = require('express').Router()
-const {Category, Priority} = require('../db/models')
+//const {Category, Priority} = require('../db/models')
+// const Sequelize = require('sequelize')
+// const Op = Sequelize.Op
+const {Category} = require('../db/models')
+// Neded for RAW query
 const Sequelize = require('sequelize')
-const Op = Sequelize.Op
+const pkg = require('../../package.json')
+const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
+const db = new Sequelize(
+  process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`,
+  {
+    logging: false
+  }
+)
 
 module.exports = router
 
@@ -19,22 +30,41 @@ router.get('/', async (req, res, next) => {
 
 // User's Selected Categories
 router.get('/:userId', async (req, res, next) => {
-  const {userId} = req.params
+  let {userId} = req.params
   try {
-    let categories = await Priority.findAll({
-      attributes: {exclude: ['id', 'placeId', 'createdAt', 'updatedAt']},
-      where: {
-        userId: userId,
-        [Op.and]: {
-          categoryId: {
-            [Op.gt]: 0
-          }
-        }
-      },
-      order: ['priority']
-    })
+    let categories = await db.query(
+      `SELECT categories.id, categories.type, priorities.priority
+      FROM priorities
+      JOIN categories ON "priorities"."categoryId" = categories.id
+      WHERE "priorities"."userId" = :userId
+      ORDER BY priorities.priority;`,
+      {replacements: {userId: userId}, type: Sequelize.QueryTypes.SELECT}
+    )
+    console.log('USER CATEGORIES: ', categories)
     res.status(200).json(categories)
-  } catch (error) {
-    next(error)
+  } catch (err) {
+    next(err)
   }
 })
+
+// router.get('/:userId', async (req, res, next) => {
+//   const {userId} = req.params
+//   try {
+//     let categories = await Priority.findAll({
+//       attributes: {exclude: ['id', 'placeId', 'createdAt', 'updatedAt']},
+//       include: [{model: Category}],
+//       where: {
+//         userId: userId,
+//         [Op.and]: {
+//           categoryId: {
+//             [Op.gt]: 0
+//           }
+//         }
+//       },
+//       order: ['priority']
+//     })
+//     res.status(200).json(categories)
+//   } catch (error) {
+//     next(error)
+//   }
+// })

@@ -26,9 +26,8 @@ class CategoryFilter extends React.Component {
   }
 
   handleClose = (event, category) => {
-    console.log("CATEGOTY ON CF HANDLER: ", category)
     this.setState({anchorEl: null})
-    if (category !== "backdropClick") {
+    if (category !== 'backdropClick') {
       this.props.addFilter(category)
     }
   }
@@ -37,6 +36,8 @@ class CategoryFilter extends React.Component {
     const {anchorEl} = this.state
     const availableCategories = this.props.filterCategories
     const selectedCategories = this.props.selectedCategories
+    console.log("AVAILABLE CATEGORIES: ", availableCategories)
+    console.log("SELECTED CATEGORIES: ", selectedCategories)
 
     // FILTER DROP-DOWN (LOADING/ERROR)
     if (this.props.filterCategoriesErrored) {

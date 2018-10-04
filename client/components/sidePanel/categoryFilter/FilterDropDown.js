@@ -4,6 +4,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 
 const FilterDropDown = props => {
+  console.log("PROPS IN DROP-DOWN:", props)
   return (
     <div>
       <Button
@@ -22,7 +23,7 @@ const FilterDropDown = props => {
         {props.availableCategories &&
           props.availableCategories.map(category => (
             <MenuItem
-              key={category.categoryId}
+              key={category.id}
               onClick={(e) => props.handleClose(e, {...category, priority: props.selectedCategories.length +1})}
             >
               {category.type.replace(/_/g, ' ')}

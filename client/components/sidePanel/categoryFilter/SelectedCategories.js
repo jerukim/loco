@@ -13,7 +13,7 @@ const SelectedCategories = props => {
           {props.selectedCategories &&
             props.selectedCategories.map(category => {
               return (
-                <li className="list-items" key={category.categoryId}>
+                <li className="list-items" key={category.id}>
                   <CategoryChips
                     label={category.type.replace(/_/g, ' ')}
                     priority={category.priority}
