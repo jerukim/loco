@@ -15,10 +15,11 @@ class HomeTab extends React.Component {
 
   render() {
     return this.props.homeId ? (
-      <div id="home-info">
-        <HomeCard homeId={this.props.homeId} />
-        <PlaceInfo homeId={this.props.homeId} />
-      </div>
+        <div id="home-info">
+          <HomeCard homeId={this.props.homeId} />
+          <PlaceInfo homeId={this.props.homeId} />
+        </div>
+      )
     ) : (
       <h1>add a place</h1>
     )
