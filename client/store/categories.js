@@ -106,7 +106,6 @@ export default function(state = initialState, action) {
         selectedCategories: action.payload
       }
     case ADD_NEW_SELECTED_FILTER:
-    console.log("REDUCER ACTION.CATEGORY", action.category)
       return {
         ...state,
         selectedCategories: [...state.selectedCategories, action.category]
