@@ -1,40 +1,35 @@
 import React from 'react'
 import {AddressBook, CategoryFilter} from '../../components'
-import Button from '@material-ui/core/Button'
+import AppBar from '@material-ui/core/AppBar'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
 
 class ScreensSidePanel extends React.Component {
   constructor() {
     super()
     this.state = {
-      addressBook: true
+      value: 0
     }
-    this.handleClick = this.handleClick.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  handleClick() {
-    this.setState({addressBook: !this.state.addressBook})
+  handleChange = (event, value) => {
+    this.setState({value})
   }
 
   render() {
+    const {value} = this.state
     return (
       <div id="side-panel">
-        <div>
-          <Button to="/addressBook" onClick={this.handleClick}>
-            Address Book
-          </Button>
-          <Button to="/categoryFilter" onClick={this.handleClick}>
-            Category Filter
-          </Button>
-        </div>
-        {this.state.addressBook ? (
-          <div>
-            <AddressBook />
-          </div>
-        ) : (
-          <div>
-            <CategoryFilter />
-          </div>
-        )}
+        <AppBar position="static">
+          <Tabs value={value} onChange={this.handleChange}>
+            <Tab label="Address Book" />
+            <Tab label="Filter Nearby Places" />
+          </Tabs>
+        </AppBar>
+
+        {value === 0 && <AddressBook />}
+        {value === 1 && <CategoryFilter />}
       </div>
     )
   }

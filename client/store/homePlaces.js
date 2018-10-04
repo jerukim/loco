@@ -20,7 +20,9 @@ export const fetchHomePlaces = userId => async dispatch => {
   }
 }
 
-export default function(state = {}, action) {
+const initialState = {}
+
+export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_HOME_PLACES:
       return action.homePlaces
