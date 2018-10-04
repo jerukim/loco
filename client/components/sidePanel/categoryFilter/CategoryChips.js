@@ -16,19 +16,17 @@ const styles = theme => ({
 })
 
 function handleChipDelete(chipId) {
-  //console.log('chip', categoryId)
-  alert('You clicked the delete icon.')
+  console.log('I WILL DELETE THE CHIP for:', chipId)
   // dispatch action to remove filter
-  // update style to push other filters up
+  // update - push other filters up
 }
 
 function handleChipClick(chipId) {
   console.log('I WILL SHOW YOU THE PINS IN THE MAP for:', chipId)
+  // will conditionakly show pins or not
 }
 
 const CategoryChips = props => {
-  // console.log('PROPS IN CHIPS: ', props)
-
   const {classes, placeId} = props
 
   return (

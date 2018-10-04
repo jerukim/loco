@@ -39,25 +39,31 @@ class CategoryFilter extends React.Component {
   }
 
   render() {
+    const {
+      filterCategories,
+      selectedCategories,
+      filterCategoriesErrored,
+      filterCategoriesFetching,
+      selectedCategoriesErrored,
+      selectedCategoriesFetching
+    } = this.props
     const {anchorEl} = this.state
-    const availableCategories = this.props.filterCategories
-    const selectedCategories = this.props.selectedCategories
 
-    // FILTER DROP-DOWN (LOADING/ERROR)
-    if (this.props.filterCategoriesErrored) {
+    // FILTER DROP-DOWN (LOADING/ERROR),
+    if (filterCategoriesErrored) {
       return <p>Sorry! There was an error loading the filter categories</p>
     }
 
-    if (this.props.filterCategoriesFetching) {
+    if (filterCategoriesFetching) {
       return <p>Loading...</p>
     }
 
     // SELECTED CATEGORIES (LOADING/ERROR)
-    if (this.props.selectedCategoriesErrored) {
+    if (selectedCategoriesErrored) {
       return <p>Sorry! There was an error loading your selected filters</p>
     }
 
-    if (this.props.selectedCategoriesFetching) {
+    if (selectedCategoriesFetching) {
       return <p>Loading...</p>
     }
 
@@ -66,7 +72,7 @@ class CategoryFilter extends React.Component {
       <div>
         <div>
           <FilterDropDown
-            availableCategories={availableCategories}
+            availableCategories={filterCategories}
             selectedCategories={selectedCategories}
             anchorEl={anchorEl}
             handleMenuClick={this.handleMenuClick}

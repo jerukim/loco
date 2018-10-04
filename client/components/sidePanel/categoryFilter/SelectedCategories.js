@@ -3,7 +3,9 @@ import CategoryChips from './CategoryChips'
 import CompareButton from './CompareButton'
 
 const SelectedCategories = props => {
-  console.log('SELECTED CATEGORIES PROPS: ', props)
+  //console.log('SELECTED CATEGORIES PROPS: ', props)
+
+  const {selectedCategories} = props
 
   return (
     <div>
@@ -12,8 +14,8 @@ const SelectedCategories = props => {
       </div>
       <div>
         <ul className="list selected-categories">
-          {props.selectedCategories &&
-            props.selectedCategories.map(category => {
+          {selectedCategories &&
+            selectedCategories.map(category => {
               return (
                 <li className="list-items" key={category.label}>
                   <CategoryChips
