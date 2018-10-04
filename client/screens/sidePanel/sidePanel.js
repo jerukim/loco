@@ -19,28 +19,15 @@ class ScreensSidePanel extends React.Component {
   render() {
     return (
       <div id="side-panel">
-        <div>
-          <Button to="/addressBook" onClick={this.handleClick}>
-            Address Book
-          </Button>
-          <Button to="/categoryFilter" onClick={this.handleClick}>
-            Category Filter
-          </Button>
-        </div>
-        {this.state.addressBook ? (
-          <div>
-            <AddressBook />
-          </div>
-        ) : (
-          <div>
-            <div>
-              <CategoryFilter />
-            </div>
-            <div>
-              <SelectedCategories />
-            </div>
-          </div>
-        )}
+        <AppBar position="static">
+          <Tabs value={value} onChange={this.handleChange}>
+            <Tab label="Address Book" />
+            <Tab label="Filter Nearby Places" />
+          </Tabs>
+        </AppBar>
+
+        {value === 0 && <AddressBook />}
+        {value === 1 && <Categories />}
       </div>
     )
   }

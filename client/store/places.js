@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {fetchHomePlaces} from '../store'
 
 const GOT_PLACES = 'GOT_PLACES'
 
@@ -18,7 +19,8 @@ export const postPlaces = ({
   name,
   address,
   lat,
-  lng
+  lng,
+  homesIdList
 }) => async dispatch => {
   try {
     // POST locations
@@ -36,10 +38,17 @@ export const postPlaces = ({
 
     // POST home_places
     await axios.post('/api/users/places', {userId, placeId})
+    for (let i = 0; i < homesIdList.length; i++) {
+      const homeId = homesIdList[i]
+      await axios.post('/api/homes/places', {homeId, placeId})
+    }
+
+    // GET all home_places
+    await dispatch(fetchHomePlaces(userId))
 
     // GET all places
     const {data: {places}} = await axios.get(`/api/users/${userId}/places`)
-    dispatch(gotPlaces(places))
+    await dispatch(gotPlaces(places))
   } catch (err) {
     console.error('An error occurred while posting a new place')
   }
