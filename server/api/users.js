@@ -98,7 +98,7 @@ router.get('/:userId/places', async (req, res, next) => {
 router.post('/places', async (req, res, next) => {
   const {userId, placeId} = req.body
   try {
-    await UserPlace.create({userId, placeId})
+    await Priority.create({userId, placeId})
     res.status(201).end()
   } catch (err) {
     next(err)

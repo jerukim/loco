@@ -25,15 +25,21 @@ class Autocomplete extends React.Component {
   }
 
   handleSelect = async address => {
-    const {type} = this.props
+    const {userId, type, homes} = this.props
+    const homesIdList = homes.map(home => home.id)
     const name = type === 'Place' ? address.split(',')[0] : ''
     try {
-      console.log('name', name)
       this.setState({address})
-      const {userId} = this.props
       const [res] = await geocodeByAddress(address)
       const {lat, lng} = await getLatLng(res)
-      await this.props[`post${type}`]({userId, address, lat, lng, name})
+      await this.props[`post${type}`]({
+        userId,
+        address,
+        name,
+        lat,
+        lng,
+        homesIdList
+      })
     } catch (err) {
       console.error(err)
     }
@@ -52,7 +58,7 @@ class Autocomplete extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({userId: state.user.id})
+const mapStateToProps = state => ({userId: state.user.id, homes: state.homes})
 
 const mapDispatchToProps = dispatch => ({
   postHome: payload => dispatch(postHome(payload)),

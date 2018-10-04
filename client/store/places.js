@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {fetchHomePlaces} from '../store'
 
 const GOT_PLACES = 'GOT_PLACES'
 
@@ -15,11 +16,11 @@ export const fetchPlaces = userId => async dispatch => {
 
 export const postPlace = ({
   userId,
-  homeId,
   name,
   address,
   lat,
-  lng
+  lng,
+  homesIdList
 }) => async dispatch => {
   try {
     // POST locations
@@ -39,13 +40,17 @@ export const postPlace = ({
     await axios.post('/api/users/places', {userId, placeId})
 
     // POST home_places
-    await axios.post('/api/homes/places', {homeId, placeId})
+    for (let i = 0; i < homesIdList.length; i++) {
+      const homeId = homesIdList[i]
+      await axios.post('/api/homes/places', {homeId, placeId})
+    }
 
-    // need query for user's homes and map the homeIds to create rows in home_place table
+    // GET all home_places
+    await dispatch(fetchHomePlaces(userId))
 
     // GET all places
     const {data: {places}} = await axios.get(`/api/users/${userId}/places`)
-    dispatch(gotPlaces(places))
+    await dispatch(gotPlaces(places))
   } catch (err) {
     console.error('An error occurred while posting a new place')
   }

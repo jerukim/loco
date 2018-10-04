@@ -28,7 +28,7 @@ router.put('/:homeId', async (req, res, next) => {
   }
 })
 
-router.put('/places', async (req, res, next) => {
+router.post('/places', async (req, res, next) => {
   const {homeId, placeId} = req.body
   try {
     await HomePlace.create({homeId, placeId})

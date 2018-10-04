@@ -49,7 +49,7 @@ const mapHomes = state => ({
 
 const mapPlaces = state => ({
   userId: state.user.id,
-  list: state.homes,
+  list: state.places,
   name: 'places'
 })
 

@@ -24,7 +24,7 @@ class ScreensSidePanel extends React.Component {
         <AppBar position="static">
           <Tabs value={value} onChange={this.handleChange}>
             <Tab label="Address Book" />
-            <Tab label="Filter Nearby" />
+            <Tab label="Filter Nearby Places" />
           </Tabs>
         </AppBar>
 

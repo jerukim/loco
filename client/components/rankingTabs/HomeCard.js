@@ -22,7 +22,7 @@ const styles = {
 const HomeCard = props => {
   const {classes, homes, homeId} = props
   const home = homes.find(home => home.id === homeId)
-  return (
+  return home ? (
     <Card className={classes.card}>
       <CardMedia className={classes.media} image={home.imgUrl} />
       <CardContent>
@@ -45,6 +45,8 @@ const HomeCard = props => {
         </Button>
       </CardActions>
     </Card>
+  ) : (
+    <div />
   )
 }
 

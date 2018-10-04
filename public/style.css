@@ -22,7 +22,7 @@ nav a {
 
 .user-links {
   display: flex;
-  position: fixed;
+  position: absolute;
   margin: 5px 13px;
   right: 0;
   z-index: 2;
