@@ -21,11 +21,11 @@ class CategoryFilter extends React.Component {
   }
 
   // ACTION HANDLERS
-  handleClick = event => {
+  handleMenuClick = event => {
     this.setState({anchorEl: event.currentTarget})
   }
 
-  handleClose = (event, category) => {
+  handleMenuClose = (event, category) => {
     this.setState({anchorEl: null})
     if (category !== 'backdropClick') {
       this.props.addFilter(category)
@@ -36,8 +36,8 @@ class CategoryFilter extends React.Component {
     const {anchorEl} = this.state
     const availableCategories = this.props.filterCategories
     const selectedCategories = this.props.selectedCategories
-    console.log("AVAILABLE CATEGORIES: ", availableCategories)
-    console.log("SELECTED CATEGORIES: ", selectedCategories)
+    //  console.log('AVAILABLE CATEGORIES: ', availableCategories)
+    //  console.log('SELECTED CATEGORIES: ', selectedCategories)
 
     // FILTER DROP-DOWN (LOADING/ERROR)
     if (this.props.filterCategoriesErrored) {
@@ -65,8 +65,8 @@ class CategoryFilter extends React.Component {
             availableCategories={availableCategories}
             selectedCategories={selectedCategories}
             anchorEl={anchorEl}
-            handleClick={this.handleClick}
-            handleClose={this.handleClose}
+            handleMenuClick={this.handleMenuClick}
+            handleMenuClose={this.handleMenuClose}
           />
         </div>
         <div>

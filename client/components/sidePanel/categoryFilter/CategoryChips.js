@@ -15,23 +15,28 @@ const styles = theme => ({
   }
 })
 
-function handleDelete() {
+function handleChipDelete(chipId) {
+  //console.log('chip', categoryId)
   alert('You clicked the delete icon.')
+  // dispatch action to remove filter
+  // update style to push other filters up
 }
 
-function handleClick() {
+function handleChipClick() {
   alert('You clicked the Chip.')
 }
 
 const CategoryChips = props => {
+  // console.log('PROPS IN CHIPS: ', props)
+
   const {classes} = props
   return (
     <div className={classes.root}>
       <Chip
         avatar={<Avatar>{props.priority}</Avatar>}
         label={props.label}
-        onClick={handleClick}
-        onDelete={handleDelete}
+        onClick={handleChipClick}
+        onDelete={() => handleChipDelete(props.chipId)}
         className={classes.chip}
         color="primary"
         variant="outlined"

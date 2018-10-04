@@ -1,7 +1,4 @@
 const router = require('express').Router()
-//const {Category, Priority} = require('../db/models')
-// const Sequelize = require('sequelize')
-// const Op = Sequelize.Op
 const {Category} = require('../db/models')
 // Neded for RAW query
 const Sequelize = require('sequelize')
@@ -33,38 +30,16 @@ router.get('/:userId', async (req, res, next) => {
   let {userId} = req.params
   try {
     let categories = await db.query(
-      `SELECT categories.id, categories.type, priorities.priority
+      `SELECT COALESCE(categories.type, '') || COALESCE(places.name, '') AS label, priorities.priority, "priorities"."categoryId", "priorities"."placeId"
       FROM priorities
-      JOIN categories ON "priorities"."categoryId" = categories.id
-      WHERE "priorities"."userId" = :userId
+      LEFT JOIN categories ON "priorities"."categoryId" = categories.id
+      LEFT JOIN places ON "priorities"."placeId" = places.id
+      WHERE "priorities"."userId" = 1
       ORDER BY priorities.priority;`,
       {replacements: {userId: userId}, type: Sequelize.QueryTypes.SELECT}
     )
-    console.log('USER CATEGORIES: ', categories)
     res.status(200).json(categories)
   } catch (err) {
     next(err)
   }
 })
-
-// router.get('/:userId', async (req, res, next) => {
-//   const {userId} = req.params
-//   try {
-//     let categories = await Priority.findAll({
-//       attributes: {exclude: ['id', 'placeId', 'createdAt', 'updatedAt']},
-//       include: [{model: Category}],
-//       where: {
-//         userId: userId,
-//         [Op.and]: {
-//           categoryId: {
-//             [Op.gt]: 0
-//           }
-//         }
-//       },
-//       order: ['priority']
-//     })
-//     res.status(200).json(categories)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
