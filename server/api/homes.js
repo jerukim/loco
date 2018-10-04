@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Home} = require('../db/models')
+const {Home, HomePlace} = require('../db/models')
 module.exports = router
 
 // POST homes
@@ -23,6 +23,16 @@ router.put('/:homeId', async (req, res, next) => {
       where: {id: homeId}
     })
     res.json(204).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/places', async (req, res, next) => {
+  const {homeId, placeId} = req.body
+  try {
+    await HomePlace.create({homeId, placeId})
+    res.send(204).end()
   } catch (err) {
     next(err)
   }

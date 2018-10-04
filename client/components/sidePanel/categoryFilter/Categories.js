@@ -1,5 +1,5 @@
 import React from 'react'
-import {SelectedCategories, CategoryFilter} from '../../components'
+import {SelectedCategories, CategoryFilter} from '../..'
 
 const Categories = props => {
   return (

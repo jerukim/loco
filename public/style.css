@@ -11,9 +11,37 @@ label {
   display: block;
 }
 
+#nav-bar {
+  height: 0;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
+}
+
+.user-links {
+  display: flex;
+  position: fixed;
+  margin: 5px 13px;
+  right: 0;
+  z-index: 2;
+}
+
+.logo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.5em;
+  width: 3.5em;
+  border-radius: 100px;
+  background-color: rgb(255, 134, 35);
+}
+
+.logo {
+  display: inline-block;
+  color: white;
+  text-align: center;
 }
 
 form div {
@@ -82,4 +110,12 @@ form div {
 
 .side-panel-body {
   padding: 0 10px;
+}
+
+.addressbook-select {
+  height: 48px;
+  width: 100%;
+  background-color: #5665bb;
+  display: flex;
+  justify-content: space-around;
 }

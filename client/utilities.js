@@ -1,45 +1,49 @@
+/* eslint-disable react/display-name */
 import Input from '@material-ui/core/Input'
 import TextField from '@material-ui/core/TextField'
 import React from 'react'
 
-export const renderFuncSearch = ({
+export const renderFuncSearch = type => ({
   getInputProps,
   suggestions,
   getSuggestionItemProps,
   loading
-}) => (
-  <div>
-    <Input
-      {...getInputProps({
-        placeholder: 'Search Places ...',
-        className: 'location-search-input'
-      })}
-    />
+}) => {
+  const text = type === 'Home' ? 'Search Homes...' : 'Search Places...'
+  return (
+    <div>
+      <Input
+        {...getInputProps({
+          placeholder: text,
+          className: 'location-search-input'
+        })}
+      />
 
-    <div className="autocomplete-dropdown-container">
-      {loading && <div>Loading...</div>}
-      {suggestions.map((suggestion, i) => {
-        const className = suggestion.active
-          ? 'suggestion-item--active'
-          : 'suggestion-item'
-        const style = suggestion.active
-          ? {backgroundColor: '#fafafa', cursor: 'pointer'}
-          : {backgroundColor: '#ffffff', cursor: 'pointer'}
-        return (
-          <div
-            key={i}
-            {...getSuggestionItemProps(suggestion, {
-              className,
-              style
-            })}
-          >
-            <span>{suggestion.description}</span>
-          </div>
-        )
-      })}
+      <div className="autocomplete-dropdown-container">
+        {loading && <div>Loading...</div>}
+        {suggestions.map((suggestion, i) => {
+          const className = suggestion.active
+            ? 'suggestion-item--active'
+            : 'suggestion-item'
+          const style = suggestion.active
+            ? {backgroundColor: '#fafafa', cursor: 'pointer'}
+            : {backgroundColor: '#ffffff', cursor: 'pointer'}
+          return (
+            <div
+              key={i}
+              {...getSuggestionItemProps(suggestion, {
+                className,
+                style
+              })}
+            >
+              <span>{suggestion.description}</span>
+            </div>
+          )
+        })}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export const renderFuncEdit = ({
   getInputProps,

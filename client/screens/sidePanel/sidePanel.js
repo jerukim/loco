@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScreensAddressBook, ScreensCategories} from '../'
+import {AddressBook, Categories} from '../../components'
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -28,8 +28,8 @@ class ScreensSidePanel extends React.Component {
           </Tabs>
         </AppBar>
 
-        {value === 0 && <ScreensAddressBook />}
-        {value === 1 && <ScreensCategories />}
+        {value === 0 && <AddressBook />}
+        {value === 1 && <Categories />}
       </div>
     )
   }

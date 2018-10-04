@@ -43,10 +43,10 @@ export const putHome = ({
   userId,
   homeId,
   address,
-  price,
-  link,
   lat,
-  lng
+  lng,
+  price,
+  link
 }) => async dispatch => {
   let homePayload
   try {

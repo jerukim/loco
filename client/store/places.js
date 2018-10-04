@@ -13,8 +13,9 @@ export const fetchPlaces = userId => async dispatch => {
   }
 }
 
-export const postPlaces = ({
+export const postPlace = ({
   userId,
+  homeId,
   name,
   address,
   lat,
@@ -34,8 +35,13 @@ export const postPlaces = ({
       locationId
     })
 
-    // POST home_places
+    // POST user_places
     await axios.post('/api/users/places', {userId, placeId})
+
+    // POST home_places
+    await axios.post('/api/homes/places', {homeId, placeId})
+
+    // need query for user's homes and map the homeIds to create rows in home_place table
 
     // GET all places
     const {data: {places}} = await axios.get(`/api/users/${userId}/places`)
