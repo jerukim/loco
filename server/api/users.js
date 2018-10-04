@@ -4,9 +4,8 @@ const {
   Location,
   User,
   UserHome,
-  UserPlace,
   Place,
-  HomePlace
+  Priority
 } = require('../db/models')
 
 const Sequelize = require('sequelize')
