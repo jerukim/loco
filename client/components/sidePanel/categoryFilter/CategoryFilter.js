@@ -89,13 +89,17 @@ class CategoryFilter extends React.Component {
 
 const mapStateToProps = state => {
   const {
-    selectedCategoriesErrored,
-    selectedCategoriesFetching,
-    selectedCategories,
     filterCategoriesErrored,
     filterCategoriesFetching,
     filterCategories
-  } = state.categories
+  } = state.categoryFilter
+
+  const {
+    selectedCategoriesErrored,
+    selectedCategoriesFetching,
+    selectedCategories
+  } = state.userCategories
+
   return {
     userId: state.user.id,
     selectedCategoriesErrored,

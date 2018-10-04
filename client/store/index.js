@@ -4,12 +4,12 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import {persistStore, persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-
 import user from './user'
 import coordinates from './coordinates'
 import homes from './homes'
 import places from './places'
-import categories from './categories'
+import userCategories from './userCategories'
+import categoryFilter from './categoryFilter'
 import homePlaces from './homePlaces'
 
 const persistConfig = {
@@ -22,7 +22,8 @@ const reducer = combineReducers({
   homes,
   places,
   coordinates,
-  categories,
+  userCategories,
+  categoryFilter,
   homePlaces
 })
 
@@ -39,5 +40,6 @@ export * from './user'
 export * from './coordinates'
 export * from './homes'
 export * from './places'
-export * from './categories'
+export * from './userCategories'
+export * from './categoryFilter'
 export * from './homePlaces'
