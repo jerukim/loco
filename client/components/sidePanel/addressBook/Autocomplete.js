@@ -4,20 +4,53 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from 'react-places-autocomplete'
-import {postHome, postPlace} from '../../../store'
+import Input from '@material-ui/core/Input'
+import {postHome, fetchHomes} from '../../../store'
 import {withScriptjs} from 'react-google-maps'
-import {renderFuncSearch} from '../../../utilities'
+
+const renderFunc = ({
+  getInputProps,
+  suggestions,
+  getSuggestionItemProps,
+  loading
+}) => (
+  <div>
+    <Input
+      {...getInputProps({
+        placeholder: 'Search Places ...',
+        className: 'location-search-input'
+      })}
+    />
+
+    <div className="autocomplete-dropdown-container">
+      {loading && <div>Loading...</div>}
+      {suggestions.map((suggestion, i) => {
+        const className = suggestion.active
+          ? 'suggestion-item--active'
+          : 'suggestion-item'
+        const style = suggestion.active
+          ? {backgroundColor: '#fafafa', cursor: 'pointer'}
+          : {backgroundColor: '#ffffff', cursor: 'pointer'}
+        return (
+          <div
+            key={i}
+            {...getSuggestionItemProps(suggestion, {
+              className,
+              style
+            })}
+          >
+            <span>{suggestion.description}</span>
+          </div>
+        )
+      })}
+    </div>
+  </div>
+)
 
 class Autocomplete extends React.Component {
   constructor(props) {
     super(props)
     this.state = {address: ''}
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.type !== this.props.type) {
-      this.setState({address: ''})
-    }
   }
 
   handleChange = address => {
@@ -52,7 +85,7 @@ class Autocomplete extends React.Component {
         onChange={this.handleChange}
         onSelect={this.handleSelect}
       >
-        {renderFuncSearch(this.props.type)}
+        {renderFunc}
       </PlacesAutocomplete>
     )
   }
@@ -62,7 +95,7 @@ const mapStateToProps = state => ({userId: state.user.id, homes: state.homes})
 
 const mapDispatchToProps = dispatch => ({
   postHome: payload => dispatch(postHome(payload)),
-  postPlace: payload => dispatch(postPlace(payload))
+  fetchHomes: userId => dispatch(fetchHomes(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(

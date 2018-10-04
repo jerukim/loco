@@ -1,45 +1,45 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchHomes, fetchPlaces} from '../../../store'
+import {fetchHomes} from '../../../store'
 import AddressCard from './AddressCard'
-import {sort} from '../../../utilities'
 
 class List extends React.Component {
   componentDidMount() {
     if (this.props.userId) {
-      if (this.props.name === 'homes') {
-        this.props.fetchHomes(this.props.userId)
-      } else {
-        this.props.fetchPlaces(this.props.userId)
-      }
+      this.props.fetchHomes(this.props.userId)
     }
   }
 
-  render() {
-    const {userId, list, name, children} = this.props
+  sortHomes() {
+    const {homes} = this.props
+    return homes.sort((a, b) => a.id - b.id)
+  }
 
-    return !userId || !list ? (
-      children
-    ) : (
-      <div>
-        <ul className="list">
-          {sort(list).map(item => {
+  render() {
+    return (
+      this.props.userId && (
+        <ul className="list homes-list">
+          {this.sortHomes(this.props.homes).map(home => {
             return (
-              <li className="li-item" key={item.id}>
-                {name === 'homes' ? (
-                  <AddressCard home={item} />
-                ) : (
-                  <AddressCard place={item} />
-                )}
+              <li className="li-item" key={home.id}>
+                <AddressCard home={home} />
               </li>
             )
           })}
+          {/* {this.sortPlaces(this.props.places).map(place => {
+          return (
+            <li className="li-item" key={place.id}>
+
+            </li>
+          )
+        })} */}
         </ul>
-      </div>
+      )
     )
   }
 }
 
+<<<<<<< HEAD
 const mapHomes = state => ({
   userId: state.user.id,
   list: state.homes,
@@ -52,18 +52,14 @@ const mapPlaces = state => ({
   list: state.places,
   name: 'places'
 })
+=======
+const mapStateToProps = state => ({userId: state.user.id, homes: state.homes})
+>>>>>>> master
 
-const mapHomesDispatch = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     fetchHomes: userId => dispatch(fetchHomes(userId))
   }
 }
 
-const mapPlacesDispatch = dispatch => {
-  return {
-    fetchPlaces: userId => dispatch(fetchPlaces(userId))
-  }
-}
-
-export const HomesList = connect(mapHomes, mapHomesDispatch)(List)
-export const PlacesList = connect(mapPlaces, mapPlacesDispatch)(List)
+export default connect(mapStateToProps, mapDispatchToProps)(List)

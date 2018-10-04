@@ -2,7 +2,6 @@ import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
-import NumberFormat from 'react-number-format'
 
 const styles = () => ({
   media: {
@@ -18,27 +17,9 @@ const HomeDetail = props => {
       <div className="media-wrap">
         <CardMedia image={home.imgUrl} className={classes.media} />
       </div>
-      <div className="flex-wrap content-wrap card-title">
-        {home.link ? (
-          <a href={home.link} rel="noopener noreferrer" target="_blank">
-            <Typography href="" variant="body2">
-              {home.location.address}
-            </Typography>
-          </a>
-        ) : (
-          <Typography href="" variant="body2">
-            {home.location.address}
-          </Typography>
-        )}
-        <Typography variant="body1">
-          <NumberFormat
-            value={home.price}
-            displayType="text"
-            thousandSeparator={true}
-            prefix="$"
-            renderText={value => value}
-          />
-        </Typography>
+      <div className="flex-wrap content-wrap">
+        <Typography variant="body2">{home.location.address}</Typography>
+        <Typography variant="body1">{home.price}</Typography>
       </div>
     </div>
   )

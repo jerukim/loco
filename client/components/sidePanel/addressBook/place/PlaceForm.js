@@ -1,14 +1,8 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {withStyles} from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng
-} from 'react-places-autocomplete'
-import {renderFuncEdit} from '../../../../utilities'
-import {putPlace} from '../../../../store'
+import InputAdornment from '@material-ui/core/InputAdornment'
 
 const styles = theme => ({
   textField: {
@@ -23,10 +17,8 @@ class PlaceForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      address: this.props.place.location.address,
-      name: this.props.place.name,
-      lat: 0,
-      lng: 0
+      address: this.props.home.location.address,
+      name: this.props.name
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -41,65 +33,43 @@ class PlaceForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const {userId} = this.props
-    const {id: placeId} = this.props.place
-    let payload = {userId, placeId}
-    if (this.state.lat === 0 && this.state.lng === 0) {
-      const {name} = this.state
-      payload = {...payload, name}
-    } else {
-      payload = {...payload, ...this.state}
-    }
-    this.props.putPlace(payload)
-  }
-
-  handleAutoChange = address => {
-    this.setState({address})
-  }
-
-  handleAutoSelect = async address => {
-    try {
-      const [res] = await geocodeByAddress(address)
-      const {lat, lng} = await getLatLng(res)
-      this.setState({address, lat, lng})
-    } catch (err) {
-      console.error(err)
-    }
+    console.log('Submission form:', this.state)
   }
 
   render() {
     const {classes} = this.props
-    const {name, address} = this.state
+    const {address, price, link} = this.state
 
     return (
       <form onSubmit={this.handleSubmit}>
         <TextField
-          label="Label"
+          label="Address"
           className={classes.textField}
-          value={name}
-          InputProps={{className: classes.input}}
-          onChange={this.handleChange('name')}
-        />
-
-        <PlacesAutocomplete
           value={address}
-          onChange={this.handleAutoChange}
-          onSelect={this.handleAutoSelect}
-        >
-          {renderFuncEdit}
-        </PlacesAutocomplete>
+          InputProps={{className: classes.input}}
+          onChange={this.handleChange('address')}
+        />
+        <TextField
+          label="Price"
+          value={price}
+          className={classes.textField}
+          InputProps={{
+            className: classes.input,
+            startAdornment: <InputAdornment position="start">$</InputAdornment>
+          }}
+          onChange={this.handleChange('price')}
+        />
+        <TextField
+          label="Link"
+          value={link}
+          className={classes.textField}
+          InputProps={{className: classes.input}}
+          onChange={this.handleChange('link')}
+        />
         <Button type="submit">Save</Button>
       </form>
     )
   }
 }
 
-const mapStateToProps = state => ({userId: state.user.id})
-
-const mapDispatchToProps = dispatch => ({
-  putPlace: payload => dispatch(putPlace(payload))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(PlaceForm)
-)
+export default withStyles(styles)(PlaceForm)

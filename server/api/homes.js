@@ -1,12 +1,12 @@
 const router = require('express').Router()
-const {Home, HomePlace} = require('../db/models')
+const {Home} = require('../db/models')
 module.exports = router
 
 // POST homes
 router.post('/', async (req, res, next) => {
-  const {locationId} = req.body
+  const {imgUrl, locationId} = req.body
   try {
-    const home = await Home.create({locationId})
+    const home = await Home.create({imgUrl, locationId})
     res.json(home)
   } catch (err) {
     next(err)
