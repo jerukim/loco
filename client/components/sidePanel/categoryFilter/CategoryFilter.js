@@ -1,6 +1,10 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
-import {fetchFilterCategories, fetchSelectedCategories} from '../../../store'
+import {
+  fetchFilterCategories,
+  fetchSelectedCategories,
+  addNewwSelectedFilter
+} from '../../../store'
 import FilterDropDown from './FilterDropDown'
 import SelectedCategories from './SelectedCategories'
 
@@ -16,20 +20,23 @@ class CategoryFilter extends React.Component {
     anchorEl: null
   }
 
+  // ACTION HANDLERS
   handleClick = event => {
-    console.log("EVENT: ", event)
     this.setState({anchorEl: event.currentTarget})
   }
 
-  handleClose = () => {
+  handleClose = (event, category) => {
+    console.log("CATEGOTY ON CF HANDLER: ", category)
     this.setState({anchorEl: null})
+    if (category !== "backdropClick") {
+      this.props.addFilter(category)
+    }
   }
 
   render() {
     const {anchorEl} = this.state
     const availableCategories = this.props.filterCategories
     const selectedCategories = this.props.selectedCategories
-    console.log('THIS PROPS IN CATEGLORY FILTER: ', this.props)
 
     // FILTER DROP-DOWN (LOADING/ERROR)
     if (this.props.filterCategoriesErrored) {
@@ -55,6 +62,7 @@ class CategoryFilter extends React.Component {
         <div>
           <FilterDropDown
             availableCategories={availableCategories}
+            selectedCategories={selectedCategories}
             anchorEl={anchorEl}
             handleClick={this.handleClick}
             handleClose={this.handleClose}
@@ -69,14 +77,22 @@ class CategoryFilter extends React.Component {
 }
 
 const mapStateToProps = state => {
+  const {
+    selectedCategoriesErrored,
+    selectedCategoriesFetching,
+    selectedCategories,
+    filterCategoriesErrored,
+    filterCategoriesFetching,
+    filterCategories
+  } = state.categories
   return {
     userId: state.user.id,
-    selectedCategoriesErrored: state.categories.selectedCategoriesErrored,
-    selectedCategoriesFetching: state.categories.selectedCategoriesFetching,
-    selectedCategories: state.categories.selectedCategories,
-    filterCategoriesErrored: state.categories.filterCategoriesErrored,
-    filterCategoriesFetching: state.categories.filterCategoriesFetching,
-    filterCategories: state.categories.filterCategories
+    selectedCategoriesErrored,
+    selectedCategoriesFetching,
+    selectedCategories,
+    filterCategoriesErrored,
+    filterCategoriesFetching,
+    filterCategories
   }
 }
 
@@ -84,7 +100,8 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchSelectedCategories: userId =>
       dispatch(fetchSelectedCategories(userId)),
-    fetchFilterCategories: () => dispatch(fetchFilterCategories())
+    fetchFilterCategories: () => dispatch(fetchFilterCategories()),
+    addFilter: category => dispatch(addNewwSelectedFilter(category))
   }
 }
 

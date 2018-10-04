@@ -8,6 +8,7 @@ const FETCH_FILTER_CATEGORIES_ERROR = 'FETCH_FILTER_CATEGORIES_ERROR'
 const FETCH_SELECTED_CATEGORIES_REQUEST = 'FETCH_SELECTED_CATEGORIES_REQUEST'
 const FETCH_SELECTED_CATEGORIES_SUCCESS = 'FETCH_SELECTED_CATEGORIES_SUCCESS'
 const FETCH_SELECTED_CATEGORIES_ERROR = 'FETCH_SELECTED_CATEGORIES_ERROR'
+const ADD_NEW_SELECTED_FILTER = 'ADD_NEW_SELECTED_FILTER'
 
 // ACTION CREATORS
 
@@ -30,6 +31,11 @@ const fetchSelectedCategoriesSuccess = selectedCategories => ({
 })
 const fetchSelectedCategoriesError = () => ({
   type: FETCH_SELECTED_CATEGORIES_ERROR
+})
+
+export const addNewwSelectedFilter = category => ({
+  type: ADD_NEW_SELECTED_FILTER,
+  category
 })
 
 // THUNK CREATORS
@@ -98,6 +104,12 @@ export default function(state = initialState, action) {
         ...state,
         selectedCategoriesFetching: false,
         selectedCategories: action.payload
+      }
+    case ADD_NEW_SELECTED_FILTER:
+    console.log("REDUCER ACTION.CATEGORY", action.category)
+      return {
+        ...state,
+        selectedCategories: [...state.selectedCategories, action.category]
       }
     default:
       return state
