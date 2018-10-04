@@ -13,6 +13,7 @@ export {
 export {
   default as CategoryFilter
 } from './sidePanel/categoryFilter/CategoryFilter'
+export {default as Categories} from './sidePanel/categoryFilter/Categories'
 export {default as Map} from './map/Map'
 export {default as Welcome} from './welcome/Welcome'
 export {default as RankingTabs} from './rankingTabs/RankingTabs'

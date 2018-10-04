@@ -28,7 +28,7 @@ const styles = theme => ({
 
 const PlaceInfo = props => {
   const {classes, places, homeId, homePlaces} = props
-  return (
+  return homePlaces[homeId] ? (
     <div className={classes.root}>
       {places.map(place => {
         const info = homePlaces[homeId][place.id]
@@ -55,6 +55,8 @@ const PlaceInfo = props => {
         )
       })}
     </div>
+  ) : (
+    <div />
   )
 }
 

@@ -77,7 +77,16 @@ router.get('/:userId/places', async (req, res, next) => {
   try {
     const places = await User.findOne({
       where: {id: userId},
-      include: [{model: Place}]
+      include: [
+        {
+          model: Place,
+          include: [
+            {
+              model: Location
+            }
+          ]
+        }
+      ]
     })
     res.status(200).json(places)
   } catch (err) {
@@ -89,7 +98,7 @@ router.get('/:userId/places', async (req, res, next) => {
 router.post('/places', async (req, res, next) => {
   const {userId, placeId} = req.body
   try {
-    await UserPlace.create({userId, placeId})
+    await Priority.create({userId, placeId})
     res.status(201).end()
   } catch (err) {
     next(err)
