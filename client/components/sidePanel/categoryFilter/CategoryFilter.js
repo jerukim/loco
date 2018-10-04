@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {
   fetchFilterCategories,
   fetchSelectedCategories,
-  addNewwSelectedFilter
+  addNewSelectedFilter
 } from '../../../store'
 import FilterDropDown from './FilterDropDown'
 import SelectedCategories from './SelectedCategories'
@@ -28,7 +28,13 @@ class CategoryFilter extends React.Component {
   handleMenuClose = (event, category) => {
     this.setState({anchorEl: null})
     if (category !== 'backdropClick') {
-      this.props.addFilter(category)
+      const {type, id, priority} = category
+      const payload = {
+        label: type,
+        categoryId: id,
+        priority
+      }
+      this.props.addFilter(payload)
     }
   }
 
@@ -36,8 +42,6 @@ class CategoryFilter extends React.Component {
     const {anchorEl} = this.state
     const availableCategories = this.props.filterCategories
     const selectedCategories = this.props.selectedCategories
-    //  console.log('AVAILABLE CATEGORIES: ', availableCategories)
-    //  console.log('SELECTED CATEGORIES: ', selectedCategories)
 
     // FILTER DROP-DOWN (LOADING/ERROR)
     if (this.props.filterCategoriesErrored) {
@@ -102,7 +106,7 @@ const mapDispatchToProps = dispatch => {
     fetchSelectedCategories: userId =>
       dispatch(fetchSelectedCategories(userId)),
     fetchFilterCategories: () => dispatch(fetchFilterCategories()),
-    addFilter: category => dispatch(addNewwSelectedFilter(category))
+    addFilter: payload => dispatch(addNewSelectedFilter(payload))
   }
 }
 

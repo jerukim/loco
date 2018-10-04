@@ -22,25 +22,37 @@ function handleChipDelete(chipId) {
   // update style to push other filters up
 }
 
-function handleChipClick() {
-  alert('You clicked the Chip.')
+function handleChipClick(chipId) {
+  console.log('I WILL SHOW YOU THE PINS IN THE MAP for:', chipId)
 }
 
 const CategoryChips = props => {
   // console.log('PROPS IN CHIPS: ', props)
 
-  const {classes} = props
+  const {classes, placeId} = props
+
   return (
     <div className={classes.root}>
-      <Chip
-        avatar={<Avatar>{props.priority}</Avatar>}
-        label={props.label}
-        onClick={handleChipClick}
-        onDelete={() => handleChipDelete(props.chipId)}
-        className={classes.chip}
-        color="primary"
-        variant="outlined"
-      />
+      {placeId ? (
+        <Chip
+          avatar={<Avatar>{props.priority}</Avatar>}
+          label={props.label}
+          onClick={() => handleChipClick(props.chipId)}
+          className={classes.chip}
+          color="primary"
+          variant="outlined"
+        />
+      ) : (
+        <Chip
+          avatar={<Avatar>{props.priority}</Avatar>}
+          label={props.label}
+          onClick={() => handleChipClick(props.chipId)}
+          onDelete={() => handleChipDelete(props.chipId)}
+          className={classes.chip}
+          color="primary"
+          variant="outlined"
+        />
+      )}
     </div>
   )
 }
