@@ -1,25 +1,26 @@
 import React from 'react'
-import {AddressBook, SelectedCategories, CategoryFilter} from '../../components'
-import {Link} from 'react-router-dom'
-import Button from '@material-ui/core/Button'
+import {AddressBook, Categories} from '../../components'
+import AppBar from '@material-ui/core/AppBar'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
 
 class ScreensSidePanel extends React.Component {
   constructor() {
     super()
     this.state = {
-      addressBook: true
+      value: 0
     }
-    this.handleClick = this.handleClick.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  handleClick() {
-    this.setState({addressBook: !this.state.addressBook})
+  handleChange = (event, value) => {
+    this.setState({value})
   }
 
   render() {
+    const {value} = this.state
     return (
       <div id="side-panel">
-<<<<<<< HEAD
         <AppBar position="static">
           <Tabs value={value} onChange={this.handleChange}>
             <Tab label="Address Book" />
@@ -29,30 +30,6 @@ class ScreensSidePanel extends React.Component {
 
         {value === 0 && <AddressBook />}
         {value === 1 && <Categories />}
-=======
-        <div>
-          <Button to="/addressBook" onClick={this.handleClick}>
-            Address Book
-          </Button>
-          <Button to="/categoryFilter" onClick={this.handleClick}>
-            Category Filter
-          </Button>
-        </div>
-        {this.state.addressBook ? (
-          <div>
-            <AddressBook />
-          </div>
-        ) : (
-          <div>
-            <div>
-              <CategoryFilter />
-            </div>
-            <div>
-              <SelectedCategories />
-            </div>
-          </div>
-        )}
->>>>>>> master
       </div>
     )
   }
