@@ -1,15 +1,8 @@
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
 import {connect} from 'react-redux'
 import {fetchHomes, fetchPlaces} from '../../../store'
 import AddressCard from './AddressCard'
 import {sort} from '../../../utilities'
-
-const Placeholder = props => {
-  return (
-    <Typography component="p" children={props}></Typography>
-  )
-}
 
 class List extends React.Component {
   componentDidMount() {
@@ -23,27 +16,26 @@ class List extends React.Component {
   }
 
   render() {
-    const {list, name} = this.props
+    const {userId, list, name, children} = this.props
 
-    return (
-      {}
+    return !userId || !list ? (
+      children
+    ) : (
       <div>
-        this.props.userId && (
-          <ul className="list">
-            {sort(list).map(item => {
-              return (
-                <li className="li-item" key={item.id}>
-                  {name === 'homes' ? (
-                    <AddressCard home={item} />
-                  ) : (
-                    <AddressCard place={item} />
-                  )}
-                </li>
-              )
-            })}
-          </ul>
+        <ul className="list">
+          {sort(list).map(item => {
+            return (
+              <li className="li-item" key={item.id}>
+                {name === 'homes' ? (
+                  <AddressCard home={item} />
+                ) : (
+                  <AddressCard place={item} />
+                )}
+              </li>
+            )
+          })}
+        </ul>
       </div>
-      )
     )
   }
 }

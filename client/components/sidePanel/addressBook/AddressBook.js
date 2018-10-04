@@ -37,7 +37,7 @@ class AddressBook extends React.Component {
 
   render() {
     const {value} = this.state
-    const {classes, homes, places, userId} = this.props
+    const {classes, homes, places} = this.props
     const type = value === 0 ? 'Home' : 'Place'
     return (
       <div>
@@ -62,19 +62,20 @@ class AddressBook extends React.Component {
             loadingElement={<div style={{height: `100%`}} />}
             type={type}
           />
-          {userId && (homes || places) && <List />}
           {value === 0 &&
-            !homes && (
-              <div>
+            homes && (
+              <HomesList>
                 <p>Add addresses</p>
-              </div>
+              </HomesList>
             )}
           {value === 1 &&
-            !places && (
-              <div>
-                <p>Bookmark important locations</p>
-                <small>e.g. work, Mom's house, pet hospital</small>
-              </div>
+            places && (
+              <PlacesList>
+                <div>
+                  <p>Bookmark important locations</p>
+                  <small>e.g. work, Mom's house, pet hospital</small>
+                </div>
+              </PlacesList>
             )}
         </div>
       </div>
