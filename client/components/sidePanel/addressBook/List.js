@@ -40,7 +40,6 @@ class List extends React.Component {
   }
 }
 
-<<<<<<< HEAD
 const mapHomes = state => ({
   userId: state.user.id,
   list: state.homes,
@@ -53,9 +52,6 @@ const mapPlaces = state => ({
   list: state.places,
   name: 'places'
 })
-=======
-const mapStateToProps = state => ({userId: state.user.id, homes: state.homes})
->>>>>>> master
 
 const mapHomesDispatch = dispatch => {
   return {
