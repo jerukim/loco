@@ -21,7 +21,6 @@ class CategoryFilter extends Component {
   handleClose = () => {
     this.setState({anchorEl: null})
   }
-  
 
   render() {
     const {anchorEl} = this.state
@@ -57,7 +56,6 @@ class CategoryFilter extends Component {
               </MenuItem>
             ))}
         </Menu>
-
       </div>
     )
   }

@@ -5,7 +5,9 @@ module.exports = router
 router.post('/', async (req, res, next) => {
   try {
     const {address, lat, lng} = req.body
-    const location = await Location.create({address, lat, lng})
+    const [location] = await Location.findOrCreate({
+      where: {address, lat, lng}
+    })
     res.json(location)
   } catch (err) {
     next(err)

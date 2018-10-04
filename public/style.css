@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  margin: 0;
 }
 
 a {
@@ -10,9 +11,37 @@ label {
   display: block;
 }
 
+#nav-bar {
+  height: 0;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
+}
+
+.user-links {
+  display: flex;
+  position: fixed;
+  margin: 5px 13px;
+  right: 0;
+  z-index: 2;
+}
+
+.logo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.5em;
+  width: 3.5em;
+  border-radius: 100px;
+  background-color: rgb(255, 134, 35);
+}
+
+.logo {
+  display: inline-block;
+  color: white;
+  text-align: center;
 }
 
 form div {
@@ -32,13 +61,13 @@ form div {
 }
 
 #map {
-  width: calc(100vw - 250px);
+  width: calc(100vw - 408px);
 }
 
 #side-panel {
   height: 100vh;
-  width: 250px;
-  background: #f8f9f9;
+  width: 408px;
+  background: rgb(252, 252, 252);
 }
 
 #bottom {
@@ -64,7 +93,29 @@ form div {
 .content-wrap {
   width: 100%;
 }
-/* #nav-bar { keep 4 phan?
-  margin-left: 250px;
-  padding: 0px 10px;
-} */
+
+.no-margins {
+  margin: 0px 0px;
+}
+
+.card-title {
+  margin: 0 15px;
+}
+
+.button-wrap {
+  display: flex;
+  width: 100%;
+  justify-content: right;
+}
+
+.side-panel-body {
+  padding: 0 10px;
+}
+
+.addressbook-select {
+  height: 48px;
+  width: 100%;
+  background-color: #5665bb;
+  display: flex;
+  justify-content: space-around;
+}

@@ -30,7 +30,7 @@ class RankingTabs extends React.Component {
     const {classes} = this.props
     const {value} = this.state
     const homes = this.props.homes
-    return (
+    return homes[0] ? (
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Tabs
@@ -46,6 +46,8 @@ class RankingTabs extends React.Component {
         </AppBar>
         <HomeTab homeId={dummyRank[value]} />
       </div>
+    ) : (
+      <div />
     )
   }
 }

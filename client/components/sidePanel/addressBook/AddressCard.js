@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {withStyles} from '@material-ui/core/styles'
 import classnames from 'classnames'
@@ -13,11 +14,11 @@ import HomeDetail from './home/HomeDetail'
 import HomeForm from './home/HomeForm'
 import PlaceDetail from './place/PlaceDetail'
 import PlaceForm from './place/PlaceForm'
+import {deleteHome, deletePlace} from '../../../store'
 
 const styles = theme => ({
   card: {
-    maxWidth: 400,
-    paddingBottom: '0px'
+    width: '388px'
   },
   title: {
     fontSize: '8px'
@@ -44,12 +45,6 @@ const styles = theme => ({
   },
   expandOpen: {
     transform: 'rotate(180deg)'
-  },
-  content: {
-    paddingTop: '0px',
-    paddingBottom: '0px',
-    display: 'flex',
-    flexWrap: 'wrap'
   }
 })
 
@@ -60,15 +55,29 @@ class AddressCard extends React.Component {
     this.setState(state => ({expanded: !state.expanded}))
   }
 
+  handleDelete = () => {
+    const {userId} = this.props
+    if (this.props.home) {
+      const {id: homeId} = this.props.home
+      this.props.deleteHome({userId, homeId})
+    } else {
+      const {id: placeId} = this.props.place
+      this.props.deletePlace({userId, placeId})
+    }
+  }
+
   render() {
     const {classes, home, place} = this.props
 
     return (
-      <Card>
-        <CardContent className={classes.card}>
+      <Card className={classes.card}>
+        <CardContent>
           <CardHeader
             action={
-              <IconButton className={classes.cancel}>
+              <IconButton
+                className={classes.cancel}
+                onClick={this.handleDelete}
+              >
                 <Clear />
               </IconButton>
             }
@@ -76,6 +85,8 @@ class AddressCard extends React.Component {
           />
           {home && <HomeDetail home={home} />}
           {place && <PlaceDetail place={place} />}
+        </CardContent>
+        <div className="button-wrap">
           <IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded
@@ -83,12 +94,14 @@ class AddressCard extends React.Component {
             onClick={this.handleExpandClick}
             aria-expanded={this.state.expanded}
             aria-label="Show more"
+            style={{marginRight: '5px', marginBottom: '10px'}}
           >
             <ExpandMoreIcon />
           </IconButton>
-        </CardContent>
+        </div>
+
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-          <CardContent className={classes.content}>
+          <CardContent>
             {home && <HomeForm home={home} />}
             {place && <PlaceForm place={place} />}
           </CardContent>
@@ -102,4 +115,13 @@ AddressCard.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(AddressCard)
+const mapStateToProps = state => ({userId: state.user.id})
+
+const mapDispatchToProps = dispatch => ({
+  deleteHome: payload => dispatch(deleteHome(payload)),
+  deletePlace: payload => dispatch(deletePlace(payload))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(AddressCard)
+)
