@@ -11,11 +11,12 @@ export const renderFuncSearch = type => ({
 }) => {
   const text = type === 'Home' ? 'Search Homes...' : 'Search Places...'
   return (
-    <div>
+    <div className="content-wrap">
       <Input
         {...getInputProps({
           placeholder: text,
-          className: 'location-search-input'
+          className: 'location-search-input',
+          style: {width: '100%', fontSize: '20px'}
         })}
       />
 

@@ -115,12 +115,18 @@ form div {
 }
 
 .addressbook-select {
-  height: 48px;
-  width: 100%;
-  background-color: #5665bb;
+  background-color: #8592d6;
   display: flex;
   justify-content: space-around;
+  flex-flow: column;
 }
 .menu {
   width: 44%;
+}
+
+.search-wrap {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  margin: 20px 0 20px 0;
 }

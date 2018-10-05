@@ -29,7 +29,9 @@ class Welcome extends React.Component {
     const {city, state} = this.state
     return (
       <div>
-        <h1>Welcome, select your start location to begin:</h1>
+        <h1>Welcome to Loco</h1>
+        <h2>Make you move</h2>
+        <p>Enter the city of your next big move!</p>
         <form>
           <Input
             name="city"

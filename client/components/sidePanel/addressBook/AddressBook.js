@@ -20,6 +20,10 @@ const styles = theme => ({
     borderRadius: '100px',
     backgroundColor: 'white',
     margin: '0 62px'
+  },
+  vertical: {
+    flexFlow: 'column',
+    backgroundColor: '#5665bb'
   }
 })
 
@@ -46,14 +50,28 @@ class AddressBook extends React.Component {
     return (
       <div>
         <div className="addressbook-select">
-          <AppBar position="static" style={{backgroundColor: '#5665bb'}}>
+          <AppBar position="static">
             <Tabs
               value={value}
-              classes={{indicator: classes.round}}
+              // classes={{
+              //   indicator: classes.round,
+              //   wrapper: {flexFlow: 'column'}
+              // }}
+              className={classes.vertical}
               onChange={this.handleChange}
             >
-              <Tab disableRipple icon={<HomeIcon />} />
-              <Tab disableRipple icon={<StarIcon />} />
+              <Tab
+                disableRipple
+                label="Homes"
+                className={classes.vertical}
+                icon={<HomeIcon />}
+              />
+              <Tab
+                disableRipple
+                label="Saved Places"
+                className={classes.vertical}
+                icon={<StarIcon />}
+              />
             </Tabs>
           </AppBar>
         </div>

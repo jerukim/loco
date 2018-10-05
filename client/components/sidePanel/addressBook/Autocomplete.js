@@ -4,9 +4,21 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from 'react-places-autocomplete'
+import {withStyles} from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import AddIcon from '@material-ui/icons/Add'
 import {postHome, postPlace} from '../../../store'
 import {withScriptjs} from 'react-google-maps'
 import {renderFuncSearch} from '../../../utilities'
+
+const styles = theme => ({
+  button: {
+    width: '20px',
+    height: '20px',
+    minHeight: '38px',
+    minWidth: '38px'
+  }
+})
 
 class Autocomplete extends React.Component {
   constructor(props) {
@@ -24,7 +36,8 @@ class Autocomplete extends React.Component {
     this.setState({address})
   }
 
-  handleSelect = async address => {
+  handleClick = async event => {
+    const {address} = this.state
     const {userId, type, homes} = this.props
     const homesIdList = homes.map(home => home.id)
     const name = type === 'Place' ? address.split(',')[0] : ''
@@ -45,15 +58,33 @@ class Autocomplete extends React.Component {
     }
   }
 
+  handleSelect = address => {
+    this.setState({address})
+  }
+
   render() {
+    const {classes} = this.props
     return (
-      <PlacesAutocomplete
-        value={this.state.address}
-        onChange={this.handleChange}
-        onSelect={this.handleSelect}
-      >
-        {renderFuncSearch(this.props.type)}
-      </PlacesAutocomplete>
+      <div className="search-wrap">
+        <PlacesAutocomplete
+          value={this.state.address}
+          onChange={this.handleChange}
+          onSelect={this.handleSelect}
+          style={{width: '100%'}}
+        >
+          {renderFuncSearch(this.props.type)}
+        </PlacesAutocomplete>
+        <Button
+          variant="fab"
+          color="primary"
+          aria-label="Add"
+          size="small"
+          className={classes.button}
+          onClick={this.handleClick}
+        >
+          <AddIcon />
+        </Button>
+      </div>
     )
   }
 }
@@ -66,5 +97,5 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  withScriptjs(Autocomplete)
+  withScriptjs(withStyles(styles)(Autocomplete))
 )

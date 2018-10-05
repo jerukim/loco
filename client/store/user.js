@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {fetchHomes, fetchPlaces} from './index'
 
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
@@ -11,6 +12,7 @@ const removeUser = () => ({type: REMOVE_USER})
 
 export const me = () => async dispatch => {
   try {
+    console.log('initial data')
     const res = await axios.get('/auth/me')
     dispatch(getUser(res.data || defaultUser))
   } catch (err) {
@@ -22,6 +24,11 @@ export const auth = (email, password, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
+    if (res.data.id) {
+      dispatch(getUser(res.data || defaultUser))
+      await dispatch(fetchPlaces(res.data.id))
+      dispatch(fetchHomes(res.data.id))
+    }
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
