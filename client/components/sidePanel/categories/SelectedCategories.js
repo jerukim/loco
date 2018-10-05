@@ -30,7 +30,7 @@ class SelectedCategories extends React.Component {
     return (
       <div>
         <Typography variant="subheading">Priority List</Typography>
-        <Droppable droppableId="selected">
+        <Droppable droppableId="droppable-1">
           {(provided, snapshot) => (
             <ul
               className="list selected-categories"
