@@ -119,13 +119,10 @@ form div {
 }
 
 .addressbook-select {
-  position: absolute;
+  background-color: #f0336c;
   display: flex;
   justify-content: space-around;
   flex-flow: column;
-  height: 100px;
-  transform: translate(282%, -118%);
-  z-index: 1;
 }
 .menu {
   width: 44%;
