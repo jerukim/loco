@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Draggable} from 'react-beautiful-dnd'
 import {removeSelectedFilter} from '../../../store'
 import PropTypes from 'prop-types'
 import {withStyles} from '@material-ui/core/styles'
@@ -13,7 +14,15 @@ const styles = theme => ({
     flexWrap: 'wrap'
   },
   chip: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    width: '250px',
+    display: 'flex',
+    position: 'relative',
+    backgroundColor: 'white'
+  },
+  left: {
+    position: 'absolute',
+    left: 0
   }
 })
 
@@ -30,7 +39,7 @@ const CategoryChips = props => {
     <div className={classes.root}>
       {placeId ? (
         <Chip
-          avatar={<Avatar>{priority}</Avatar>}
+          avatar={<Avatar className={classes.left}>{priority}</Avatar>}
           label={label}
           className={classes.chip}
           color="primary"
@@ -38,7 +47,7 @@ const CategoryChips = props => {
         />
       ) : (
         <Chip
-          avatar={<Avatar>{priority}</Avatar>}
+          avatar={<Avatar className={classes.left}>{priority}</Avatar>}
           label={label}
           onDelete={() => handleChipDelete(chipId)}
           className={classes.chip}
@@ -57,7 +66,6 @@ CategoryChips.propTypes = {
 const mapStateToProps = state => {
   const {selectedCategories} = state.selectedCategories
   return {
-    //userId: state.user.id,
     selectedCategories
   }
 }
