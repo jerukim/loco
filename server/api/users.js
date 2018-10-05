@@ -1,5 +1,12 @@
 const router = require('express').Router()
-const {Home, Location, User, UserHome, Place} = require('../db/models')
+const {
+  Home,
+  Location,
+  User,
+  UserHome,
+  Place,
+  Priority
+} = require('../db/models')
 
 const Sequelize = require('sequelize')
 const pkg = require('../../package.json')
