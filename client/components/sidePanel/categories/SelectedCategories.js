@@ -13,9 +13,10 @@ class SelectedCategories extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    // console.log('this.props.userId', this.props.userId)
-    // console.log('nextProps', nextProps.userId)
-    return this.props.userId && !nextProps.userId
+    return (
+      (this.props.userId && !nextProps.userId) ||
+      (!this.props.userId && nextProps.userId)
+    )
   }
 
   render() {
