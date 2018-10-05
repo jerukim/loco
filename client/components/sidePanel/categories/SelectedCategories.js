@@ -12,6 +12,12 @@ class SelectedCategories extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    // console.log('this.props.userId', this.props.userId)
+    // console.log('nextProps', nextProps.userId)
+    return this.props.userId && !nextProps.userId
+  }
+
   render() {
     const {
       selectedCategories,
@@ -39,6 +45,7 @@ class SelectedCategories extends React.Component {
             >
               {provided.placeholder}
               {selectedCategories &&
+                this.props.userId &&
                 selectedCategories.map((category, index) => {
                   return (
                     <Draggable

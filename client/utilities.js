@@ -9,7 +9,7 @@ export const renderFuncSearch = type => ({
   getSuggestionItemProps,
   loading
 }) => {
-  const text = type === 'Home' ? 'Search Homes...' : 'Search Places...'
+  const text = type === 'Home' ? 'Add Homes...' : 'Add Places...'
   return (
     <div className="content-wrap">
       <Input
