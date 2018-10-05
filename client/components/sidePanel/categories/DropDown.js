@@ -4,6 +4,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import AddIcon from '@material-ui/icons/Add'
 import {connect} from 'react-redux'
+import {postCategory} from '../../../store'
 
 const DropDown = props => {
   const {
@@ -61,4 +62,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(DropDown)
+const mapDispatchToProps = dispatch => ({
+  postCategory: payload => dispatch(postCategory(payload))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DropDown)

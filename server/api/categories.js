@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Category} = require('../db/models')
+const {Category, Priority} = require('../db/models')
 // Neded for RAW query
 const Sequelize = require('sequelize')
 const pkg = require('../../package.json')
@@ -39,6 +39,29 @@ router.get('/:userId', async (req, res, next) => {
       {replacements: {userId: userId}, type: Sequelize.QueryTypes.SELECT}
     )
     res.status(200).json(categories)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/:userId', async (req, res, next) => {
+  const {userId} = req.params
+  const {categoryId, priority} = req.body
+  try {
+    await Priority.create({userId, priority, categoryId})
+    res.status(204).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:categoryId/:userId', async (req, res, next) => {
+  const {userId, categoryId} = req.params
+  console.log('categoryId', categoryId)
+  try {
+    const result = await Priority.destroy({where: {userId, categoryId}})
+    console.log('result', result)
+    res.status(202).end()
   } catch (err) {
     next(err)
   }

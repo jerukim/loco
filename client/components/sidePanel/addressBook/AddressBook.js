@@ -49,7 +49,7 @@ class AddressBook extends React.Component {
     return (
       <div>
         <div className="addressbook-select">
-          <AppBar position="static" style={{backgroundColor: '#5665bb'}}>
+          <AppBar position="static" style={{backgroundColor: '#8b8da3'}}>
             <Tabs value={value} onChange={this.handleChange}>
               <Tab disableRipple label="Homes" icon={<HomeIcon />} />
               <Tab disableRipple label="Places" icon={<StarIcon />} />

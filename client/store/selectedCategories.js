@@ -26,11 +26,6 @@ export const addNewSelectedFilter = category => ({
   payload: category
 })
 
-export const removeSelectedFilter = category => ({
-  type: ADD_NEW_SELECTED_FILTER,
-  payload: category
-})
-
 // THUNK CREATORS
 
 export const fetchSelectedCategories = userId => async dispatch => {
@@ -41,6 +36,29 @@ export const fetchSelectedCategories = userId => async dispatch => {
   } catch (error) {
     console.error(error)
     dispatch(fetchSelectedCategoriesError())
+  }
+}
+
+export const postCategory = ({
+  userId,
+  priority,
+  categoryId
+}) => async dispatch => {
+  try {
+    await axios.post(`/api/categories/${userId}`, {priority, categoryId})
+  } catch (err) {
+    console.error('An error occurred while posting a category')
+  }
+}
+
+export const deleteCategory = ({userId, categoryId}) => async dispatch => {
+  try {
+    await axios.delete(`/api/categories/${categoryId}/${userId}`)
+
+    const {data} = await axios.get(`/api/categories/${userId}`)
+    dispatch(fetchSelectedCategoriesSuccess(data))
+  } catch (err) {
+    console.error('An error occurred while deleting a category')
   }
 }
 
