@@ -90,6 +90,10 @@ form div {
   padding: 0;
 }
 
+.li-item {
+  margin-bottom: 10px;
+}
+
 .content-wrap {
   width: 100%;
 }
@@ -115,10 +119,13 @@ form div {
 }
 
 .addressbook-select {
-  background-color: #8592d6;
+  position: absolute;
   display: flex;
   justify-content: space-around;
   flex-flow: column;
+  height: 100px;
+  transform: translate(282%, -118%);
+  z-index: 1;
 }
 .menu {
   width: 44%;

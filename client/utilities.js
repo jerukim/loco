@@ -60,7 +60,7 @@ export const renderFuncEdit = ({
           style: {marginBottom: '8px'}
         })
       }}
-      label="Place"
+      label="Address"
       style={{width: '100%'}}
       className="text-field"
     />

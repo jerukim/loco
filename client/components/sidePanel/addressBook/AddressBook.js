@@ -6,6 +6,7 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import HomeIcon from '@material-ui/icons/Home'
 import StarIcon from '@material-ui/icons/Star'
+import Button from '@material-ui/core/Button'
 import Autocomplete from './Autocomplete'
 import {HomesList, PlacesList} from './List'
 import '../../../../secrets'
@@ -24,6 +25,20 @@ const styles = theme => ({
   vertical: {
     flexFlow: 'column',
     backgroundColor: '#5665bb'
+  },
+  home: {
+    left: '-9px',
+    fontSize: '12px',
+    justifyContent: 'left',
+    width: '67%'
+  },
+  star: {
+    left: '-9px',
+    fontSize: '12px',
+    justifyContent: 'left'
+  },
+  label: {
+    textTransform: 'capitalize'
   }
 })
 
@@ -39,7 +54,7 @@ class AddressBook extends React.Component {
     return nextProps.userId !== this.props.userId || nextState !== this.state
   }
 
-  handleChange = (event, value) => {
+  handleClick = (event, value) => {
     this.setState({value})
   }
 
@@ -48,9 +63,73 @@ class AddressBook extends React.Component {
     const {classes, homes, places} = this.props
     const type = value === 0 ? 'Home' : 'Place'
     return (
-      <div>
+      <div className="addressbook-display side-panel-body">
+        <Autocomplete
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${
+            process.env.GOOGLE_API_KEY
+          }&libraries=places`}
+          loadingElement={<div style={{height: `100%`}} />}
+          type={type}
+        />
+
         <div className="addressbook-select">
-          <AppBar position="static">
+          <Button
+            variant="contained"
+            classes={{
+              label: classes.label
+            }}
+            className={classes.home}
+            onClick={event => this.handleClick(event, 0)}
+            value={0}
+          >
+            <HomeIcon className={classes.rightIcon} />
+            Homes
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.star}
+            classes={{
+              label: classes.label
+            }}
+            onClick={event => this.handleClick(event, 1)}
+            value={1}
+          >
+            <StarIcon className={classes.rightIcon} />
+            Saved Locations
+          </Button>
+        </div>
+
+        {value === 0 &&
+          homes && (
+            <HomesList>
+              <p>Add addresses</p>
+            </HomesList>
+          )}
+        {value === 1 &&
+          places && (
+            <PlacesList>
+              <div>
+                <p>Bookmark important locations</p>
+                <small>e.g. work, Mom's house, pet hospital</small>
+              </div>
+            </PlacesList>
+          )}
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = state => ({
+  userId: state.user.id,
+  homes: state.homes,
+  places: state.places
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(AddressBook))
+
+{
+  /* <AppBar position="static">
             <Tabs
               value={value}
               // classes={{
@@ -73,42 +152,5 @@ class AddressBook extends React.Component {
                 icon={<StarIcon />}
               />
             </Tabs>
-          </AppBar>
-        </div>
-
-        <div className="addressbook-display side-panel-body">
-          <Autocomplete
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${
-              process.env.GOOGLE_API_KEY
-            }&libraries=places`}
-            loadingElement={<div style={{height: `100%`}} />}
-            type={type}
-          />
-          {value === 0 &&
-            homes && (
-              <HomesList>
-                <p>Add addresses</p>
-              </HomesList>
-            )}
-          {value === 1 &&
-            places && (
-              <PlacesList>
-                <div>
-                  <p>Bookmark important locations</p>
-                  <small>e.g. work, Mom's house, pet hospital</small>
-                </div>
-              </PlacesList>
-            )}
-        </div>
-      </div>
-    )
-  }
+          </AppBar> */
 }
-
-const mapStateToProps = state => ({
-  userId: state.user.id,
-  homes: state.homes,
-  places: state.places
-})
-
-export default connect(mapStateToProps)(withStyles(styles)(AddressBook))

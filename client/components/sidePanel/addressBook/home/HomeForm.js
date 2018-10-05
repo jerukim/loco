@@ -125,7 +125,8 @@ class HomeForm extends React.Component {
           onChange={this.handleChange('price')}
         /> */}
         <TextField
-          label="Link"
+          label="URL"
+          helperText="Add a hyperlink to find more info about this home"
           value={link}
           className={classes.textField}
           InputProps={{className: classes.input}}
