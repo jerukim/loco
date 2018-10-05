@@ -17,7 +17,7 @@ function CompareButton(props) {
   return (
     <div>
       <Button variant="outlined" color="primary" className={classes.button}>
-        COMPARE PROPERTIES
+        Compare My Homes
       </Button>
     </div>
   )

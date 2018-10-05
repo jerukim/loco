@@ -3,8 +3,6 @@ import CategoryChips from './CategoryChips'
 import CompareButton from './CompareButton'
 
 const SelectedCategories = props => {
-  console.log('SELECTED CATEGORIES PROPS: ', props)
-
   const {selectedCategories} = props
 
   return (

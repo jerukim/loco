@@ -23,11 +23,6 @@ function handleChipDelete(chipId) {
   // update - push other filters up
 }
 
-function handleChipClick(chipId) {
-  console.log('I WILL SHOW YOU THE PINS IN THE MAP for:', chipId)
-  // will conditionakly show pins or not
-}
-
 const CategoryChips = props => {
   const {classes, placeId, chipId, priority, label} = props
 
@@ -37,7 +32,6 @@ const CategoryChips = props => {
         <Chip
           avatar={<Avatar>{priority}</Avatar>}
           label={label}
-          onClick={() => handleChipClick(chipId)}
           className={classes.chip}
           color="primary"
           variant="outlined"
@@ -46,7 +40,6 @@ const CategoryChips = props => {
         <Chip
           avatar={<Avatar>{priority}</Avatar>}
           label={label}
-          onClick={() => handleChipClick(chipId)}
           onDelete={() => handleChipDelete(chipId)}
           className={classes.chip}
           color="primary"
