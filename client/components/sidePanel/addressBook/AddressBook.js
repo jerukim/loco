@@ -20,6 +20,9 @@ const styles = theme => ({
     borderRadius: '100px',
     backgroundColor: 'white',
     margin: '0 62px'
+  },
+  label: {
+    textTransform: 'capitalize'
   }
 })
 
@@ -46,14 +49,10 @@ class AddressBook extends React.Component {
     return (
       <div>
         <div className="addressbook-select">
-          <AppBar position="static" style={{backgroundColor: '#5665bb'}}>
-            <Tabs
-              value={value}
-              classes={{indicator: classes.round}}
-              onChange={this.handleChange}
-            >
-              <Tab disableRipple icon={<HomeIcon />} />
-              <Tab disableRipple icon={<StarIcon />} />
+          <AppBar position="static" style={{backgroundColor: '#8b8da3'}}>
+            <Tabs value={value} onChange={this.handleChange}>
+              <Tab disableRipple label="Homes" icon={<HomeIcon />} />
+              <Tab disableRipple label="Places" icon={<StarIcon />} />
             </Tabs>
           </AppBar>
         </div>

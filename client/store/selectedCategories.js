@@ -13,7 +13,7 @@ const REMOVE_SELECTED_FILTER = 'REMOVE_SELECTED_FILTER'
 const fetchSelectedCategoriesRequest = () => ({
   type: FETCH_SELECTED_CATEGORIES_REQUEST
 })
-const fetchSelectedCategoriesSuccess = selectedCategories => ({
+export const fetchSelectedCategoriesSuccess = selectedCategories => ({
   type: FETCH_SELECTED_CATEGORIES_SUCCESS,
   payload: selectedCategories
 })
@@ -22,11 +22,6 @@ const fetchSelectedCategoriesError = () => ({
 })
 
 export const addNewSelectedFilter = category => ({
-  type: ADD_NEW_SELECTED_FILTER,
-  payload: category
-})
-
-export const removeSelectedFilter = category => ({
   type: ADD_NEW_SELECTED_FILTER,
   payload: category
 })
@@ -41,6 +36,45 @@ export const fetchSelectedCategories = userId => async dispatch => {
   } catch (error) {
     console.error(error)
     dispatch(fetchSelectedCategoriesError())
+  }
+}
+
+export const postCategory = ({
+  userId,
+  priority,
+  categoryId
+}) => async dispatch => {
+  try {
+    await axios.post(`/api/categories/${userId}`, {priority, categoryId})
+  } catch (err) {
+    console.error('An error occurred while posting a category')
+  }
+}
+
+export const deleteCategory = ({userId, categoryId, priority}) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    const {selectedCategories: {selectedCategories}} = getState()
+    const newList = selectedCategories.reduce((result, item) => {
+      if (item.priority < priority) {
+        result.push(item)
+        return result
+      } else if (item.priority > priority) {
+        result.push({...item, priority: item.priority - 1})
+        return result
+      } else {
+        return result
+      }
+    }, [])
+    await axios.delete(
+      `/api/categories/${categoryId}/priority/${priority}/${userId}`
+    )
+
+    dispatch(fetchSelectedCategoriesSuccess(newList))
+  } catch (err) {
+    console.error('An error occurred while deleting a category')
   }
 }
 

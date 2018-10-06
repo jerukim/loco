@@ -1,5 +1,12 @@
 const router = require('express').Router()
-const {Home, Location, User, UserHome, Place} = require('../db/models')
+const {
+  Home,
+  Location,
+  User,
+  UserHome,
+  Place,
+  Priority
+} = require('../db/models')
 
 const Sequelize = require('sequelize')
 const pkg = require('../../package.json')
@@ -99,7 +106,6 @@ router.post('/places', async (req, res, next) => {
 })
 
 //GET user_categories
-//THIS ROUTE IS STILL A WORK IN PROGRESS
 router.get('/:userId/categories', async (req, res, next) => {
   try {
     let {userId} = req.params

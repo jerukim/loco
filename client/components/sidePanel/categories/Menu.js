@@ -1,7 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import DropDown from './DropDown'
-import {fetchFilterCategories, addNewSelectedFilter} from '../../../store'
+import {
+  fetchFilterCategories,
+  addNewSelectedFilter,
+  postCategory
+} from '../../../store'
 
 class Menu extends React.Component {
   componentDidMount() {
@@ -19,6 +23,7 @@ class Menu extends React.Component {
   handleMenuClose = (event, category) => {
     this.setState({anchorEl: null})
     if (category !== 'backdropClick') {
+      const {userId} = this.props
       const {type, id, priority} = category
       const payload = {
         label: type,
@@ -26,6 +31,7 @@ class Menu extends React.Component {
         priority
       }
       this.props.addFilter(payload)
+      this.props.postCategory({userId, ...payload})
     }
   }
 
@@ -66,6 +72,7 @@ const mapStateToProps = state => {
   } = state.categoryFilter
 
   return {
+    userId: state.user.id,
     filterCategoriesErrored,
     filterCategoriesFetching,
     filterCategories
@@ -75,7 +82,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchFilterCategories: () => dispatch(fetchFilterCategories()),
-    addFilter: payload => dispatch(addNewSelectedFilter(payload))
+    addFilter: payload => dispatch(addNewSelectedFilter(payload)),
+    postCategory: payload => dispatch(postCategory(payload))
   }
 }
 

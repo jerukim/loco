@@ -1,7 +1,8 @@
 const router = require('express').Router()
-const {Category} = require('../db/models')
+const {Category, Priority} = require('../db/models')
 // Neded for RAW query
 const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 const pkg = require('../../package.json')
 const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
 const db = new Sequelize(
@@ -43,3 +44,47 @@ router.get('/:userId', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/:userId', async (req, res, next) => {
+  const {userId} = req.params
+  const {categoryId, priority} = req.body
+  try {
+    await Priority.create({userId, priority, categoryId})
+    res.status(204).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete(
+  '/:categoryId/priority/:priority/:userId',
+  async (req, res, next) => {
+    const {categoryId, priority, userId} = req.params
+    try {
+      const shift = await Priority.findAll({
+        where: {
+          userId: userId,
+          priority: {[Op.gt]: priority}
+        },
+        raw: true
+      })
+      const shifted = shift.map(item => {
+        return {...item, priority: item.priority - 1}
+      })
+
+      for (let i = 0; i < shifted.length; i++) {
+        await Priority.update(
+          {priority: shifted[i].priority},
+          {
+            where: {id: shifted[i].id},
+            returning: true
+          }
+        )
+      }
+      await Priority.destroy({where: {userId, categoryId}})
+      res.status(202).end()
+    } catch (err) {
+      next(err)
+    }
+  }
+)
