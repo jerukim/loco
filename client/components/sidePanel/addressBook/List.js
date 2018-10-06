@@ -5,6 +5,16 @@ import AddressCard from './AddressCard'
 import {sort} from '../../../utilities'
 
 class List extends React.Component {
+  componentDidMount() {
+    if (this.props.userId) {
+      if (this.props.name === 'homes') {
+        this.props.fetchHomes(this.props.userId)
+      } else {
+        this.props.fetchPlaces(this.props.userId)
+      }
+    }
+  }
+
   render() {
     const {userId, list, name, children} = this.props
 
