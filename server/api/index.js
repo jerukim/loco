@@ -6,6 +6,7 @@ router.use('/homes', require('./homes'))
 router.use('/locations', require('./locations'))
 router.use('/places', require('./places'))
 router.use('/users', require('./users'))
+router.use('/google', require('./google'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')
