@@ -2,6 +2,7 @@
 import Input from '@material-ui/core/Input'
 import TextField from '@material-ui/core/TextField'
 import React from 'react'
+import axios from 'axios'
 
 export const renderFuncSearch = type => ({
   getInputProps,
@@ -90,11 +91,14 @@ export const renderFuncEdit = ({
   </div>
 )
 
-export const reorder = (list, startIndex, endIndex) => {
+export const reorderAndShift = (list, startIndex, endIndex) => {
   const result = [...list]
   const [removed] = result.splice(startIndex, 1)
   result.splice(endIndex, 0, removed)
-  return result
+  const shifted = result.map((item, index) => {
+    return {...item, priority: index + 1}
+  })
+  return shifted
 }
 
 export const sort = arr => {
@@ -113,4 +117,14 @@ export const getUnselectedCategories = ({selected, categories}) => {
     return result
   }, [])
   return unselected
+}
+
+export const updateCategoriesInDb = async (event, {selected, userId}) => {
+  if (selected && userId) {
+    try {
+      await axios.put(`/api/categories/${userId}`, {selected})
+    } catch (err) {
+      console.error('An error occured while updating selected categories')
+    }
+  }
 }
