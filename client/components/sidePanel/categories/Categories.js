@@ -8,7 +8,8 @@ import Menu from './Menu'
 const styles = theme => ({
   button: {
     marginTop: theme.spacing.unit,
-    width: '44%'
+    width: '44%',
+    backgroundColor: 'white'
   },
   rightIcon: {
     marginLeft: theme.spacing.unit

@@ -5,6 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import AddIcon from '@material-ui/icons/Add'
 import {connect} from 'react-redux'
 import {postCategory} from '../../../store'
+import {getUnselectedCategories} from '../../../utilities'
 
 const DropDown = props => {
   const {
@@ -15,6 +16,11 @@ const DropDown = props => {
     handleMenuClick
   } = props
 
+  const unselected = getUnselectedCategories({
+    selected: selectedCategories,
+    categories
+  })
+
   return (
     <div className="menu">
       <Button
@@ -24,7 +30,7 @@ const DropDown = props => {
         onClick={handleMenuClick}
         variant="outlined"
         color="primary"
-        style={{marginTop: '8px'}}
+        style={{marginTop: '8px', backgroundColor: 'white'}}
       >
         <AddIcon />
         Select Places Nearby
@@ -36,7 +42,7 @@ const DropDown = props => {
         onClose={handleMenuClose}
       >
         {categories &&
-          categories.map(category => (
+          unselected.map(category => (
             <MenuItem
               key={category.id}
               onClick={e =>
@@ -58,7 +64,8 @@ const mapStateToProps = state => {
   const {selectedCategories} = state.selectedCategories
 
   return {
-    selectedCategories
+    selectedCategories,
+    categories: state.categoryFilter.filterCategories
   }
 }
 

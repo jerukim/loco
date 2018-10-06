@@ -100,3 +100,17 @@ export const reorder = (list, startIndex, endIndex) => {
 export const sort = arr => {
   return arr.sort((a, b) => a.id - b.id)
 }
+
+export const getUnselectedCategories = ({selected, categories}) => {
+  const dictionary = selected.reduce((result, item) => {
+    if (item.categoryId) {
+      result[item.categoryId] = true
+    }
+    return result
+  }, {})
+  const unselected = categories.reduce((result, item) => {
+    if (!dictionary[item.id]) result.push(item)
+    return result
+  }, [])
+  return unselected
+}
