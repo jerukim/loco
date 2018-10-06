@@ -24,9 +24,11 @@ class List extends React.Component {
     ) : (
       <div>
         <ul className="list">
+          {' '}
           {sort(list).map(item => {
             return (
               <li className="li-item" key={item.id}>
+                {' '}
                 {name === 'homes' ? (
                   <AddressCard home={item} />
                 ) : (
