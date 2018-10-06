@@ -9,18 +9,21 @@ export const gotCategoryResults = categoryResults => ({
   categoryResults
 })
 
-export const fetchCategoryResults = (
-  userId,
-  coordinates,
-  homes
-) => async dispatch => {
+export const fetchCategoryResults = (userId, homes) => async dispatch => {
   try {
+    console.log('HOMES', homes)
+
     const {data} = await axios.get(`/api/categories/${userId}`)
     const categoryResults = {}
 
     const categories = data.filter(item => item.categoryId !== null)
 
     const homePromises = homes.map(async home => {
+      const homeInfo = home.location
+      const coordinates = {
+        lat: homeInfo.lat,
+        lng: homeInfo.lng
+      }
       categoryResults[home.id] = {}
 
       const catPromises = categories.map(async category => {
@@ -36,7 +39,6 @@ export const fetchCategoryResults = (
 
     await Promise.all(homePromises)
 
-    console.log(categoryResults)
     dispatch(gotCategoryResults(categoryResults))
     dispatch(fetchHomeCategories(homes, categoryResults, categories))
   } catch (err) {
