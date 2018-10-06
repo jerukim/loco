@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const GOT_PRIORITES = 'GOT_PRIORITES'
+const GOT_PRIORITIES = 'GOT_PRIORITIES'
 
 export const gotPriorities = priorities => ({
-  type: GOT_PRIORITES,
+  type: GOT_PRIORITIES,
   priorities
 })
 
@@ -18,7 +18,7 @@ export const getPriorities = userId => async dispatch => {
 
 export default function(state = {}, action) {
   switch (action.type) {
-    case GOT_PRIORITES:
+    case GOT_PRIORITIES:
       return action.priorities
     default:
       return state
