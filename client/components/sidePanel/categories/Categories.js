@@ -16,7 +16,7 @@ const styles = theme => ({
 })
 
 const Categories = props => {
-  const {classes} = props
+  const {classes, items} = props
   return (
     <div className="categories-display side-panel-body">
       <div className="content-wrap flex-container menu-buttons">
@@ -26,7 +26,7 @@ const Categories = props => {
           <ForwardIcon className={classes.rightIcon} />
         </Button>
       </div>
-      <SelectedCategories />
+      <SelectedCategories items={items} />
     </div>
   )
 }

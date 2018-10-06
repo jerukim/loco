@@ -13,7 +13,7 @@ const REMOVE_SELECTED_FILTER = 'REMOVE_SELECTED_FILTER'
 const fetchSelectedCategoriesRequest = () => ({
   type: FETCH_SELECTED_CATEGORIES_REQUEST
 })
-const fetchSelectedCategoriesSuccess = selectedCategories => ({
+export const fetchSelectedCategoriesSuccess = selectedCategories => ({
   type: FETCH_SELECTED_CATEGORIES_SUCCESS,
   payload: selectedCategories
 })

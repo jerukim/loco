@@ -48,6 +48,7 @@ class CategoryChips extends React.Component {
           <Chip
             avatar={<Avatar className={classes.left}>{priority}</Avatar>}
             label={label}
+            classes={{deleteIcon: 'absolute-right'}}
             onDelete={() => this.handleChipDelete({chipId, priority})}
             className={classes.chip}
             color="primary"

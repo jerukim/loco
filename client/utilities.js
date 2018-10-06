@@ -90,6 +90,13 @@ export const renderFuncEdit = ({
   </div>
 )
 
+export const reorder = (list, startIndex, endIndex) => {
+  const result = [...list]
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
+  return result
+}
+
 export const sort = arr => {
   return arr.sort((a, b) => a.id - b.id)
 }
