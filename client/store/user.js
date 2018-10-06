@@ -20,7 +20,9 @@ export const me = () => async dispatch => {
     const res = await axios.get('/auth/me')
     dispatch(getUser(res.data || defaultUser))
     dispatch(fetchHomes(res.data.id))
+    dispatch(fetchPlaces(res.data.id))
     dispatch(getPriorities(res.data.id))
+    dispatch(fetchSelectedCategories(res.data.id))
   } catch (err) {
     console.error(err)
   }
@@ -31,11 +33,6 @@ export const auth = (email, password, method) => async dispatch => {
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
     dispatch(getUser(res.data || defaultUser))
-    if (res.data.id) {
-      dispatch(fetchPlaces(res.data.id))
-      dispatch(fetchHomes(res.data.id))
-      await dispatch(fetchSelectedCategories(res.data.id))
-    }
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
