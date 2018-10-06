@@ -31,7 +31,7 @@ class RankingTabs extends React.Component {
     const {userId, homes} = this.props
     if (userId) {
       this.props.fetchCategoryResults(userId, homes)
-      this.props.getPriorities(userId)
+      // this.props.getPriorities(userId)
     }
   }
 
