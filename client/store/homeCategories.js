@@ -32,9 +32,6 @@ export const fetchHomeCategories = (
         lng: home.location.lng
       }
       catIds.forEach(async item => {
-        // console.log('CATEGORIES', categories)
-        // console.log('CATEGORIES HOMES', categories[home.id])
-        // console.log('CATEGORIES')
         const end = {
           lat: categories[home.id][item.categoryId][0].geometry.location.lat,
           lng: categories[home.id][item.categoryId][0].geometry.location.lng
