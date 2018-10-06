@@ -9,7 +9,8 @@ export const gotPriorities = priorities => ({
 
 export const getPriorities = userId => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/users/${userId}/ priorities`)
+    const url = `/api/users/${userId}/priorities`
+    const {data} = await axios.get(url)
     dispatch(gotPriorities(data))
   } catch (err) {
     console.error(err)
