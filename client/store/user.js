@@ -19,8 +19,10 @@ export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
     dispatch(getUser(res.data || defaultUser))
-    dispatch(fetchHomes(res.data.id))
-    dispatch(getPriorities(res.data.id))
+    if (res.data.id) {
+      dispatch(fetchHomes(res.data.id))
+      dispatch(getPriorities(res.data.id))
+    }
   } catch (err) {
     console.error(err)
   }
