@@ -25,6 +25,7 @@ const NumberField = props => {
         type: 'number',
         startAdornment: <InputAdornment position="start">$</InputAdornment>
       }}
+      inputProps={{max: '2147483647'}}
       onChange={handleChange('price')}
     />
   )
@@ -126,7 +127,7 @@ class HomeForm extends React.Component {
         /> */}
         <TextField
           label="URL"
-          helperText="Add a hyperlink to find more info about this home"
+          helperText="Save a hyperlink to easily find more information"
           value={link}
           className={classes.textField}
           InputProps={{className: classes.input}}

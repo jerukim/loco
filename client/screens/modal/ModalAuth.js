@@ -1,8 +1,8 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {withStyles} from '@material-ui/core/styles'
-import Modal from '@material-ui/core/Modal'
-import {Signup} from '../../components'
+import {withStyles, Modal} from '@material-ui/core/'
+import {Login, Signup} from '../../components'
 
 const styles = theme => ({
   paper: {
@@ -17,8 +17,8 @@ const styles = theme => ({
   }
 })
 
-const ModalLogin = props => {
-  const {classes, history} = props
+const ModalAuth = props => {
+  const {classes, history, type} = props
   return (
     <Modal
       aria-labelledby="simple-modal-title"
@@ -27,16 +27,18 @@ const ModalLogin = props => {
       onBackdropClick={() => history.push('/home')}
     >
       <div className={classes.paper}>
-        <Signup />
+        {type === 'login' ? <Login /> : <Signup />}
       </div>
     </Modal>
   )
 }
 
-ModalLogin.propTypes = {
+ModalAuth.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-const ScreensModalLogin = withStyles(styles)(ModalLogin)
+const mapLogin = state => ({type: 'login'})
+const mapSignup = state => ({type: 'signup'})
 
-export default ScreensModalLogin
+export const ModalLogin = connect(mapLogin)(withStyles(styles)(ModalAuth))
+export const ModalSignup = connect(mapSignup)(withStyles(styles)(ModalAuth))
