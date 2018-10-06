@@ -51,8 +51,13 @@ label {
 }
 
 .form-welcome {
-  margin: 1em;
+  margin: 0.5em;
   display: inline-block;
+}
+
+.fields {
+  display: flex;
+  align-items: center;
 }
 
 #main {

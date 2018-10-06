@@ -134,6 +134,7 @@ export const updateCategoriesInDb = async (event, {selected, userId}) => {
 }
 
 export const states = [
+  '',
   'AL',
   'AK',
   'AS',
