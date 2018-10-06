@@ -3,12 +3,11 @@ import {connect} from 'react-redux'
 
 import {HomeCard, PlaceInfo} from '..'
 
-import {fetchHomes, fetchPlaces, fetchHomePlaces} from '../../store'
+import {fetchHomePlaces} from '../../store'
 
 class HomeTab extends React.Component {
   componentDidMount() {
     if (this.props.userId) {
-      this.props.fetchPlaces(this.props.userId)
       this.props.fetchHomePlaces(this.props.userId)
     }
   }
@@ -33,8 +32,6 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchHomes: userId => dispatch(fetchHomes(userId)),
-    fetchPlaces: userId => dispatch(fetchPlaces(userId)),
     fetchHomePlaces: userId => dispatch(fetchHomePlaces(userId))
   }
 }

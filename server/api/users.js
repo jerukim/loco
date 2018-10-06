@@ -143,3 +143,18 @@ router.get('/:userId/home_places', async (req, res, next) => {
     next(err)
   }
 })
+
+// get users priorities
+router.get('/:userId/priorities', async (req, res, next) => {
+  try {
+    const {userId} = req.params
+    const priorities = await Priority.findAll({
+      where: {userId},
+      order: db.col('priority'),
+      attributes: ['id', 'priority', 'placeId', 'categoryId']
+    })
+    res.json(priorities)
+  } catch (err) {
+    next(err)
+  }
+})
