@@ -1,25 +1,39 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {AddressBook, Categories} from '../../components'
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import {DragDropContext} from 'react-beautiful-dnd'
+import {fetchSelectedCategoriesSuccess} from '../../store'
+import {reorder} from '../../utilities'
 
 class ScreensSidePanel extends React.Component {
   constructor() {
     super()
     this.state = {
-      value: 0
+      value: 0,
+      items: []
     }
     this.handleChange = this.handleChange.bind(this)
+    this.onDragEnd = this.onDragEnd.bind(this)
   }
 
   handleChange = (event, value) => {
     this.setState({value})
   }
 
-  onDragEnd(result) {
-    //
+  onDragEnd = result => {
+    if (!result.destination) {
+      return
+    }
+    const items = reorder(
+      this.props.items,
+      result.source.index,
+      result.destination.index
+    )
+
+    this.props.reorderList(items)
   }
 
   render() {
@@ -36,7 +50,7 @@ class ScreensSidePanel extends React.Component {
         {value === 0 && <AddressBook />}
         {value === 1 && (
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <Categories />
+            <Categories items={this.state.items} />
           </DragDropContext>
         )}
       </div>
@@ -44,4 +58,12 @@ class ScreensSidePanel extends React.Component {
   }
 }
 
-export default ScreensSidePanel
+const mapStateToProps = state => ({
+  items: state.selectedCategories.selectedCategories
+})
+
+const mapDispatchToProps = dispatch => ({
+  reorderList: payload => dispatch(fetchSelectedCategoriesSuccess(payload))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ScreensSidePanel)

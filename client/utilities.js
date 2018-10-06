@@ -9,13 +9,14 @@ export const renderFuncSearch = type => ({
   getSuggestionItemProps,
   loading
 }) => {
-  const text = type === 'Home' ? 'Search Homes...' : 'Search Places...'
+  const text = type === 'Home' ? 'Add Homes...' : 'Add Places...'
   return (
-    <div>
+    <div className="content-wrap">
       <Input
         {...getInputProps({
           placeholder: text,
-          className: 'location-search-input'
+          className: 'location-search-input',
+          style: {width: '100%', fontSize: '20px'}
         })}
       />
 
@@ -59,7 +60,7 @@ export const renderFuncEdit = ({
           style: {marginBottom: '8px'}
         })
       }}
-      label="Place"
+      label="Address"
       style={{width: '100%'}}
       className="text-field"
     />
@@ -89,6 +90,27 @@ export const renderFuncEdit = ({
   </div>
 )
 
+export const reorder = (list, startIndex, endIndex) => {
+  const result = [...list]
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
+  return result
+}
+
 export const sort = arr => {
   return arr.sort((a, b) => a.id - b.id)
+}
+
+export const getUnselectedCategories = ({selected, categories}) => {
+  const dictionary = selected.reduce((result, item) => {
+    if (item.categoryId) {
+      result[item.categoryId] = true
+    }
+    return result
+  }, {})
+  const unselected = categories.reduce((result, item) => {
+    if (!dictionary[item.id]) result.push(item)
+    return result
+  }, [])
+  return unselected
 }

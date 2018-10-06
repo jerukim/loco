@@ -39,6 +39,7 @@ class SelectedCategories extends React.Component {
             >
               {provided.placeholder}
               {selectedCategories &&
+                this.props.userId &&
                 selectedCategories.map((category, index) => {
                   return (
                     <Draggable
