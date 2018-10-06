@@ -6,6 +6,7 @@ import {sort} from '../../../utilities'
 
 class List extends React.Component {
   componentDidMount() {
+    // THIS LOADS THE LIST UPON LOGIN, DONT REMOVE :)
     if (this.props.userId) {
       if (this.props.name === 'homes') {
         this.props.fetchHomes(this.props.userId)
