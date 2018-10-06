@@ -15,15 +15,20 @@ label {
   height: 0;
 }
 
-nav a {
+.user-links a,
+.user-links a:visited {
   display: inline-block;
   margin: 1em;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 7px #292929;
 }
 
-.user-links {
+.link-wrap {
   display: flex;
+  align-items: center;
   position: absolute;
-  margin: 5px 13px;
+  margin: 13px 13px;
   right: 0;
   z-index: 2;
 }
@@ -42,6 +47,7 @@ nav a {
   display: inline-block;
   color: white;
   text-align: center;
+  font-weight: bold;
 }
 
 form div {
@@ -131,6 +137,7 @@ form div {
 .search-wrap {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 15px;
   margin: 20px 0 20px 0;
 }

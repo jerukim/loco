@@ -10,15 +10,20 @@ export const renderFuncSearch = type => ({
   getSuggestionItemProps,
   loading
 }) => {
-  const text = type === 'Home' ? 'Add Homes...' : 'Add Places...'
+  const text = type === 'Home' ? 'Add Homes' : 'Add Places'
   return (
     <div className="content-wrap">
-      <Input
-        {...getInputProps({
-          placeholder: text,
-          className: 'location-search-input',
-          style: {width: '100%', fontSize: '20px'}
-        })}
+      <TextField
+        InputProps={{
+          ...getInputProps({
+            className: 'location-search-input',
+            style: {fontSize: '20px'}
+          })
+        }}
+        label={text}
+        style={{width: '96%'}}
+        className="text-field"
+        variant="outlined"
       />
 
       <div className="autocomplete-dropdown-container">

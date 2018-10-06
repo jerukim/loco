@@ -100,9 +100,7 @@ router.put('/:userId', async (req, res, next) => {
             where: {
               userId,
               categoryId: item.categoryId
-            },
-            returning: true,
-            plain: true
+            }
           }
         )
       } else {
@@ -112,9 +110,7 @@ router.put('/:userId', async (req, res, next) => {
             where: {
               userId,
               placeId: item.placeId
-            },
-            returning: true,
-            plain: true
+            }
           }
         )
       }
