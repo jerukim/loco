@@ -1,8 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Input, Button} from '@material-ui/core/'
-
+import {withStyles} from '@material-ui/core/styles'
+import {Button, TextField, Select} from '@material-ui/core/'
 import {getCoordinates} from '../../store'
+import {states} from '../../utilities'
+
+const styles = theme => ({
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit
+  }
+})
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -27,28 +35,43 @@ class Welcome extends React.Component {
 
   render() {
     const {city, state} = this.state
+    const {classes} = this.props
     return (
-      <div>
+      <div className="form form-welcome">
         <h1>Welcome to Loco</h1>
-        <h2>Make you move</h2>
+        <h3>Make your move</h3>
         <p>Enter the city of your next big move!</p>
-        <form>
-          <Input
+        <div className="form-welcome">
+          <TextField
             name="city"
-            placeholder="City"
+            label="City"
+            className={classes.textField}
             value={city}
+            margin="normal"
             onChange={this.handleChange}
           />
-          <Input
-            name="state"
-            placeholder="State"
+          <Select
+            native
+            inputProps={{
+              name: 'state'
+            }}
+            label="State"
+            // className={classes.textField}
             value={state}
+            variant="outlined"
+            margin="normal"
             onChange={this.handleChange}
-          />
-          <Button variant="contained" onClick={this.handleSubmit}>
-            Go
-          </Button>
-        </form>
+          >
+            {states.map((state, i) => (
+              <option key={i} value={state}>
+                {state}
+              </option>
+            ))}
+          </Select>
+        </div>
+        <Button variant="contained" onClick={this.handleSubmit}>
+          Go
+        </Button>
       </div>
     )
   }
@@ -66,4 +89,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Welcome)
+export default connect(mapState, mapDispatch)(withStyles(styles)(Welcome))
