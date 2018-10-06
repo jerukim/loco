@@ -12,13 +12,6 @@ class SelectedCategories extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
-    return (
-      (this.props.userId && !nextProps.userId) ||
-      (!this.props.userId && nextProps.userId)
-    )
-  }
-
   render() {
     const {
       selectedCategories,

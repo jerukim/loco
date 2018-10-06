@@ -51,12 +51,28 @@ export const postCategory = ({
   }
 }
 
-export const deleteCategory = ({userId, categoryId}) => async dispatch => {
+export const deleteCategory = ({userId, categoryId, priority}) => async (
+  dispatch,
+  getState
+) => {
   try {
-    await axios.delete(`/api/categories/${categoryId}/${userId}`)
+    const {selectedCategories: {selectedCategories}} = getState()
+    const newList = selectedCategories.reduce((result, item) => {
+      if (item.priority < priority) {
+        result.push(item)
+        return result
+      } else if (item.priority > priority) {
+        result.push({...item, priority: item.priority - 1})
+        return result
+      } else {
+        return result
+      }
+    }, [])
+    await axios.delete(
+      `/api/categories/${categoryId}/priority/${priority}/${userId}`
+    )
 
-    const {data} = await axios.get(`/api/categories/${userId}`)
-    dispatch(fetchSelectedCategoriesSuccess(data))
+    dispatch(fetchSelectedCategoriesSuccess(newList))
   } catch (err) {
     console.error('An error occurred while deleting a category')
   }

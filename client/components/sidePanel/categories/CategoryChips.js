@@ -26,9 +26,9 @@ const styles = theme => ({
 })
 
 class CategoryChips extends React.Component {
-  handleChipDelete = chipId => {
+  handleChipDelete = ({chipId, priority}) => {
     const {userId, deleteCategory} = this.props
-    deleteCategory({userId, categoryId: chipId})
+    deleteCategory({userId, categoryId: chipId, priority})
   }
 
   render() {
@@ -48,7 +48,7 @@ class CategoryChips extends React.Component {
           <Chip
             avatar={<Avatar className={classes.left}>{priority}</Avatar>}
             label={label}
-            onDelete={() => this.handleChipDelete(chipId)}
+            onDelete={() => this.handleChipDelete({chipId, priority})}
             className={classes.chip}
             color="primary"
             variant="outlined"

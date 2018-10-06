@@ -106,7 +106,6 @@ router.post('/places', async (req, res, next) => {
 })
 
 //GET user_categories
-//THIS ROUTE IS STILL A WORK IN PROGRESS
 router.get('/:userId/categories', async (req, res, next) => {
   try {
     let {userId} = req.params
