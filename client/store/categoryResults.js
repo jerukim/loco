@@ -11,9 +11,6 @@ export const gotCategoryResults = categoryResults => ({
 
 export const fetchCategoryResults = (userId, homes) => async dispatch => {
   try {
-    console.log('HOMES', homes)
-    console.log('HOMES KEYS ', Object.keys(homes))
-
     const {data} = await axios.get(`/api/categories/${userId}`)
     const categoryResults = {}
 
@@ -27,14 +24,11 @@ export const fetchCategoryResults = (userId, homes) => async dispatch => {
       }
       categoryResults[home.id] = {}
 
-      console.log('COORDS', coordinates)
-
       const catPromises = categories.map(async category => {
         const payload = await axios.post(`/api/google/categoryResults`, {
           coordinates,
           category: category.label
         })
-        console.log('PAYLOAD', payload)
         categoryResults[home.id][category.categoryId] = payload.data.results
       })
 
