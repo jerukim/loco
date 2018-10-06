@@ -24,4 +24,17 @@ const getStreetViewUrl = async (lat, lng, height, width) => {
   return `https://maps.googleapis.com/maps/api/streetview?size=${width}x${height}&location=${lat},${lng}&key=${key}`
 }
 
-module.exports = {getDistanceFromGoogle, getStreetViewUrl}
+const getCategoryResults = async (coordinates, category) => {
+  const {lat, lng} = coordinates
+  try {
+    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&rankby=distance&type=${category}&keyword=${category}&key=${key}`
+
+    const {data} = await axios.get(url)
+
+    return data
+  } catch (err) {
+    console.error('an error occured while calling google place search', err)
+  }
+}
+
+module.exports = {getDistanceFromGoogle, getStreetViewUrl, getCategoryResults}
