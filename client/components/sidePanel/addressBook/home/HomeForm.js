@@ -2,34 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import NumberFormat from 'react-number-format'
 import {withStyles} from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import {TextField, Button} from '@material-ui/core'
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from 'react-places-autocomplete'
 import {renderFuncEdit} from '../../../../utilities'
 import {putHome} from '../../../../store'
-
-const NumberField = props => {
-  const {classes, price, handleChange} = props
-  return (
-    <TextField
-      label="Price"
-      value={price}
-      className={classes.textField}
-      placeholder="0"
-      InputProps={{
-        className: classes.input,
-        type: 'number',
-        startAdornment: <InputAdornment position="start">$</InputAdornment>
-      }}
-      inputProps={{max: '2147483647'}}
-      onChange={handleChange('price')}
-    />
-  )
-}
+import NumberField from './NumberField'
 
 const styles = theme => ({
   textField: {
@@ -50,18 +30,15 @@ class HomeForm extends React.Component {
       lat: 0,
       lng: 0
     }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange(prop) {
+  handleChange = prop => {
     return event => {
       this.setState({[prop]: event.target.value})
     }
   }
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault()
     const {userId} = this.props
     const {id: homeId} = this.props.home
