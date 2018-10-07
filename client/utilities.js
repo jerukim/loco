@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
-import Input from '@material-ui/core/Input'
 import TextField from '@material-ui/core/TextField'
 import React from 'react'
+import axios from 'axios'
 
 export const renderFuncSearch = type => ({
   getInputProps,
@@ -9,15 +9,20 @@ export const renderFuncSearch = type => ({
   getSuggestionItemProps,
   loading
 }) => {
-  const text = type === 'Home' ? 'Add Homes...' : 'Add Places...'
+  const text = type === 'Home' ? 'Add Homes' : 'Add Places'
   return (
     <div className="content-wrap">
-      <Input
-        {...getInputProps({
-          placeholder: text,
-          className: 'location-search-input',
-          style: {width: '100%', fontSize: '20px'}
-        })}
+      <TextField
+        InputProps={{
+          ...getInputProps({
+            className: 'location-search-input',
+            style: {fontSize: '20px'}
+          })
+        }}
+        label={text}
+        style={{width: '96%'}}
+        className="text-field"
+        variant="outlined"
       />
 
       <div className="autocomplete-dropdown-container">
@@ -90,11 +95,14 @@ export const renderFuncEdit = ({
   </div>
 )
 
-export const reorder = (list, startIndex, endIndex) => {
+export const reorderAndShift = (list, startIndex, endIndex) => {
   const result = [...list]
   const [removed] = result.splice(startIndex, 1)
   result.splice(endIndex, 0, removed)
-  return result
+  const shifted = result.map((item, index) => {
+    return {...item, priority: index + 1}
+  })
+  return shifted
 }
 
 export const sort = arr => {
@@ -114,3 +122,75 @@ export const getUnselectedCategories = ({selected, categories}) => {
   }, [])
   return unselected
 }
+
+export const updateCategoriesInDb = async (event, {selected, userId}) => {
+  if (selected && userId) {
+    try {
+      await axios.put(`/api/categories/${userId}`, {selected})
+    } catch (err) {
+      console.error('An error occured while updating selected categories')
+    }
+  }
+}
+
+export const states = [
+  'AL',
+  'AK',
+  'AS',
+  'AZ',
+  'AR',
+  'CA',
+  'CO',
+  'CT',
+  'DE',
+  'DC',
+  'FM',
+  'FL',
+  'GA',
+  'GU',
+  'HI',
+  'ID',
+  'IL',
+  'IN',
+  'IA',
+  'KS',
+  'KY',
+  'LA',
+  'ME',
+  'MH',
+  'MD',
+  'MA',
+  'MI',
+  'MN',
+  'MS',
+  'MO',
+  'MT',
+  'NE',
+  'NV',
+  'NH',
+  'NJ',
+  'NM',
+  'NY',
+  'NC',
+  'ND',
+  'MP',
+  'OH',
+  'OK',
+  'OR',
+  'PW',
+  'PA',
+  'PR',
+  'RI',
+  'SC',
+  'SD',
+  'TN',
+  'TX',
+  'UT',
+  'VT',
+  'VI',
+  'VA',
+  'WA',
+  'WV',
+  'WI',
+  'WY'
+]

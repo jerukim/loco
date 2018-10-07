@@ -6,7 +6,7 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import {DragDropContext} from 'react-beautiful-dnd'
 import {fetchSelectedCategoriesSuccess} from '../../store'
-import {reorder} from '../../utilities'
+import {reorderAndShift, updateCategoriesInDb} from '../../utilities'
 
 class ScreensSidePanel extends React.Component {
   constructor() {
@@ -19,6 +19,13 @@ class ScreensSidePanel extends React.Component {
     this.onDragEnd = this.onDragEnd.bind(this)
   }
 
+  componentDidMount() {
+    const {items: selected, userId} = this.props
+    if (selected && userId) {
+      window.onbeforeunload = updateCategoriesInDb(event, {selected, userId})
+    }
+  }
+
   handleChange = (event, value) => {
     this.setState({value})
   }
@@ -27,7 +34,7 @@ class ScreensSidePanel extends React.Component {
     if (!result.destination) {
       return
     }
-    const items = reorder(
+    const items = reorderAndShift(
       this.props.items,
       result.source.index,
       result.destination.index
@@ -59,7 +66,8 @@ class ScreensSidePanel extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  items: state.selectedCategories.selectedCategories
+  items: state.selectedCategories.selectedCategories,
+  userId: state.user.id
 })
 
 const mapDispatchToProps = dispatch => ({
