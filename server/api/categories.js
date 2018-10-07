@@ -88,3 +88,36 @@ router.delete(
     }
   }
 )
+router.put('/:userId', async (req, res, next) => {
+  const {selected} = req.body
+  const {userId} = req.params
+  try {
+    const promises = selected.map(item => {
+      if (item.categoryId) {
+        return Priority.update(
+          {priority: item.priority},
+          {
+            where: {
+              userId,
+              categoryId: item.categoryId
+            }
+          }
+        )
+      } else {
+        return Priority.update(
+          {priority: item.priority},
+          {
+            where: {
+              userId,
+              placeId: item.placeId
+            }
+          }
+        )
+      }
+    })
+    await Promise.all(promises)
+    res.status(202).end()
+  } catch (err) {
+    next(err)
+  }
+})

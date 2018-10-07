@@ -6,6 +6,7 @@ import {sort} from '../../../utilities'
 
 class List extends React.Component {
   componentDidMount() {
+    // THIS LOADS THE LIST UPON LOGIN, DONT REMOVE :)
     if (this.props.userId) {
       if (this.props.name === 'homes') {
         this.props.fetchHomes(this.props.userId)
@@ -23,9 +24,11 @@ class List extends React.Component {
     ) : (
       <div>
         <ul className="list">
+          {' '}
           {sort(list).map(item => {
             return (
               <li className="li-item" key={item.id}>
+                {' '}
                 {name === 'homes' ? (
                   <AddressCard home={item} />
                 ) : (
