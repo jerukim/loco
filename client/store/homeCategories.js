@@ -95,24 +95,6 @@ export const fetchHomeCategories = (
           drivingText: drivingData.duration.text,
           drivingValue: drivingData.duration.value
         }
-
-        /*
-        const modePromises = modes.map(async mode => {
-          const data = {}
-          const googleData = await axios.post('/api/google/categoryDistances', {
-            start,
-            end,
-            mode
-          })
-          const {distance, duration} = googleData.data.rows[0].elements[0]
-          data.distanceText = distance.text
-          data.distanceValue = distance.value
-          data[`${mode}Text`] = duration.text
-          data[`${mode}Value`] = duration.value
-          homeCategories[home.id][item.categoryId] = data
-        })
-        await Promise.all(modePromises)
-        */
       })
       await Promise.all(catPromises)
     })
