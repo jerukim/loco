@@ -19,6 +19,16 @@ const styles = () => ({
 class HomeDetail extends React.Component {
   handleClick = () => {
     const {markers} = this.props
+    let markersArr = []
+    console.log('category results', markers)
+    for (let key in markers) {
+      if (markers.hasOwnProperty(key)) {
+        for (let i = 0; i < markers[key].length; i++) {
+          markersArr.push(markers[key][i].geometry.location)
+        }
+      }
+    }
+    console.log('before getBounds is called')
     getBounds(markers)
   }
   render() {
