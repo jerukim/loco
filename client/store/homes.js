@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {fetchAllCategoryResults} from './index'
 import {getStreetViewUrl} from '../../server/services'
 
 const GOT_HOMES = 'GOT_HOMES'
@@ -11,6 +12,7 @@ export const fetchHomes = userId => async dispatch => {
   try {
     const {data: {homes}} = await axios.get(`/api/users/${userId}/homes`)
     dispatch(gotHomes(homes))
+    dispatch(fetchAllCategoryResults(userId, homes))
   } catch (err) {
     console.error(err)
   }
