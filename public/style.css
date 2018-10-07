@@ -66,6 +66,7 @@ label {
 }
 
 #top {
+  height: 80vh;
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
@@ -147,8 +148,13 @@ label {
   justify-content: space-evenly;
 }
 
+.addressbook-display {
+  overflow-y: auto;
+  height: calc(80vh - 120px);
+  width: 100%;
+}
+
 .addressbook-select {
-  background-color: #f0336c;
   display: flex;
   justify-content: space-around;
   flex-flow: column;
