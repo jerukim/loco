@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {fetchHomeCategories} from './'
+import {fetchAllHomeCategories, fetchOneHomeCategory} from './'
 
 const FETCH_ALL_CATEGORY_RESULTS_SUCCESS = 'GOT_CATEGORY_RESULTS_SUCCESS'
 const FETCH_ONE_CATEGORY_RESULTS_SUCCESS = 'FETCH_ONE_CATEGORY_RESULTS_SUCCESS'
@@ -10,9 +10,10 @@ const fetchAllCategoryResultsSuccess = categoryResults => ({
   type: FETCH_ALL_CATEGORY_RESULTS_SUCCESS,
   categoryResults
 })
-const fetchOneCategoryResultsSuccess = categoryResults => ({
+const fetchOneCategoryResultsSuccess = (categoryResults, categoryId) => ({
   type: FETCH_ONE_CATEGORY_RESULTS_SUCCESS,
-  categoryResults
+  categoryResults,
+  categoryId
 })
 const fetchCategoryResultsRequest = () => ({
   type: FETCH_CATEGORY_RESULTS_REQUEST
@@ -38,11 +39,12 @@ export const fetchAllCategoryResults = (userId, homes) => async dispatch => {
       categoryResults[home.id] = {}
 
       const catPromises = categories.map(async category => {
+        const {label, categoryId} = category
         const payload = await axios.post(`/api/google/categoryResults`, {
           coordinates,
-          category: category.label
+          category: label
         })
-        categoryResults[home.id][category.categoryId] = payload.data.results
+        categoryResults[home.id][categoryId] = payload.data.results
       })
 
       await Promise.all(catPromises)
@@ -50,7 +52,7 @@ export const fetchAllCategoryResults = (userId, homes) => async dispatch => {
 
     await Promise.all(homePromises)
 
-    dispatch(fetchHomeCategories(homes, categoryResults, categories))
+    dispatch(fetchAllHomeCategories(homes, categoryResults, categories))
     dispatch(fetchAllCategoryResultsSuccess(categoryResults))
   } catch (err) {
     console.error(err)
@@ -60,6 +62,7 @@ export const fetchAllCategoryResults = (userId, homes) => async dispatch => {
 export const fetchOneCategoryResults = (category, homes) => async dispatch => {
   try {
     dispatch(fetchCategoryResultsRequest())
+    const {label, categoryId} = category
 
     const categoryResults = {}
 
@@ -73,12 +76,13 @@ export const fetchOneCategoryResults = (category, homes) => async dispatch => {
 
       const payload = await axios.post(`/api/google/categoryResults`, {
         coordinates,
-        category: category.label
+        category: label
       })
-      categoryResults[home.id][category.categoryId] = payload.data.results
+      categoryResults[home.id][categoryId] = payload.data.results
     })
     await Promise.all(homePromises)
 
+    dispatch(fetchOneHomeCategory(homes, categoryResults, category))
     dispatch(fetchOneCategoryResultsSuccess(categoryResults))
   } catch (err) {
     console.error(err)
@@ -102,9 +106,14 @@ export default function(state = initialState, action) {
         errorFetching: false
       }
     case FETCH_ONE_CATEGORY_RESULTS_SUCCESS:
+      const newState = {...state}
+      const homeIds = Object.keys(action.categoryResults)
+      homeIds.forEach(homeId => {
+        newState[homeId][action.categoryId] =
+          action.categoryResults[homeId][action.categoryId]
+      })
       return {
-        ...state,
-        ...action.categoryResults,
+        ...newState,
         loaded: true,
         fetchingCategoryResults: false,
         errorFetching: false

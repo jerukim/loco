@@ -27,8 +27,15 @@ const styles = theme => ({
 })
 
 const PlaceInfo = props => {
-  const {classes, homeId, homePlaces, homeCategories, priorities} = props
-  return homeCategories.loaded ? (
+  const {
+    classes,
+    homeId,
+    homePlaces,
+    homeCategories,
+    priorities,
+    categoryResults
+  } = props
+  return homeCategories.loaded && categoryResults.loaded ? (
     <div className={classes.root}>
       {priorities.map(item => {
         const name = item.placeId
