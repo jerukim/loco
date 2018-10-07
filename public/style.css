@@ -103,6 +103,10 @@ label {
   display: flex;
 }
 
+.flex-end {
+  justify-content: flex-end;
+}
+
 .list {
   list-style: none;
   padding: 0;
@@ -120,12 +124,19 @@ label {
   margin: 0px 0px;
 }
 
+.auto-form {
+  margin-left: -10px;
+}
+
 .card-title {
   margin: 0 15px;
 }
 
-.button-wrap {
+.dropdown-wrap {
   display: flex;
+  position: absolute;
+  right: 0;
+  transform: translate(4%, -77%);
 }
 
 .side-panel-body {

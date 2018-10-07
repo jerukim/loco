@@ -133,7 +133,7 @@ class HomeForm extends React.Component {
           InputProps={{className: classes.input}}
           onChange={this.handleChange('link')}
         />
-        <div className="button-wrap">
+        <div className="flex-container flex-end">
           <Button type="submit">Save</Button>
         </div>
       </form>

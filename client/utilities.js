@@ -40,12 +40,12 @@ export const renderFuncEdit = ({
   getSuggestionItemProps,
   loading
 }) => (
-  <div className="content-wrap no-margins">
+  <div className="content-wrap no-margins auto-form">
     <TextField
       InputProps={{
         ...getInputProps({
           className: 'location-search-input',
-          style: {marginBottom: '8px'}
+          style: {margin: '8px'}
         })
       }}
       label="Address"
