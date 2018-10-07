@@ -42,7 +42,6 @@ export const getBounds = markers => {
         const {b, f} = bounds
         const center = bounds.getCenter()
         dispatch(gotBounds([b, f]))
-        // console.log('center', center)
         dispatch(gotCenter(center))
         return bounds
       } catch (err) {
