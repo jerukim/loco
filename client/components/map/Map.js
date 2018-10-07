@@ -49,13 +49,15 @@ const GMap = props => {
 }
 
 const mapState = state => {
-  const {coordinates, homes, places, selectedCategories} = state
+  console.log("****STATE: ", state)
+  const {coordinates, homes, places, selectedCategories, categorieResults} = state
 
   return {
     coordinates,
     homes,
     places,
-    selectedCategories
+    selectedCategories,
+    categorieResults
   }
 }
 
