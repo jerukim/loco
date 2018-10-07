@@ -83,6 +83,7 @@ export const fetchHomeCategories = (
         const drivingData = drivingDataGoogle.data.rows[0].elements[0]
 
         homeCategories[home.id][item.categoryId] = {
+          name: categories[home.id][item.categoryId][0].name,
           distanceText: walkData.distance.text,
           distanceValue: walkData.distance.value,
           walkingText: walkData.duration.text,

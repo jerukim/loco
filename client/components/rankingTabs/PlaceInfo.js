@@ -31,7 +31,9 @@ const PlaceInfo = props => {
   return homeCategories.loaded ? (
     <div className={classes.root}>
       {priorities.map(item => {
-        const name = item.label
+        const name = item.placeId
+          ? item.label
+          : `${homeCategories[homeId][item.categoryId].name} (${item.label})`
         const info = item.placeId
           ? homePlaces[homeId][item.placeId]
           : homeCategories[homeId][item.categoryId]

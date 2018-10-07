@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {withStyles, AppBar, Tabs, Tab} from '@material-ui/core/'
 import {HomeTab} from '../'
-import {fetchCategoryResults, getPriorities} from '../../store'
 
 const styles = theme => ({
   root: {
@@ -27,18 +26,9 @@ class RankingTabs extends React.Component {
     this.setState({value})
   }
 
-  componentDidMount() {
-    const {userId, homes} = this.props
-    if (userId) {
-      // this.props.fetchCategoryResults(userId, homes)
-      // this.props.getPriorities(userId)
-    }
-  }
-
   render() {
-    const {classes} = this.props
+    const {classes, homes} = this.props
     const {value} = this.state
-    const homes = this.props.homes
     return (
       <div className={classes.root}>
         <AppBar position="static" color="default">
@@ -66,16 +56,8 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    fetchCategoryResults: (userId, homes) =>
-      dispatch(fetchCategoryResults(userId, homes)),
-    getPriorities: userId => dispatch(getPriorities(userId))
-  }
-}
-
 RankingTabs.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default connect(mapState, mapDispatch)(withStyles(styles)(RankingTabs))
+export default connect(mapState)(withStyles(styles)(RankingTabs))
