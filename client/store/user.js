@@ -4,7 +4,9 @@ import {
   fetchHomes,
   fetchPlaces,
   fetchSelectedCategories,
-  fetchHomePlaces
+  fetchHomePlaces,
+  removeHomes,
+  removePlaces
 } from './index'
 
 const GET_USER = 'GET_USER'
@@ -51,6 +53,8 @@ export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     dispatch(removeUser())
+    dispatch(removeHomes())
+    dispatch(removePlaces())
     history.push('/home')
   } catch (err) {
     console.error(err)

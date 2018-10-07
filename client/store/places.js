@@ -2,8 +2,10 @@ import axios from 'axios'
 import {fetchHomePlaces} from '../store'
 
 const GOT_PLACES = 'GOT_PLACES'
+const REMOVE_PLACES = 'REMOVE_PLACES'
 
 const gotPlaces = places => ({type: GOT_PLACES, places})
+export const removePlaces = () => ({type: REMOVE_PLACES})
 
 export const fetchPlaces = userId => async dispatch => {
   try {
@@ -106,6 +108,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_PLACES:
       return action.places
+    case REMOVE_PLACES:
+      return initialState
     default:
       return state
   }

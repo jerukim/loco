@@ -3,8 +3,10 @@ import {fetchAllCategoryResults} from './index'
 import {getStreetViewUrl} from '../../server/services'
 
 const GOT_HOMES = 'GOT_HOMES'
+const REMOVE_HOMES = 'REMOVE_HOMES'
 
 const gotHomes = homes => ({type: GOT_HOMES, homes})
+export const removeHomes = () => ({type: REMOVE_HOMES})
 
 export const fetchHomes = userId => async dispatch => {
   try {
@@ -94,6 +96,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_HOMES:
       return action.homes
+    case REMOVE_HOMES:
+      return initialState
     default:
       return state
   }

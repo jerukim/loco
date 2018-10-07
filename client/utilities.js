@@ -2,6 +2,7 @@
 import TextField from '@material-ui/core/TextField'
 import React from 'react'
 import axios from 'axios'
+import {Suggestions} from './components'
 
 export const renderFuncSearch = type => ({
   getInputProps,
@@ -24,29 +25,11 @@ export const renderFuncSearch = type => ({
         className="text-field"
         variant="outlined"
       />
-
-      <div className="autocomplete-dropdown-container">
-        {loading && <div>Loading...</div>}
-        {suggestions.map((suggestion, i) => {
-          const className = suggestion.active
-            ? 'suggestion-item--active'
-            : 'suggestion-item'
-          const style = suggestion.active
-            ? {backgroundColor: '#fafafa', cursor: 'pointer'}
-            : {backgroundColor: '#ffffff', cursor: 'pointer'}
-          return (
-            <div
-              key={i}
-              {...getSuggestionItemProps(suggestion, {
-                className,
-                style
-              })}
-            >
-              <span>{suggestion.description}</span>
-            </div>
-          )
-        })}
-      </div>
+      <Suggestions
+        suggestions={suggestions}
+        getSuggestionItemProps={getSuggestionItemProps}
+        loading={loading}
+      />
     </div>
   )
 }
@@ -57,41 +40,25 @@ export const renderFuncEdit = ({
   getSuggestionItemProps,
   loading
 }) => (
-  <div className="content-wrap no-margins">
+  <div className="content-wrap no-margins auto-form">
     <TextField
       InputProps={{
         ...getInputProps({
           className: 'location-search-input',
-          style: {marginBottom: '8px'}
+          style: {margin: '8px'}
         })
       }}
       label="Address"
       style={{width: '100%'}}
       className="text-field"
+      variant="outlined"
     />
 
-    <div className="autocomplete-dropdown-container content-wrap no-margins">
-      {loading && <div>Loading...</div>}
-      {suggestions.map((suggestion, i) => {
-        const className = suggestion.active
-          ? 'suggestion-item--active'
-          : 'suggestion-item'
-        const style = suggestion.active
-          ? {backgroundColor: '#fafafa', cursor: 'pointer'}
-          : {backgroundColor: '#ffffff', cursor: 'pointer'}
-        return (
-          <div
-            key={i}
-            {...getSuggestionItemProps(suggestion, {
-              className,
-              style
-            })}
-          >
-            <span>{suggestion.description}</span>
-          </div>
-        )
-      })}
-    </div>
+    <Suggestions
+      suggestions={suggestions}
+      getSuggestionItemProps={getSuggestionItemProps}
+      loading={loading}
+    />
   </div>
 )
 
@@ -134,6 +101,7 @@ export const updateCategoriesInDb = async (event, {selected, userId}) => {
 }
 
 export const states = [
+  '',
   'AL',
   'AK',
   'AS',

@@ -26,7 +26,7 @@ class WelcomeModal extends React.Component {
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
-          open={!this.props.coordinates.lat}
+          open={!this.props.center.lat}
         >
           <div className={classes.paper}>
             <Welcome />
@@ -39,7 +39,7 @@ class WelcomeModal extends React.Component {
 
 const mapState = state => {
   return {
-    coordinates: state.coordinates
+    center: state.coordinates.center
   }
 }
 

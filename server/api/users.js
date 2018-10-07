@@ -98,7 +98,12 @@ router.get('/:userId/places', async (req, res, next) => {
 router.post('/places', async (req, res, next) => {
   const {userId, placeId} = req.body
   try {
-    await Priority.create({userId, placeId})
+    const priority =
+      (await Priority.count({
+        where: {userId}
+      })) + 1
+    await Priority.create({userId, placeId, priority})
+
     res.status(201).end()
   } catch (err) {
     next(err)

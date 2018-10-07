@@ -18,7 +18,8 @@ import {deleteHome, deletePlace} from '../../../store'
 
 const styles = theme => ({
   card: {
-    width: '388px'
+    width: '388px',
+    position: 'relative'
   },
   title: {
     fontSize: '8px'
@@ -86,7 +87,7 @@ class AddressCard extends React.Component {
           {home && <HomeDetail home={home} />}
           {place && <PlaceDetail place={place} />}
         </CardContent>
-        <div className="button-wrap">
+        <div className="dropdown-wrap">
           <IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded
