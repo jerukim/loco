@@ -108,6 +108,10 @@ label {
   justify-content: flex-end;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
 .list {
   list-style: none;
   padding: 0;
