@@ -8,26 +8,29 @@ class GMap extends React.Component {
     const {userId, homes, places} = this.props
     if (!userId) {
       return
+    } else if (
+      homes.length < prevProps.homes.length ||
+      places.length < prevProps.places.length
+    ) {
+      return
     } else if (homes !== prevProps.homes || places !== prevProps.places) {
       try {
         const bounds = await this.props.getBounds([...homes, ...places])
         this.refs.map.fitBounds(bounds)
-        this.refs.map.zoom(13)
       } catch (err) {
-        console.error('An error occurred in Google maps')
+        console.error('An error occurred in Google maps', err)
       }
     }
   }
 
   render() {
-    const {places, homes, center, bounds} = this.props
+    const {places, homes, center} = this.props
 
     return (
       <GoogleMap
         ref="map"
         center={center}
         defaultZoom={13}
-        fitBounds={bounds}
         defaultOptions={{
           mapTypeControl: false,
           fullscreenControl: false,
