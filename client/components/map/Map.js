@@ -4,20 +4,31 @@ import {withGoogleMap, GoogleMap, withScriptjs, Marker} from 'react-google-maps'
 import {getBounds} from '../../store'
 
 class GMap extends React.Component {
-  componentDidUpdate(prevProps) {
+  componentDidUpdate = async prevProps => {
     const {homes, places} = this.props
-    console.log('Component did update in Google Maps')
-    if (homes !== prevProps.homes || places !== prevProps.places) {
-      this.props.getBounds([...homes, ...places])
+    if (!homes[0] && !places[0]) {
+      console.log('home and places do not exist')
+      return
+    } else if (homes !== prevProps.homes || places !== prevProps.places) {
+      try {
+        const bounds = await this.props.getBounds([...homes, ...places])
+        this.refs.map.fitBounds(bounds)
+        this.refs.map.zoom(13)
+      } catch (err) {
+        console.error('An error occurred in Google maps')
+      }
     }
   }
+
   render() {
     const {places, homes, center, bounds} = this.props
 
     return (
       <GoogleMap
+        ref="map"
         center={center}
         defaultZoom={13}
+        fitBounds={bounds}
         defaultOptions={{
           mapTypeControl: false,
           fullscreenControl: false,
@@ -33,9 +44,6 @@ class GMap extends React.Component {
           ]
           // clickableIcons: false
         }}
-        fitBounds={bounds}
-        // panTo={center}
-        // setZoom=
       >
         {homes &&
           homes.map(marker => (

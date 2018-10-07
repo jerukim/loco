@@ -1,5 +1,5 @@
 import axios from 'axios'
-import '../../secrets'
+// import '../../secrets'
 
 const GOT_CENTER = 'GET_CENTER'
 const GOT_BOUNDS = 'GOT_BOUNDS'
@@ -31,19 +31,23 @@ export const getCenter = (city, state) => {
 }
 
 export const getBounds = markers => {
-  return dispatch => {
+  return async dispatch => {
     if (markers[0]) {
-      const bounds = new google.maps.LatLngBounds()
-      // console.log('Bounds', bounds)
-      markers.forEach(marker => {
-        const {lat, lng} = marker.location
-        bounds.extend({lat, lng})
-      })
-      // console.log('Bounds after mapping markers', bounds)
-      const center = bounds.getCenter()
-      // console.log('New calculated center', center)
-      dispatch(gotBounds(bounds))
-      dispatch(gotCenter(center))
+      try {
+        const bounds = new google.maps.LatLngBounds()
+        for (let i = 0; i < markers.length; i++) {
+          const {lat, lng} = markers[i].location
+          await bounds.extend({lat, lng})
+        }
+        const {b, f} = bounds
+        const center = bounds.getCenter()
+        dispatch(gotBounds([b, f]))
+        // console.log('center', center)
+        dispatch(gotCenter(center))
+        return bounds
+      } catch (err) {
+        console.error('An error occurred while adjusting bounds')
+      }
     }
   }
 }
