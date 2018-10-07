@@ -81,6 +81,13 @@ label {
   background: rgb(252, 252, 252);
 }
 
+.autocomplete-dropdown-container {
+  position: absolute;
+  display: flex;
+  max-width: 500px;
+  z-index: 2;
+}
+
 #bottom {
   width: 100%;
 }
