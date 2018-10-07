@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import {Modal, withStyles} from '@material-ui/core/'
 
 import {Welcome} from '../../components'
@@ -43,9 +43,9 @@ const mapState = state => {
   }
 }
 
-WelcomeModal.propTypes = {
-  classes: PropTypes.object.isRequired
-}
+// WelcomeModal.propTypes = {
+//   classes: PropTypes.object.isRequired
+// }
 
 const ScreensWelcomeModal = withStyles(styles)(WelcomeModal)
 
