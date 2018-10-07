@@ -34,6 +34,7 @@ const PlaceInfo = props => {
         const name = item.placeId
           ? item.label
           : `${homeCategories[homeId][item.categoryId].name} (${item.label})`
+
         const info = item.placeId
           ? homePlaces[homeId][item.placeId]
           : homeCategories[homeId][item.categoryId]

@@ -4,7 +4,8 @@ import DropDown from './DropDown'
 import {
   fetchFilterCategories,
   addNewSelectedFilter,
-  postCategory
+  postCategory,
+  fetchOneCategoryResults
 } from '../../../store'
 
 class Menu extends React.Component {
@@ -23,7 +24,7 @@ class Menu extends React.Component {
   handleMenuClose = (event, category) => {
     this.setState({anchorEl: null})
     if (category !== 'backdropClick') {
-      const {userId} = this.props
+      const {userId, homes} = this.props
       const {type, id, priority} = category
       const payload = {
         label: type,
@@ -32,6 +33,7 @@ class Menu extends React.Component {
       }
       this.props.addFilter(payload)
       this.props.postCategory({userId, ...payload})
+      //this.props.fetchOneCategoryResults(payload, homes)
     }
   }
 
@@ -72,7 +74,9 @@ const mapStateToProps = state => {
   } = state.categoryFilter
 
   return {
+    homes: state.homes,
     userId: state.user.id,
+    homeCategoriesLoaded: state.homeCategories.loaded,
     filterCategoriesErrored,
     filterCategoriesFetching,
     filterCategories
@@ -83,7 +87,9 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchFilterCategories: () => dispatch(fetchFilterCategories()),
     addFilter: payload => dispatch(addNewSelectedFilter(payload)),
-    postCategory: payload => dispatch(postCategory(payload))
+    postCategory: payload => dispatch(postCategory(payload)),
+    fetchOneCategoryResults: (category, homes) =>
+      dispatch(fetchOneCategoryResults(category, homes))
   }
 }
 
