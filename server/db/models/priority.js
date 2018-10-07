@@ -12,12 +12,4 @@ const Priority = db.define('priority', {
   }
 })
 
-Priority.afterCreate(async instance => {
-  const nextPriority =
-    (await Priority.findAll({
-      where: {userId: instance.userId}
-    }).length) + 1
-  instance.setDataValue('priority', nextPriority)
-})
-
 module.exports = Priority

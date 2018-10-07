@@ -1,14 +1,25 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withStyles} from '@material-ui/core/styles'
-import {Button, TextField, Select} from '@material-ui/core/'
-import {getCoordinates} from '../../store'
+import {
+  Button,
+  TextField,
+  Select,
+  InputLabel,
+  FormControl
+} from '@material-ui/core/'
+import {getCenter} from '../../store'
 import {states} from '../../utilities'
 
 const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
+  },
+
+  formControl: {
+    margin: '0 0 0 8px',
+    minWidth: 120
   }
 })
 
@@ -30,7 +41,7 @@ class Welcome extends React.Component {
   handleSubmit = e => {
     e.preventDefault()
     const {city, state} = this.state
-    this.props.getCoordinates(city, state)
+    this.props.getCenter(city, state)
   }
 
   render() {
@@ -42,32 +53,33 @@ class Welcome extends React.Component {
         <h3>Make your move</h3>
         <p>Enter the city of your next big move!</p>
         <div className="form-welcome">
-          <TextField
-            name="city"
-            label="City"
-            className={classes.textField}
-            value={city}
-            margin="normal"
-            onChange={this.handleChange}
-          />
-          <Select
-            native
-            inputProps={{
-              name: 'state'
-            }}
-            label="State"
-            // className={classes.textField}
-            value={state}
-            variant="outlined"
-            margin="normal"
-            onChange={this.handleChange}
-          >
-            {states.map((state, i) => (
-              <option key={i} value={state}>
-                {state}
-              </option>
-            ))}
-          </Select>
+          <div className="fields">
+            <TextField
+              name="city"
+              label="City"
+              value={city}
+              onChange={this.handleChange}
+            />
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="state-native">State</InputLabel>
+              <Select
+                native
+                value={state}
+                onChange={this.handleChange}
+                inputProps={{
+                  name: 'state',
+                  id: 'state-native'
+                }}
+                className={classes.select}
+              >
+                {states.map((state, i) => (
+                  <option key={i} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
         </div>
         <Button variant="contained" onClick={this.handleSubmit}>
           Go
@@ -79,13 +91,13 @@ class Welcome extends React.Component {
 
 const mapState = state => {
   return {
-    coordinates: state.coordinates
+    coordinates: state.coordinates.center
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getCoordinates: (city, state) => dispatch(getCoordinates(city, state))
+    getCenter: (city, state) => dispatch(getCenter(city, state))
   }
 }
 

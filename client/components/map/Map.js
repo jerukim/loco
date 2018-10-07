@@ -1,62 +1,87 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withGoogleMap, GoogleMap, withScriptjs, Marker} from 'react-google-maps'
+import {getBounds} from '../../store'
 
-const GMap = props => {
-  const {lat, lng} = props.coordinates
-  const places = props.places
-  const homes = props.homes
+class GMap extends React.Component {
+  componentDidUpdate = async prevProps => {
+    const {userId, homes, places} = this.props
+    if (!userId) {
+      return
+    } else if (
+      homes.length < prevProps.homes.length ||
+      places.length < prevProps.places.length
+    ) {
+      return
+    } else if (homes !== prevProps.homes || places !== prevProps.places) {
+      try {
+        const bounds = await this.props.getBounds([...homes, ...places])
+        this.refs.map.fitBounds(bounds)
+      } catch (err) {
+        console.error('An error occurred in Google maps', err)
+      }
+    }
+  }
 
-  return (
-    <GoogleMap
-      center={new google.maps.LatLng(lat, lng)}
-      defaultZoom={13}
-      defaultOptions={{
-        mapTypeControl: false,
-        fullscreenControl: false,
-        styles: [
-          {
-            featureType: 'poi',
-            stylers: [{visibility: 'off'}]
-          },
-          {
-            featureType: 'transit',
-            elementType: 'labels.icon',
-            stylers: [{visibility: 'off'}]
-          }
-        ]
-        // clickableIcons: false
-      }}
-    >
-      {homes &&
-        homes.map(marker => (
+  render() {
+    const {places, homes, center} = this.props
+
+    return (
+      <GoogleMap
+        ref="map"
+        center={center}
+        defaultZoom={13}
+        defaultOptions={{
+          mapTypeControl: false,
+          fullscreenControl: false,
+          styles: [
+            {
+              featureType: 'poi',
+              stylers: [{visibility: 'off'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'labels.icon'
+            }
+          ]
+          // clickableIcons: false
+        }}
+      >
+        {homes &&
+          homes.map(marker => (
+            <Marker
+              icon={'http://maps.google.com/mapfiles/kml/pal3/icon56.png'}
+              position={{lat: marker.location.lat, lng: marker.location.lng}}
+              key={marker.id}
+            />
+          ))}
+
+        {places.map(marker => (
           <Marker
-            icon={'http://maps.google.com/mapfiles/kml/pal3/icon56.png'}
+            icon={'http://maps.google.com/mapfiles/kml/pal4/icon47.png'}
             position={{lat: marker.location.lat, lng: marker.location.lng}}
             key={marker.id}
           />
         ))}
-
-      {places.map(marker => (
-        <Marker
-          icon={'http://maps.google.com/mapfiles/kml/pal4/icon47.png'}
-          position={{lat: marker.location.lat, lng: marker.location.lng}}
-          key={marker.id}
-        />
-      ))}
-    </GoogleMap>
-  )
+      </GoogleMap>
+    )
+  }
 }
 
 const mapState = state => {
   const {coordinates, homes, places, selectedCategories} = state
 
   return {
-    coordinates,
+    userId: state.user.id,
+    center: coordinates.center,
     homes,
     places,
     selectedCategories
   }
 }
 
-export default connect(mapState)(withScriptjs(withGoogleMap(GMap)))
+const mapDispatch = dispatch => ({
+  getBounds: markers => dispatch(getBounds(markers))
+})
+
+export default connect(mapState, mapDispatch)(withScriptjs(withGoogleMap(GMap)))

@@ -14,7 +14,7 @@ class ScreensMap extends React.Component {
             process.env.GOOGLE_API_KEY
           }&libraries=places`}
           loadingElement={<div style={{height: `100%`}} />}
-          containerElement={<div style={{height: `100vh`}} />}
+          containerElement={<div style={{height: `80vh`}} />}
           mapElement={<div style={{height: `100%`}} />}
         />
       </div>

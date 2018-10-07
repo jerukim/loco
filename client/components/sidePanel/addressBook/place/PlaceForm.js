@@ -73,14 +73,6 @@ class PlaceForm extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <TextField
-          label="Label"
-          className={classes.textField}
-          value={name}
-          InputProps={{className: classes.input}}
-          onChange={this.handleChange('name')}
-        />
-
         <PlacesAutocomplete
           value={address}
           onChange={this.handleAutoChange}
@@ -88,7 +80,16 @@ class PlaceForm extends React.Component {
         >
           {renderFuncEdit}
         </PlacesAutocomplete>
-        <Button type="submit">Save</Button>
+        <TextField
+          label="Label"
+          className={classes.textField}
+          value={name}
+          InputProps={{className: classes.input}}
+          onChange={this.handleChange('name')}
+        />
+        <div className="flex-container flex-end">
+          <Button type="submit">Save</Button>
+        </div>
       </form>
     )
   }
