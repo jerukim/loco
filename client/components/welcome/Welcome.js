@@ -8,7 +8,7 @@ import {
   InputLabel,
   FormControl
 } from '@material-ui/core/'
-import {getCoordinates} from '../../store'
+import {getCenter} from '../../store'
 import {states} from '../../utilities'
 
 const styles = theme => ({
@@ -41,7 +41,7 @@ class Welcome extends React.Component {
   handleSubmit = e => {
     e.preventDefault()
     const {city, state} = this.state
-    this.props.getCoordinates(city, state)
+    this.props.getCenter(city, state)
   }
 
   render() {
@@ -91,13 +91,13 @@ class Welcome extends React.Component {
 
 const mapState = state => {
   return {
-    coordinates: state.coordinates
+    coordinates: state.coordinates.center
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getCoordinates: (city, state) => dispatch(getCoordinates(city, state))
+    getCenter: (city, state) => dispatch(getCenter(city, state))
   }
 }
 
