@@ -4,7 +4,7 @@ import {
   fetchHomes,
   fetchPlaces,
   fetchSelectedCategories,
-  getPriorities
+  fetchHomePlaces
 } from './index'
 
 const GET_USER = 'GET_USER'
@@ -33,7 +33,7 @@ export const auth = (email, password, method) => async dispatch => {
       dispatch(fetchPlaces(res.data.id))
       dispatch(fetchHomes(res.data.id))
       await dispatch(fetchSelectedCategories(res.data.id))
-      dispatch(getPriorities(res.data.id))
+      dispatch(fetchHomePlaces(res.data.id))
     }
   } catch (authError) {
     return dispatch(getUser({error: authError}))

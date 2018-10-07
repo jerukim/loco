@@ -37,8 +37,8 @@ export const fetchCategoryResults = (userId, homes) => async dispatch => {
 
     await Promise.all(homePromises)
 
-    dispatch(gotCategoryResults(categoryResults))
     dispatch(fetchHomeCategories(homes, categoryResults, categories))
+    dispatch(gotCategoryResults(categoryResults))
   } catch (err) {
     console.error(err)
   }

@@ -1,17 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-
 import {HomeCard, PlaceInfo} from '..'
 
-import {fetchHomePlaces} from '../../store'
-
 class HomeTab extends React.Component {
-  componentDidMount() {
-    if (this.props.userId) {
-      this.props.fetchHomePlaces(this.props.userId)
-    }
-  }
-
   render() {
     return this.props.homeId ? (
       <div id="home-info">
@@ -30,10 +21,4 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    fetchHomePlaces: userId => dispatch(fetchHomePlaces(userId))
-  }
-}
-
-export default connect(mapState, mapDispatch)(HomeTab)
+export default connect(mapState)(HomeTab)
