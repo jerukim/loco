@@ -5,9 +5,8 @@ import {getBounds} from '../../store'
 
 class GMap extends React.Component {
   componentDidUpdate = async prevProps => {
-    const {homes, places} = this.props
-    if (!homes[0] && !places[0]) {
-      console.log('home and places do not exist')
+    const {userId, homes, places} = this.props
+    if (!userId) {
       return
     } else if (homes !== prevProps.homes || places !== prevProps.places) {
       try {
@@ -70,6 +69,7 @@ const mapState = state => {
   const {coordinates, homes, places, selectedCategories} = state
 
   return {
+    userId: state.user.id,
     center: coordinates.center,
     homes,
     places,
