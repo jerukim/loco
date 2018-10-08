@@ -3,9 +3,18 @@ import {connect} from 'react-redux'
 import {withGoogleMap, GoogleMap, withScriptjs, Marker} from 'react-google-maps'
 
 const GMap = props => {
+  console.log('PROPS: ', props)
   const {lat, lng} = props.coordinates
   const places = props.places
   const homes = props.homes
+  const categorieResults = props.categorieResults
+
+  console.log('CATEGORIE RESULTS IN PROPS: ', categorieResults)
+  // let nearByHomes = {}
+  // for (let i = 0; i < categorieResults.length; i += 1) {
+  //   nearByHomes[categorieResults[i]] = 0
+  // }
+  // console.log("NEARBYHOMES: ", nearByHomes)
 
   return (
     <GoogleMap
@@ -49,8 +58,14 @@ const GMap = props => {
 }
 
 const mapState = state => {
-  console.log("****STATE: ", state)
-  const {coordinates, homes, places, selectedCategories, categorieResults} = state
+  console.log('****STATE: ', state)
+  const {
+    coordinates,
+    homes,
+    places,
+    selectedCategories,
+    categorieResults
+  } = state
 
   return {
     coordinates,
