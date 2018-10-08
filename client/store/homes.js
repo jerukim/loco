@@ -43,7 +43,10 @@ export const postHome = ({userId, address, lat, lng}) => async dispatch => {
     const {data: {homes}} = await axios.get(`/api/users/${userId}/homes`)
 
     dispatch(fetchOneHomePlaces(userId, homeId))
-    dispatch(fetchAllCategoryResultsOneHome(userId, homeId, {lat, lng}))
+
+    //very unnecessary but just testing this out
+    dispatch(fetchHomes(userId))
+    // dispatch(fetchAllCategoryResultsOneHome(userId, homeId, {lat, lng}))
 
     dispatch(gotHomes(homes))
   } catch (err) {

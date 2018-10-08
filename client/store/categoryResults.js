@@ -1,5 +1,9 @@
 import axios from 'axios'
-import {fetchAllHomeCategories, fetchOneHomeCategory} from './'
+import {
+  fetchAllHomeCategories,
+  fetchOneHomeCategory,
+  fetchAllHomeCategoriesOneHome
+} from './'
 
 const FETCH_ALL_CATEGORY_RESULTS_SUCCESS = 'GOT_CATEGORY_RESULTS_SUCCESS'
 const FETCH_ONE_CATEGORY_RESULTS_SUCCESS = 'FETCH_ONE_CATEGORY_RESULTS_SUCCESS'
@@ -17,15 +21,10 @@ const fetchOneCategoryResultsSuccess = (categoryResults, categoryId) => ({
   categoryResults,
   categoryId
 })
-const fetchAllCategoryResultsOneHomeSuccess = (
-  categoryResults,
-  homeId,
-  categories
-) => ({
+const fetchAllCategoryResultsOneHomeSuccess = (categoryResults, homeId) => ({
   type: FETCH_ALL_CATEGORY_RESULTS_ONE_HOME_SUCCESS,
   categoryResults,
-  homeId,
-  categories
+  homeId
 })
 const fetchCategoryResultsRequest = () => ({
   type: FETCH_CATEGORY_RESULTS_REQUEST
@@ -111,11 +110,31 @@ export const fetchAllCategoryResultsOneHome = (
 ) => async dispatch => {
   try {
     dispatch(fetchCategoryResultsRequest())
-    const {data} = await axios.get(`/api/categories/${userId}`)
-
     const categoryResults = {}
 
-    const categories = data.filter(item => item.categoryId !== null)
+    // const {data} = await axios.get(`/api/categories/${userId}`)
+
+    // const categories = data.filter(item => item.categoryId !== null)
+    const categories = [
+      {
+        label: 'supermarket',
+        priority: 2,
+        categoryId: 1,
+        placeId: null
+      },
+      {
+        label: 'gym',
+        priority: 4,
+        categoryId: 2,
+        placeId: null
+      },
+      {
+        label: 'train_station',
+        priority: 5,
+        categoryId: 11,
+        placeId: null
+      }
+    ]
 
     const categoriesPromises = categories.map(async category => {
       const {label, categoryId} = category
@@ -126,10 +145,17 @@ export const fetchAllCategoryResultsOneHome = (
       categoryResults[categoryId] = payload.data.results
     })
 
+    console.log(JSON.parse(JSON.stringify(categoriesPromises)))
+
     await Promise.all(categoriesPromises)
 
+    console.log(JSON.parse(JSON.stringify(categoryResults)))
+
+    dispatch(fetchAllCategoryResultsOneHomeSuccess(categoryResults, homeId))
+
+    // how can we dispatch after fetching category results is false and loaded is true
     dispatch(
-      fetchAllCategoryResultsOneHomeSuccess(categoryResults, homeId, categories)
+      fetchAllHomeCategoriesOneHome(categoryResults, coordinates, homeId)
     )
   } catch (err) {
     console.error(err)
