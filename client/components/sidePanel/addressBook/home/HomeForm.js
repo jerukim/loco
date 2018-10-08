@@ -25,7 +25,7 @@ class HomeForm extends React.Component {
     super(props)
     this.state = {
       address: this.props.home.location.address,
-      price: this.props.home.price,
+      price: this.props.home.price || 0,
       link: this.props.home.link || '',
       lat: 0,
       lng: 0
@@ -44,7 +44,8 @@ class HomeForm extends React.Component {
     const {id: homeId} = this.props.home
     let payload = {userId, homeId}
     if (this.state.lat === 0 && this.state.lng === 0) {
-      const {price, link} = this.state
+      let {price, link} = this.state
+      price = price ? price : 0
       payload = {...payload, price, link}
     } else {
       payload = {...payload, ...this.state}
