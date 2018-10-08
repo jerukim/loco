@@ -4,7 +4,6 @@ import {HomeCard, PlaceInfo} from '..'
 
 class HomeTab extends React.Component {
   render() {
-    console.log(this.props.homeId)
     return this.props.homeId ? (
       <div id="home-info">
         <HomeCard homeId={this.props.homeId} />

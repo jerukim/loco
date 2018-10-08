@@ -20,6 +20,7 @@ const fetchHomePlacesError = () => ({
   type: FETCH_HOME_PLACES_ERROR
 })
 
+// fetches all home_places for all homes on intial login
 export const fetchAllHomePlaces = userId => async dispatch => {
   try {
     dispatch(fetchHomePlacesRequest())
@@ -38,6 +39,7 @@ export const fetchAllHomePlaces = userId => async dispatch => {
   }
 }
 
+// fetches one home_place for all homes
 export const fetchOneHomePlaces = (userId, homeId) => async dispatch => {
   try {
     dispatch(fetchHomePlacesRequest())
