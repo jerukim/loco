@@ -44,38 +44,26 @@ export const fetchAllHomeCategories = (
           lng:
             categoryResults[home.id][item.categoryId][0].geometry.location.lng
         }
-        const walkDataGoogle = await axios.post(
-          '/api/google/categoryDistances',
-          {
-            start,
-            end,
-            mode: 'walking'
-          }
-        )
-        const transitDataGoogle = await axios.post(
-          '/api/google/categoryDistances',
-          {
-            start,
-            end,
-            mode: 'transit'
-          }
-        )
-        const bicyclingDataGoogle = await axios.post(
-          '/api/google/categoryDistances',
-          {
-            start,
-            end,
-            mode: 'bicycling'
-          }
-        )
-        const drivingDataGoogle = await axios.post(
-          '/api/google/categoryDistances',
-          {
-            start,
-            end,
-            mode: 'driving'
-          }
-        )
+        const walkDataGoogle = await axios.post('/api/google/distance', {
+          start,
+          end,
+          mode: 'walking'
+        })
+        const transitDataGoogle = await axios.post('/api/google/distance', {
+          start,
+          end,
+          mode: 'transit'
+        })
+        const bicyclingDataGoogle = await axios.post('/api/google/distance', {
+          start,
+          end,
+          mode: 'bicycling'
+        })
+        const drivingDataGoogle = await axios.post('/api/google/distance', {
+          start,
+          end,
+          mode: 'driving'
+        })
 
         const infoPromises = Promise.all([
           walkDataGoogle,
@@ -135,35 +123,26 @@ export const fetchOneHomeCategory = (
         lat: categoryResults[home.id][categoryId][0].geometry.location.lat,
         lng: categoryResults[home.id][categoryId][0].geometry.location.lng
       }
-      const walkDataGoogle = await axios.post('/api/google/categoryDistances', {
+      const walkDataGoogle = await axios.post('/api/google/distance', {
         start,
         end,
         mode: 'walking'
       })
-      const transitDataGoogle = await axios.post(
-        '/api/google/categoryDistances',
-        {
-          start,
-          end,
-          mode: 'transit'
-        }
-      )
-      const bicyclingDataGoogle = await axios.post(
-        '/api/google/categoryDistances',
-        {
-          start,
-          end,
-          mode: 'bicycling'
-        }
-      )
-      const drivingDataGoogle = await axios.post(
-        '/api/google/categoryDistances',
-        {
-          start,
-          end,
-          mode: 'driving'
-        }
-      )
+      const transitDataGoogle = await axios.post('/api/google/distance', {
+        start,
+        end,
+        mode: 'transit'
+      })
+      const bicyclingDataGoogle = await axios.post('/api/google/distance', {
+        start,
+        end,
+        mode: 'bicycling'
+      })
+      const drivingDataGoogle = await axios.post('/api/google/distance', {
+        start,
+        end,
+        mode: 'driving'
+      })
 
       const infoPromises = Promise.all([
         walkDataGoogle,

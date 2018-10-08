@@ -149,6 +149,25 @@ router.get('/:userId/home_places', async (req, res, next) => {
   }
 })
 
+router.get('/:userId/home_places/:homeId', async (req, res, next) => {
+  try {
+    let {userId, homeId} = req.params
+    let homePlaces = await db.query(
+      `SELECT home_places.*
+    FROM home_places
+    JOIN user_homes ON "home_places"."homeId"= "user_homes"."homeId"
+    WHERE "user_homes"."userId" = :userId AND "user_homes"."homeId" = :homeId`,
+      {
+        replacements: {userId, homeId},
+        type: db.QueryTypes.SELECT
+      }
+    )
+    res.json(homePlaces)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // get users priorities
 router.get('/:userId/priorities', async (req, res, next) => {
   try {
