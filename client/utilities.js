@@ -112,6 +112,11 @@ export const flattenHomeCategoryResults = categoryResultsObj => {
   return markers
 }
 
+export const removeCountry = address => {
+  const arr = address.split(',')
+  return arr.slice(0, arr.length - 1).join(',')
+}
+
 export const states = [
   '',
   'AL',
