@@ -19,7 +19,6 @@ const styles = () => ({
 class HomeDetail extends React.Component {
   handleClick = () => {
     const {home, selectHomeId} = this.props
-    console.log('home', home)
     selectHomeId(home.id)
   }
 

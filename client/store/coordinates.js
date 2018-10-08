@@ -45,7 +45,6 @@ export const getBounds = (markers, centerLatLng) => {
           const {lat, lng} = markers[i].location
           await bounds.extend({lat, lng})
         }
-        console.log('Bounds', bounds)
         const center = centerLatLng || (await bounds.getCenter())
         dispatch(gotBounds(bounds))
         dispatch(gotCenter(center))

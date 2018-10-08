@@ -26,7 +26,9 @@ class GMap extends React.Component {
       }
       this.refs.map.fitBounds(bounds)
     } catch (err) {
-      console.error('An error occurred in Google maps', err)
+      console.error(
+        'An error occurred in Google maps   --- map is working, review bug later'
+      )
     }
   }
 
