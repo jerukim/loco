@@ -3,6 +3,8 @@ import {fetchAllHomeCategories, fetchOneHomeCategory} from './'
 
 const FETCH_ALL_CATEGORY_RESULTS_SUCCESS = 'GOT_CATEGORY_RESULTS_SUCCESS'
 const FETCH_ONE_CATEGORY_RESULTS_SUCCESS = 'FETCH_ONE_CATEGORY_RESULTS_SUCCESS'
+const FETCH_ALL_CATEGORY_RESULTS_ONE_HOME_SUCCESS =
+  'FETCH_ALL_CATEGORY_RESULTS_ONE_HOME_SUCCESS'
 const FETCH_CATEGORY_RESULTS_REQUEST = 'FETCH_CATEGORY_RESULTS_REQUEST'
 const FETCH_CATEGORY_RESULTS_ERROR = 'FETCH_CATEGORY_RESULTS_ERROR'
 
@@ -14,6 +16,16 @@ const fetchOneCategoryResultsSuccess = (categoryResults, categoryId) => ({
   type: FETCH_ONE_CATEGORY_RESULTS_SUCCESS,
   categoryResults,
   categoryId
+})
+const fetchAllCategoryResultsOneHomeSuccess = (
+  categoryResults,
+  homeId,
+  categories
+) => ({
+  type: FETCH_ALL_CATEGORY_RESULTS_ONE_HOME_SUCCESS,
+  categoryResults,
+  homeId,
+  categories
 })
 const fetchCategoryResultsRequest = () => ({
   type: FETCH_CATEGORY_RESULTS_REQUEST
@@ -92,6 +104,38 @@ export const fetchOneCategoryResults = (category, homes) => async dispatch => {
 }
 
 // adds all the categories to one home
+export const fetchAllCategoryResultsOneHome = (
+  userId,
+  homeId,
+  coordinates
+) => async dispatch => {
+  try {
+    dispatch(fetchCategoryResultsRequest())
+    const {data} = await axios.get(`/api/categories/${userId}`)
+
+    const categoryResults = {}
+
+    const categories = data.filter(item => item.categoryId !== null)
+
+    const categoriesPromises = categories.map(async category => {
+      const {label, categoryId} = category
+      const payload = await axios.post(`/api/google/categoryResults`, {
+        coordinates,
+        category: label
+      })
+      categoryResults[categoryId] = payload.data.results
+    })
+
+    await Promise.all(categoriesPromises)
+
+    dispatch(
+      fetchAllCategoryResultsOneHomeSuccess(categoryResults, homeId, categories)
+    )
+  } catch (err) {
+    console.error(err)
+    dispatch(fetchCategoryResultsError())
+  }
+}
 
 const initialState = {
   loaded: false,
@@ -117,6 +161,14 @@ export default function(state = initialState, action) {
       })
       return {
         ...newState,
+        loaded: true,
+        fetchingCategoryResults: false,
+        errorFetching: false
+      }
+    case FETCH_ALL_CATEGORY_RESULTS_ONE_HOME_SUCCESS:
+      return {
+        ...state,
+        [action.homeId]: action.categoryResults,
         loaded: true,
         fetchingCategoryResults: false,
         errorFetching: false

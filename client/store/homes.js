@@ -1,5 +1,9 @@
 import axios from 'axios'
-import {fetchAllCategoryResults, fetchOneHomePlaces} from './index'
+import {
+  fetchAllCategoryResults,
+  fetchOneHomePlaces,
+  fetchAllCategoryResultsOneHome
+} from './index'
 import {getStreetViewUrl} from '../../server/services'
 
 const GOT_HOMES = 'GOT_HOMES'
@@ -39,6 +43,7 @@ export const postHome = ({userId, address, lat, lng}) => async dispatch => {
     const {data: {homes}} = await axios.get(`/api/users/${userId}/homes`)
 
     dispatch(fetchOneHomePlaces(userId, homeId))
+    dispatch(fetchAllCategoryResultsOneHome(userId, homeId, {lat, lng}))
 
     dispatch(gotHomes(homes))
   } catch (err) {
