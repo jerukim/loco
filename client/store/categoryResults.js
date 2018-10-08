@@ -59,6 +59,7 @@ export const fetchAllCategoryResults = (userId, homes) => async dispatch => {
   }
 }
 
+// adds one category to all the homes
 export const fetchOneCategoryResults = (category, homes) => async dispatch => {
   try {
     dispatch(fetchCategoryResultsRequest())
@@ -89,6 +90,8 @@ export const fetchOneCategoryResults = (category, homes) => async dispatch => {
     dispatch(fetchCategoryResultsError())
   }
 }
+
+// adds all the categories to one home
 
 const initialState = {
   loaded: false,

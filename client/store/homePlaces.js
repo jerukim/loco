@@ -9,10 +9,10 @@ const fetchAllHomePlacesSuccess = homePlaces => ({
   type: FETCH_ALL_HOME_PLACES_SUCCESS,
   homePlaces
 })
-const fetchOneHomePlacesSuccess = homePlaces => ({
-  type: FETCH_ONE_HOME_PLACES_SUCCESS,
-  homePlaces
-})
+// const fetchOneHomePlacesSuccess = homePlaces => ({
+//   type: FETCH_ONE_HOME_PLACES_SUCCESS,
+//   homePlaces
+// })
 const fetchHomePlacesRequest = () => ({
   type: FETCH_HOME_PLACES_REQUEST
 })
