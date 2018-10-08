@@ -51,8 +51,13 @@ label {
 }
 
 .form-welcome {
-  margin: 1em;
+  margin: 0.5em;
   display: inline-block;
+}
+
+.fields {
+  display: flex;
+  align-items: center;
 }
 
 #main {
@@ -61,6 +66,7 @@ label {
 }
 
 #top {
+  height: 80vh;
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
@@ -76,6 +82,13 @@ label {
   background: rgb(252, 252, 252);
 }
 
+.autocomplete-dropdown-container {
+  position: absolute;
+  display: flex;
+  max-width: 500px;
+  z-index: 2;
+}
+
 #bottom {
   width: 100%;
 }
@@ -89,6 +102,14 @@ label {
 
 .flex-container {
   display: flex;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.space-between {
+  justify-content: space-between;
 }
 
 .list {
@@ -108,12 +129,19 @@ label {
   margin: 0px 0px;
 }
 
+.auto-form {
+  margin-left: -10px;
+}
+
 .card-title {
   margin: 0 15px;
 }
 
-.button-wrap {
+.dropdown-wrap {
   display: flex;
+  position: absolute;
+  right: 0;
+  transform: translate(4%, -77%);
 }
 
 .side-panel-body {
@@ -124,8 +152,13 @@ label {
   justify-content: space-evenly;
 }
 
+.addressbook-display {
+  overflow-y: auto;
+  height: calc(80vh - 120px);
+  width: 100%;
+}
+
 .addressbook-select {
-  background-color: #f0336c;
   display: flex;
   justify-content: space-around;
   flex-flow: column;

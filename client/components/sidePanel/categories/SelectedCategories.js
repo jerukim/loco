@@ -6,12 +6,6 @@ import Typography from '@material-ui/core/Typography'
 import CategoryChips from './CategoryChips'
 
 class SelectedCategories extends React.Component {
-  componentDidMount() {
-    if (this.props.userId) {
-      this.props.fetchSelectedCategories(this.props.userId)
-    }
-  }
-
   render() {
     const {
       selectedCategories,

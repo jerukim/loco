@@ -1,6 +1,13 @@
 import axios from 'axios'
 import history from '../history'
-import {fetchHomes, fetchPlaces, fetchSelectedCategories} from './index'
+import {
+  fetchHomes,
+  fetchPlaces,
+  fetchSelectedCategories,
+  fetchHomePlaces,
+  removeHomes,
+  removePlaces
+} from './index'
 
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
@@ -28,6 +35,7 @@ export const auth = (email, password, method) => async dispatch => {
       dispatch(fetchPlaces(res.data.id))
       dispatch(fetchHomes(res.data.id))
       await dispatch(fetchSelectedCategories(res.data.id))
+      dispatch(fetchHomePlaces(res.data.id))
     }
   } catch (authError) {
     return dispatch(getUser({error: authError}))
@@ -45,6 +53,8 @@ export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     dispatch(removeUser())
+    dispatch(removeHomes())
+    dispatch(removePlaces())
     history.push('/home')
   } catch (err) {
     console.error(err)

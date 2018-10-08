@@ -27,16 +27,29 @@ const styles = theme => ({
 })
 
 const PlaceInfo = props => {
-  const {classes, places, homeId, homePlaces} = props
-  return homePlaces[homeId] ? (
+  const {
+    classes,
+    homeId,
+    homePlaces,
+    homeCategories,
+    priorities,
+    categoryResults
+  } = props
+  return homeCategories.loaded && categoryResults.loaded ? (
     <div className={classes.root}>
-      {places.map(place => {
-        const info = homePlaces[homeId][place.id]
+      {priorities.map(item => {
+        const name = item.placeId
+          ? item.label
+          : `${homeCategories[homeId][item.categoryId].name} (${item.label})`
+
+        const info = item.placeId
+          ? homePlaces[homeId][item.placeId]
+          : homeCategories[homeId][item.categoryId]
         return (
-          <ExpansionPanel key={place.id}>
+          <ExpansionPanel key={item.priority}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography className={classes.heading}>
-                {place.name} - {info.distanceText}
+                {name} - {info.distanceText}
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
@@ -62,8 +75,11 @@ const PlaceInfo = props => {
 
 const mapState = state => {
   return {
-    places: state.places,
-    homePlaces: state.homePlaces
+    categories: state.categoryFilter.filterCategories,
+    homePlaces: state.homePlaces,
+    categoryResults: state.categoryResults,
+    homeCategories: state.homeCategories,
+    priorities: state.selectedCategories.selectedCategories
   }
 }
 
