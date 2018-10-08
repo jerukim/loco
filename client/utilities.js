@@ -100,6 +100,18 @@ export const updateCategoriesInDb = async (event, {selected, userId}) => {
   }
 }
 
+export const flattenHomeCategoryResults = categoryResultsObj => {
+  const markers = []
+  for (let category in categoryResultsObj) {
+    if (categoryResultsObj.hasOwnProperty(category)) {
+      for (let i = 0; i < 5; i++) {
+        markers.push(categoryResultsObj[category][i].geometry)
+      }
+    }
+  }
+  return markers
+}
+
 export const states = [
   '',
   'AL',
