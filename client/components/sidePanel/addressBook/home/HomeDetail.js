@@ -4,7 +4,7 @@ import {withStyles} from '@material-ui/core/styles'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import NumberFormat from 'react-number-format'
-import {getBounds} from '../../../../store'
+import {selectHomeId} from '../../../../store'
 
 const styles = () => ({
   media: {
@@ -18,9 +18,10 @@ const styles = () => ({
 
 class HomeDetail extends React.Component {
   handleClick = () => {
-    const {markers} = this.props
-    getBounds(markers)
+    const {home, selectHomeId} = this.props
+    selectHomeId(home.id)
   }
+
   render() {
     const {classes, home} = this.props
     const {address, lat, lng} = home.location
@@ -67,10 +68,8 @@ class HomeDetail extends React.Component {
   }
 }
 
-const mapState = (state, ownProps) => {
-  const {home: {id: homeId}} = ownProps
-  const markers = state.categoryResults[homeId]
-  return {markers}
-}
+const mapDispatch = dispatch => ({
+  selectHomeId: homeId => dispatch(selectHomeId(homeId))
+})
 
-export default connect(mapState)(withStyles(styles)(HomeDetail))
+export default connect(null, mapDispatch)(withStyles(styles)(HomeDetail))

@@ -2,24 +2,33 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {withGoogleMap, GoogleMap, withScriptjs, Marker} from 'react-google-maps'
 import {getBounds} from '../../store'
+import {flattenHomeCategoryResults} from '../../utilities'
 
 class GMap extends React.Component {
   componentDidUpdate = async prevProps => {
-    const {userId, homes, places} = this.props
-    if (!userId) {
-      return
-    } else if (
-      homes.length < prevProps.homes.length ||
-      places.length < prevProps.places.length
-    ) {
-      return
-    } else if (homes !== prevProps.homes || places !== prevProps.places) {
-      try {
-        const bounds = await this.props.getBounds([...homes, ...places])
-        this.refs.map.fitBounds(bounds)
-      } catch (err) {
-        console.error('An error occurred in Google maps', err)
+    const {userId, homes, places, center, homeId, categoryResults} = this.props
+    const homeDeleted = homes.length < prevProps.homes.length
+    const placeDeleted = places.length < prevProps.places.length
+    const centerChanged = center !== prevProps.center
+    let bounds
+    try {
+      if (!userId) {
+        return
+      } else if (homeDeleted || placeDeleted) {
+        return
+      } else if (homes !== prevProps.homes || places !== prevProps.places) {
+        bounds = await this.props.getBounds([...homes, ...places])
+      } else if (homeId !== prevProps.homeId) {
+        const categoryResultsObj = categoryResults[homeId]
+        const {lat, lng} = homes.find(home => home.id === homeId).location
+        const markers = flattenHomeCategoryResults(categoryResultsObj)
+        bounds = await this.props.getBounds(markers, {lat, lng})
       }
+      this.refs.map.fitBounds(bounds)
+    } catch (err) {
+      console.error(
+        'An error occurred in Google maps   --- map is working, review bug later'
+      )
     }
   }
 
@@ -69,19 +78,28 @@ class GMap extends React.Component {
 }
 
 const mapState = state => {
-  const {coordinates, homes, places, selectedCategories} = state
+  const {
+    coordinates,
+    homes,
+    places,
+    selectedCategories,
+    categoryResults
+  } = state
 
   return {
     userId: state.user.id,
     center: coordinates.center,
+    homeId: coordinates.selectedHomeId,
+    placeId: coordinates.selectedPlaceId,
     homes,
     places,
-    selectedCategories
+    selectedCategories,
+    categoryResults
   }
 }
 
 const mapDispatch = dispatch => ({
-  getBounds: markers => dispatch(getBounds(markers))
+  getBounds: (markers, homeCenter) => dispatch(getBounds(markers, homeCenter))
 })
 
 export default connect(mapState, mapDispatch)(withScriptjs(withGoogleMap(GMap)))

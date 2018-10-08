@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {withStyles, AppBar, Tabs, Tab} from '@material-ui/core/'
 import {HomeTab} from '../'
+import {getBounds} from '../../store'
 
 const styles = theme => ({
   root: {
@@ -23,8 +24,19 @@ class RankingTabs extends React.Component {
     value: 0
   }
 
-  handleChange = (event, value) => {
+  handleChange = (event, value, homeId) => {
     this.setState({value})
+    const {markers, getBounds, homes} = this.props
+    const {lat, lng} = homes[homeId].location
+    let markersArr = []
+    for (let key in markers[homeId]) {
+      if (markers[homeId].hasOwnProperty(key)) {
+        for (let i = 0; i < 5; i++) {
+          markersArr.push(markers[key][i].geometry)
+        }
+      }
+    }
+    const bounds = getBounds(markersArr, {lat, lng})
   }
 
   render() {
@@ -53,12 +65,17 @@ class RankingTabs extends React.Component {
 const mapState = state => {
   return {
     homes: state.homes,
-    userId: state.user.id
+    userId: state.user.id,
+    markers: state.categoryResults
   }
 }
+
+const mapDispatch = dispatch => ({
+  getBounds: (markers, homeLatLng) => dispatch(getBounds(markers, homeLatLng))
+})
 
 RankingTabs.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default connect(mapState)(withStyles(styles)(RankingTabs))
+export default connect(mapState, mapDispatch)(withStyles(styles)(RankingTabs))
