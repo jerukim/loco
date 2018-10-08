@@ -16,10 +16,15 @@ const fetchAllCategoryResultsSuccess = categoryResults => ({
   type: FETCH_ALL_CATEGORY_RESULTS_SUCCESS,
   categoryResults
 })
-const fetchOneCategoryResultsSuccess = (categoryResults, categoryId) => ({
+const fetchOneCategoryResultsSuccess = (
+  categoryResults,
+  categoryId,
+  homes
+) => ({
   type: FETCH_ONE_CATEGORY_RESULTS_SUCCESS,
   categoryResults,
-  categoryId
+  categoryId,
+  homes
 })
 const fetchAllCategoryResultsOneHomeSuccess = (categoryResults, homeId) => ({
   type: FETCH_ALL_CATEGORY_RESULTS_ONE_HOME_SUCCESS,
@@ -95,7 +100,7 @@ export const fetchOneCategoryResults = (category, homes) => async dispatch => {
     await Promise.all(homePromises)
 
     dispatch(fetchOneHomeCategory(homes, categoryResults, category))
-    dispatch(fetchOneCategoryResultsSuccess(categoryResults))
+    dispatch(fetchOneCategoryResultsSuccess(categoryResults, categoryId, homes))
   } catch (err) {
     console.error(err)
     dispatch(fetchCategoryResultsError())
@@ -115,8 +120,6 @@ export const fetchAllCategoryResultsOneHome = (
     const {data} = await axios.get(`/api/categories/${userId}`)
 
     const categories = data.filter(item => item.categoryId !== null)
-
-    console.log('CATEGORIES', categories)
 
     const categoriesPromises = categories.map(async category => {
       const {label, categoryId} = category
@@ -156,10 +159,9 @@ export default function(state = initialState, action) {
       }
     case FETCH_ONE_CATEGORY_RESULTS_SUCCESS:
       const newState = {...state}
-      const homeIds = Object.keys(action.categoryResults)
-      homeIds.forEach(homeId => {
-        newState[homeId][action.categoryId] =
-          action.categoryResults[homeId][action.categoryId]
+      action.homes.forEach(home => {
+        newState[home.id][action.categoryId] =
+          action.categoryResults[home.id][action.categoryId]
       })
       return {
         ...newState,
