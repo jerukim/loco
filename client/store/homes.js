@@ -45,8 +45,9 @@ export const postHome = ({userId, address, lat, lng}) => async dispatch => {
     dispatch(fetchOneHomePlaces(userId, homeId))
 
     //very unnecessary but just testing this out
-    dispatch(fetchHomes(userId))
-    // dispatch(fetchAllCategoryResultsOneHome(userId, homeId, {lat, lng}))
+    // dispatch(fetchHomes(userId))
+
+    dispatch(fetchAllCategoryResultsOneHome(userId, homeId, {lat, lng}))
 
     dispatch(gotHomes(homes))
   } catch (err) {

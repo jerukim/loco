@@ -193,14 +193,14 @@ export const fetchAllHomeCategoriesOneHome = (
 ) => async dispatch => {
   try {
     dispatch(fetchHomeCategoriesRequest())
-    console.log(categoryResults)
+
     const homeCategories = {}
     const categoryIds = Object.keys(categoryResults)
 
     const categoryPromises = categoryIds.map(async categoryId => {
       const end = {
-        lat: categoryResults[homeId][categoryId][0].geometry.location.lat,
-        lng: categoryResults[homeId][categoryId][0].geometry.location.lng
+        lat: categoryResults[+categoryId][0].geometry.location.lat,
+        lng: categoryResults[+categoryId][0].geometry.location.lng
       }
 
       const walkDataGoogle = await axios.post('/api/google/distance', {
@@ -237,7 +237,7 @@ export const fetchAllHomeCategoriesOneHome = (
       const drivingData = drivingDataGoogle.data.rows[0].elements[0]
 
       homeCategories[categoryId] = {
-        name: categoryResults[homeId][categoryId][0].name,
+        name: categoryResults[+categoryId][0].name,
         distanceText: walkData.distance.text,
         distanceValue: walkData.distance.value,
         walkingText: walkData.duration.text,

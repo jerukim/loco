@@ -112,29 +112,11 @@ export const fetchAllCategoryResultsOneHome = (
     dispatch(fetchCategoryResultsRequest())
     const categoryResults = {}
 
-    // const {data} = await axios.get(`/api/categories/${userId}`)
+    const {data} = await axios.get(`/api/categories/${userId}`)
 
-    // const categories = data.filter(item => item.categoryId !== null)
-    const categories = [
-      {
-        label: 'supermarket',
-        priority: 2,
-        categoryId: 1,
-        placeId: null
-      },
-      {
-        label: 'gym',
-        priority: 4,
-        categoryId: 2,
-        placeId: null
-      },
-      {
-        label: 'train_station',
-        priority: 5,
-        categoryId: 11,
-        placeId: null
-      }
-    ]
+    const categories = data.filter(item => item.categoryId !== null)
+
+    console.log('CATEGORIES', categories)
 
     const categoriesPromises = categories.map(async category => {
       const {label, categoryId} = category
@@ -145,15 +127,9 @@ export const fetchAllCategoryResultsOneHome = (
       categoryResults[categoryId] = payload.data.results
     })
 
-    console.log(JSON.parse(JSON.stringify(categoriesPromises)))
-
     await Promise.all(categoriesPromises)
 
-    console.log(JSON.parse(JSON.stringify(categoryResults)))
-
     dispatch(fetchAllCategoryResultsOneHomeSuccess(categoryResults, homeId))
-
-    // how can we dispatch after fetching category results is false and loaded is true
     dispatch(
       fetchAllHomeCategoriesOneHome(categoryResults, coordinates, homeId)
     )
