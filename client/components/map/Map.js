@@ -34,14 +34,9 @@ class GMap extends React.Component {
 
   render() {
     const {places, homes, center, categoryResults} = this.props
-    console.log('****RENDER CATEGORY RESULTS: ', categoryResults)
-    // console.log('****NEARBY APT 1: ', categoryResults[1])
-    // console.log('****NEARBY APT 1 Supermarkets: ', categoryResults[1][1])
-    // console.log('****NEARBY APT 2: ', categoryResults[2])
 
-
-    // Creates a sigle array of all locations
-    let arrOfArr = []
+    // Maps all locations into a single array
+    let allLocations = []
 
     for (let home in categoryResults) {
       if (categoryResults.hasOwnProperty(home)) {
@@ -49,14 +44,24 @@ class GMap extends React.Component {
           if (categoryResults[home].hasOwnProperty(category)) {
             for (let i = 0; i < categoryResults[home][category].length; i++) {
               let item = categoryResults[home][category][i]
-              arrOfArr.push(item)
+              allLocations.push(item)
             }
           }
         }
       }
     }
 
-    console.log('ARR OF ARR: ', arrOfArr)
+    // Removes duplicate locations
+    let locationsForMarkers = allLocations.filter(function(obj, index, self) {
+      return (
+        index ===
+        self.findIndex(function(t) {
+          return t.vicinity === obj.vicinity
+        })
+      )
+    })
+
+    console.log('AFILTEREDARR: ', locationsForMarkers)
 
     return (
       <GoogleMap
@@ -94,8 +99,8 @@ class GMap extends React.Component {
           />
         ))}
 
-        {arrOfArr &&
-          arrOfArr.map(marker => (
+        {locationsForMarkers &&
+          locationsForMarkers.map(marker => (
             <Marker
               icon={'http://maps.google.com/mapfiles/ms/micons/blue-dot.png'}
               position={{
@@ -111,7 +116,6 @@ class GMap extends React.Component {
 }
 
 const mapState = state => {
-  console.log('****STATE: ', state)
   const {
     coordinates,
     homes,
