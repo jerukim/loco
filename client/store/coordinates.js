@@ -1,12 +1,18 @@
 import axios from 'axios'
-// import '../../secrets'
 
 const GOT_CENTER = 'GET_CENTER'
 const GOT_BOUNDS = 'GOT_BOUNDS'
+const SELECT_HOME = 'SELECT_HOME'
+const UNSELECT_HOME = 'UNSELECT_HOME'
 
-const gotCenter = payload => ({
+export const gotCenter = payload => ({
   type: GOT_CENTER,
   center: payload
+})
+
+export const selectHomeId = homeId => ({
+  type: SELECT_HOME,
+  homeId
 })
 
 const gotBounds = payload => ({
@@ -30,19 +36,18 @@ export const getCenter = (city, state) => {
   }
 }
 
-export const getBounds = (markers, homeLatLng) => {
-  console.log('homeLatLng', homeLatLng)
+export const getBounds = (markers, centerLatLng) => {
   return async dispatch => {
     if (markers[0]) {
       try {
         const bounds = new google.maps.LatLngBounds()
-        for (let i = 0; i < markers.length; i++) {
+        for (let i = 0; i < 5; i++) {
           const {lat, lng} = markers[i].location
           await bounds.extend({lat, lng})
         }
-        const {b, f} = bounds
-        const center = homeLatLng || (await bounds.getCenter())
-        dispatch(gotBounds([b, f]))
+        console.log('Bounds', bounds)
+        const center = centerLatLng || (await bounds.getCenter())
+        dispatch(gotBounds(bounds))
         dispatch(gotCenter(center))
         return bounds
       } catch (err) {
@@ -52,7 +57,11 @@ export const getBounds = (markers, homeLatLng) => {
   }
 }
 
-const initialState = {center: {}, bounds: []}
+const initialState = {
+  center: {},
+  bounds: [],
+  selectedHomeId: null
+}
 
 const coordinatesReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -60,6 +69,10 @@ const coordinatesReducer = (state = initialState, action) => {
       return {...state, center: action.center}
     case GOT_BOUNDS:
       return {...state, bounds: action.bounds}
+    case SELECT_HOME:
+      return {...state, selectedHomeId: action.homeId}
+    case UNSELECT_HOME:
+      return {...state, selectedHomeId: null}
     default:
       return state
   }
