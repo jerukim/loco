@@ -1,9 +1,5 @@
 import axios from 'axios'
-import {
-  fetchAllCategoryResults,
-  fetchOneHomePlaces,
-  fetchAllCategoryResultsOneHome
-} from './index'
+import {fetchAllCategoryResults} from './index'
 import {getStreetViewUrl} from '../../server/services'
 
 const GOT_HOMES = 'GOT_HOMES'
@@ -41,14 +37,6 @@ export const postHome = ({userId, address, lat, lng}) => async dispatch => {
 
     // GET all homes
     const {data: {homes}} = await axios.get(`/api/users/${userId}/homes`)
-
-    dispatch(fetchOneHomePlaces(userId, homeId))
-
-    //very unnecessary but just testing this out
-    // dispatch(fetchHomes(userId))
-
-    dispatch(fetchAllCategoryResultsOneHome(userId, homeId, {lat, lng}))
-
     dispatch(gotHomes(homes))
   } catch (err) {
     console.error('An error occurred while posting a new home')

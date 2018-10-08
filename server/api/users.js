@@ -110,6 +110,25 @@ router.post('/places', async (req, res, next) => {
   }
 })
 
+//GET user_categories
+router.get('/:userId/categories', async (req, res, next) => {
+  try {
+    let {userId} = req.params
+    let selectedCategories = await User.findOne({
+      where: {id: userId},
+      include: [
+        {
+          model: Category,
+          attributes: {exclude: ['createdAt', 'updatedAt']}
+        }
+      ]
+    })
+    res.status(200).json(selectedCategories)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // get users home_place
 router.get('/:userId/home_places', async (req, res, next) => {
   try {
@@ -121,25 +140,6 @@ router.get('/:userId/home_places', async (req, res, next) => {
     WHERE "user_homes"."userId" = :userId`,
       {
         replacements: {userId},
-        type: db.QueryTypes.SELECT
-      }
-    )
-    res.json(homePlaces)
-  } catch (err) {
-    next(err)
-  }
-})
-
-router.get('/:userId/home_places/:homeId', async (req, res, next) => {
-  try {
-    let {userId, homeId} = req.params
-    let homePlaces = await db.query(
-      `SELECT home_places.*
-    FROM home_places
-    JOIN user_homes ON "home_places"."homeId"= "user_homes"."homeId"
-    WHERE "user_homes"."userId" = :userId AND "user_homes"."homeId" = :homeId`,
-      {
-        replacements: {userId, homeId},
         type: db.QueryTypes.SELECT
       }
     )
