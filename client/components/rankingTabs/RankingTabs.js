@@ -15,7 +15,8 @@ const styles = theme => ({
 
 const dummyRank = {
   0: 2, // value: homeId
-  1: 1
+  1: 1,
+  2: 5
 }
 
 class RankingTabs extends React.Component {

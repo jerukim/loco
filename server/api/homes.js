@@ -32,7 +32,7 @@ router.post('/places', async (req, res, next) => {
   const {homeId, placeId} = req.body
   try {
     await HomePlace.create({homeId, placeId})
-    res.send(204).end()
+    res.sendStatus(204)
   } catch (err) {
     next(err)
   }

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {fetchHomePlaces} from '../store'
+import {fetchAllHomePlaces} from '../store'
 
 const GOT_PLACES = 'GOT_PLACES'
 const REMOVE_PLACES = 'REMOVE_PLACES'
@@ -48,13 +48,13 @@ export const postPlace = ({
     }
 
     // GET all home_places
-    await dispatch(fetchHomePlaces(userId))
+    await dispatch(fetchAllHomePlaces(userId))
 
     // GET all places
     const {data: {places}} = await axios.get(`/api/users/${userId}/places`)
     await dispatch(gotPlaces(places))
   } catch (err) {
-    console.error('An error occurred while posting a new place')
+    console.error('An error occurred while posting a new place', err)
   }
 }
 
