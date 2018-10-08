@@ -32,7 +32,56 @@ class GMap extends React.Component {
     }
   }
 
+  // Assigns the right icon to each category
+  // returnCategoryIcon = function(arr) {
+  //   let categories = [
+  //     {supermarkets: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'},
+  //     {gym: 'http://maps.google.com/mapfiles/kml/pal2/icon57.png'},
+  //     {laundry: 'http://maps.google.com/mapfiles/kml/pal4/icon12.png'},
+  //     {pharmacy: 'http://maps.google.com/mapfiles/ms/micons/pharmacy-us.png'},
+  //     {library: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'},
+  //     {church: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'},
+  //     {mosque: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'},
+  //     {synagogue: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'},
+  //     {hindu_temple: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'},
+  //     {bus_station: 'http://maps.google.com/mapfiles/ms/micons/bus.png'},
+  //     {train_station: 'http://maps.google.com/mapfiles/ms/micons/rail.png'},
+  //     {subway_station: 'http://maps.google.com/mapfiles/ms/micons/subway.png'}
+  //   ]
+
+  //   for (let i = 0; arr.length; i++) {
+  //     if (Object.keys(categories).includes(arr[i])) {
+  //       return categories[arr[i]]
+  //     }
+  //   }
+  // }
+
+  // Assigns the right icon to each category
+  returnCategoryIcon = function(arr) {
+    let categories = {
+      supermarkets: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
+      gym: 'http://maps.google.com/mapfiles/kml/pal2/icon57.png',
+      laundry: 'http://maps.google.com/mapfiles/kml/pal4/icon12.png',
+      pharmacy: 'http://maps.google.com/mapfiles/ms/micons/pharmacy-us.png',
+      library: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
+      church: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
+      mosque: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
+      synagogue: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
+      hindu_temple: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
+      bus_station: 'http://maps.google.com/mapfiles/ms/micons/bus.png',
+      train_station: 'http://maps.google.com/mapfiles/ms/micons/rail.png',
+      subway_station: 'http://maps.google.com/mapfiles/ms/micons/subway.png'
+    }
+
+    for (let i = 0; arr.length; i++) {
+      if (Object.keys(categories).includes(arr[i])) {
+        return categories[arr[i]]
+      }
+    }
+  }
+
   render() {
+    console.log('PROPS:', this.props)
     const {places, homes, center, categoryResults} = this.props
 
     // Maps all locations into a single array
@@ -102,7 +151,8 @@ class GMap extends React.Component {
         {locationsForMarkers &&
           locationsForMarkers.map(marker => (
             <Marker
-              icon={'http://maps.google.com/mapfiles/ms/micons/blue-dot.png'}
+              icon={'http://www.google.com/mapfiles/marker.png'}
+              //icon={this.returnCategoryIcon(marker.types)}
               position={{
                 lat: marker.geometry.location.lat,
                 lng: marker.geometry.location.lng
