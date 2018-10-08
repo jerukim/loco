@@ -5,7 +5,7 @@ import {getBounds} from '../../store'
 
 class GMap extends React.Component {
   componentDidUpdate = async prevProps => {
-    const {userId, homes, places, center} = this.props
+    const {userId, homes, places} = this.props
     if (!userId) {
       return
     } else if (
@@ -13,8 +13,6 @@ class GMap extends React.Component {
       places.length < prevProps.places.length
     ) {
       return
-    } else if (center !== prevProps.center) {
-      const bounds = this.refs.map.fitBounds(bounds)
     } else if (homes !== prevProps.homes || places !== prevProps.places) {
       try {
         const bounds = await this.props.getBounds([...homes, ...places])
@@ -76,7 +74,6 @@ const mapState = state => {
   return {
     userId: state.user.id,
     center: coordinates.center,
-    bounds: coordinates.bounds,
     homes,
     places,
     selectedCategories

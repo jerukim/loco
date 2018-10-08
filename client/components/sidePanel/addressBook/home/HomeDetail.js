@@ -18,19 +18,19 @@ const styles = () => ({
 
 class HomeDetail extends React.Component {
   handleClick = () => {
-    const {markers} = this.props
+    const {markers, getBounds, home} = this.props
+    const {lat, lng} = home.location
     let markersArr = []
-    console.log('category results', markers)
     for (let key in markers) {
       if (markers.hasOwnProperty(key)) {
-        for (let i = 0; i < markers[key].length; i++) {
-          markersArr.push(markers[key][i].geometry.location)
+        for (let i = 0; i < 5; i++) {
+          markersArr.push(markers[key][i].geometry)
         }
       }
     }
-    console.log('before getBounds is called')
-    getBounds(markers)
+    const bounds = getBounds(markersArr, {lat, lng})
   }
+
   render() {
     const {classes, home} = this.props
     const {address, lat, lng} = home.location
@@ -83,4 +83,8 @@ const mapState = (state, ownProps) => {
   return {markers}
 }
 
-export default connect(mapState)(withStyles(styles)(HomeDetail))
+const mapDispatch = dispatch => ({
+  getBounds: (markers, homeLatLng) => dispatch(getBounds(markers, homeLatLng))
+})
+
+export default connect(mapState, mapDispatch)(withStyles(styles)(HomeDetail))

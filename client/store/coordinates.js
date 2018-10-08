@@ -30,8 +30,8 @@ export const getCenter = (city, state) => {
   }
 }
 
-export const getBounds = markers => {
-  console.log('markers', markers)
+export const getBounds = (markers, homeLatLng) => {
+  console.log('homeLatLng', homeLatLng)
   return async dispatch => {
     if (markers[0]) {
       try {
@@ -41,13 +41,12 @@ export const getBounds = markers => {
           await bounds.extend({lat, lng})
         }
         const {b, f} = bounds
-        const center = bounds.getCenter()
+        const center = homeLatLng || (await bounds.getCenter())
         dispatch(gotBounds([b, f]))
         dispatch(gotCenter(center))
-        console.log('center', center)
         return bounds
       } catch (err) {
-        console.error('An error occurred while adjusting bounds')
+        console.error('An error occurred while adjusting bounds', err)
       }
     }
   }
