@@ -39,26 +39,24 @@ class GMap extends React.Component {
     // console.log('****NEARBY APT 1 Supermarkets: ', categoryResults[1][1])
     // console.log('****NEARBY APT 2: ', categoryResults[2])
 
+
+    // Creates a sigle array of all locations
     let arrOfArr = []
 
     for (let home in categoryResults) {
       if (categoryResults.hasOwnProperty(home)) {
         for (let category in categoryResults[home]) {
           if (categoryResults[home].hasOwnProperty(category)) {
-            arrOfArr.push(categoryResults[home][category])
+            for (let i = 0; i < categoryResults[home][category].length; i++) {
+              let item = categoryResults[home][category][i]
+              arrOfArr.push(item)
+            }
           }
         }
       }
     }
 
     console.log('ARR OF ARR: ', arrOfArr)
-
-    //APROACH:
-    // 1- Create variables for every key(array) in the object categoryResults. We will get a variable with all the nearby places for each home
-    // 2- Map each variable of nearby places(array) to create new variables of each category. Maybe use id to to find the type of filter
-    // 3- Map each category variable in render to access geometry lat & long
-
-    //ideas: maybe a case that asigns a type icon depending on the id
 
     return (
       <GoogleMap
@@ -88,7 +86,6 @@ class GMap extends React.Component {
               key={marker.id}
             />
           ))}
-
         {places.map(marker => (
           <Marker
             icon={'http://maps.google.com/mapfiles/kml/pal4/icon47.png'}
@@ -97,35 +94,24 @@ class GMap extends React.Component {
           />
         ))}
 
-        {/* {categoryResults[1][1].map(marker => (
-          <Marker
-            icon={'http://maps.google.com/mapfiles/kml/pal3/icon26.png'}
-            position={{
-              lat: marker.geometry.location.lat,
-              lng: marker.geometry.location.lng
-            }}
-            key={marker.id}
-          />
-        ))}
-
-
-        {categoryResults[1][10] &&
-          categoryResults[1][10].map(marker => (
+        {arrOfArr &&
+          arrOfArr.map(marker => (
             <Marker
-              icon={'http://maps.google.com/mapfiles/kml/pal3/icon26.png'}
+              icon={'http://maps.google.com/mapfiles/ms/micons/blue-dot.png'}
               position={{
                 lat: marker.geometry.location.lat,
                 lng: marker.geometry.location.lng
               }}
               key={marker.id}
             />
-          ))} */}
+          ))}
       </GoogleMap>
     )
   }
 }
 
 const mapState = state => {
+  console.log('****STATE: ', state)
   const {
     coordinates,
     homes,
