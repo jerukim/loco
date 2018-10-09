@@ -1,9 +1,10 @@
 import axios from 'axios'
 
 const FETCH_ALL_HOME_PLACES_SUCCESS = 'FETCH_ALL_HOME_PLACES_SUCCESS'
-const FETCH_ONE_HOME_PLACES_SUCCESS = 'FETCH_ONE_HOME_PLACES_SUCCESS'
+// const FETCH_ONE_HOME_PLACES_SUCCESS = 'FETCH_ONE_HOME_PLACES_SUCCESS'
 const FETCH_HOME_PLACES_REQUEST = 'FETCH_HOME_PLACES_REQUEST'
 const FETCH_HOME_PLACES_ERROR = 'FETCH_HOME_PLACES_ERROR'
+const DELETED_HOME_IN_HOME_PLACES = 'DELETED_HOME_IN_HOME_PLACES'
 
 const fetchAllHomePlacesSuccess = homePlaces => ({
   type: FETCH_ALL_HOME_PLACES_SUCCESS,
@@ -18,6 +19,10 @@ const fetchHomePlacesRequest = () => ({
 })
 const fetchHomePlacesError = () => ({
   type: FETCH_HOME_PLACES_ERROR
+})
+const deletedHomeInHomePlaces = homeId => ({
+  type: DELETED_HOME_IN_HOME_PLACES,
+  homeId
 })
 
 // fetches all home_places for all homes on intial login
@@ -64,6 +69,14 @@ export const fetchOneHomePlaces = (userId, homeId) => async dispatch => {
   }
 }
 
+export const deleteHomeInHomePlaces = homeId => dispatch => {
+  try {
+    dispatch(deletedHomeInHomePlaces(homeId))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 const initialState = {
   loaded: false,
   fetchingCategoryResults: false,
@@ -79,8 +92,12 @@ export default function(state = initialState, action) {
         fetchingCategoryResults: false,
         errorFetching: false
       }
-    case FETCH_ONE_HOME_PLACES_SUCCESS:
-      return {...state}
+    // case FETCH_ONE_HOME_PLACES_SUCCESS:
+    //   return {...state}
+    case DELETED_HOME_IN_HOME_PLACES:
+      const removedHomeState = {...state}
+      delete removedHomeState[action.homeId]
+      return removedHomeState
     case FETCH_HOME_PLACES_REQUEST:
       return {
         ...state,
