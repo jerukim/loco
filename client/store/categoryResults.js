@@ -1,5 +1,9 @@
 import axios from 'axios'
-import {fetchAllHomeCategories, fetchOneHomeCategory} from './'
+import {
+  fetchAllHomeCategories,
+  fetchOneHomeCategory,
+  fetchHomeCategoriesRequest
+} from './'
 
 const FETCH_ALL_CATEGORY_RESULTS_SUCCESS = 'GOT_CATEGORY_RESULTS_SUCCESS'
 const FETCH_ONE_CATEGORY_RESULTS_SUCCESS = 'FETCH_ONE_CATEGORY_RESULTS_SUCCESS'
@@ -62,6 +66,7 @@ export const fetchAllCategoryResults = (userId, homes) => async dispatch => {
 export const fetchOneCategoryResults = (category, homes) => async dispatch => {
   try {
     dispatch(fetchCategoryResultsRequest())
+    dispatch(fetchHomeCategoriesRequest())
     const {label, categoryId} = category
 
     const categoryResults = {}
@@ -83,7 +88,7 @@ export const fetchOneCategoryResults = (category, homes) => async dispatch => {
     await Promise.all(homePromises)
 
     dispatch(fetchOneHomeCategory(homes, categoryResults, category))
-    dispatch(fetchOneCategoryResultsSuccess(categoryResults))
+    dispatch(fetchOneCategoryResultsSuccess(categoryResults, categoryId))
   } catch (err) {
     console.error(err)
     dispatch(fetchCategoryResultsError())

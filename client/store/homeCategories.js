@@ -14,7 +14,7 @@ const fetchOneHomeCategorySuccess = (homeCategories, categoryId) => ({
   homeCategories,
   categoryId
 })
-const fetchHomeCategoriesRequest = () => ({
+export const fetchHomeCategoriesRequest = () => ({
   type: FETCH_HOME_CATEGORIES_REQUEST
 })
 const fetchHomeCategoriesError = () => ({
@@ -132,8 +132,8 @@ export const fetchOneHomeCategory = (
       }
 
       const end = {
-        lat: categoryResults[home.id][categoryId][0].geometry.location.lat,
-        lng: categoryResults[home.id][categoryId][0].geometry.location.lng
+        lat: categoryResults[home.id][+categoryId][0].geometry.location.lat,
+        lng: categoryResults[home.id][+categoryId][0].geometry.location.lng
       }
       const walkDataGoogle = await axios.post('/api/google/categoryDistances', {
         start,
@@ -178,7 +178,7 @@ export const fetchOneHomeCategory = (
       const bicyclingData = bicyclingDataGoogle.data.rows[0].elements[0]
       const drivingData = drivingDataGoogle.data.rows[0].elements[0]
 
-      homeCategories[home.id][categoryId] = {
+      homeCategories[home.id][+categoryId] = {
         name: categoryResults[home.id][categoryId][0].name,
         distanceText: walkData.distance.text,
         distanceValue: walkData.distance.value,
@@ -220,8 +220,8 @@ export default function(state = initialState, action) {
       const newState = {...state}
       const homeIds = Object.keys(action.homeCategories)
       homeIds.forEach(homeId => {
-        newState[homeId][action.categoryId] =
-          action.homeCategories[homeId][action.categoryId]
+        newState[homeId][+action.categoryId] =
+          action.homeCategories[homeId][+action.categoryId]
       })
       return {
         ...newState,
