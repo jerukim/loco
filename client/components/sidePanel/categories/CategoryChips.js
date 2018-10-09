@@ -4,7 +4,11 @@ import PropTypes from 'prop-types'
 import {withStyles} from '@material-ui/core/styles'
 import Chip from '@material-ui/core/Chip'
 import Avatar from '@material-ui/core/Avatar'
-import {deleteCategory, deleteOneCategoryResults} from '../../../store'
+import {
+  deleteCategory,
+  deleteOneCategoryResults,
+  deleteOneHomeCategory
+} from '../../../store'
 
 const styles = theme => ({
   root: {
@@ -29,6 +33,7 @@ class CategoryChips extends React.Component {
   handleChipDelete = ({chipId, priority}) => {
     const {userId, deleteCategory, homes} = this.props
     deleteCategory({userId, categoryId: chipId, priority})
+    this.props.deleteOneHomeCategory(chipId, homes)
     this.props.deleteOneCategoryResults(chipId, homes)
   }
 
@@ -78,7 +83,9 @@ const mapDispatchToProps = dispatch => {
   return {
     deleteCategory: payload => dispatch(deleteCategory(payload)),
     deleteOneCategoryResults: (categoryId, homes) =>
-      dispatch(deleteOneCategoryResults(categoryId, homes))
+      dispatch(deleteOneCategoryResults(categoryId, homes)),
+    deleteOneHomeCategory: (categoryId, homes) =>
+      dispatch(deleteOneHomeCategory(categoryId, homes))
   }
 }
 

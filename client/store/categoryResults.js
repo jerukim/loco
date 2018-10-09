@@ -2,7 +2,8 @@ import axios from 'axios'
 import {
   fetchAllHomeCategories,
   fetchOneHomeCategory,
-  fetchHomeCategoriesRequest
+  fetchHomeCategoriesRequest,
+  deleteOneHomeCategory
 } from './'
 
 const FETCH_ALL_CATEGORY_RESULTS_SUCCESS = 'GOT_CATEGORY_RESULTS_SUCCESS'
@@ -101,10 +102,7 @@ export const fetchOneCategoryResults = (category, homes) => async dispatch => {
   }
 }
 
-export const deleteOneCategoryResults = (
-  categoryId,
-  homes
-) => async dispatch => {
+export const deleteOneCategoryResults = (categoryId, homes) => dispatch => {
   try {
     dispatch(deletedOneCategoryResults(categoryId, homes))
   } catch (err) {

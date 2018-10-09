@@ -21,6 +21,11 @@ export const fetchHomeCategoriesRequest = () => ({
 const fetchHomeCategoriesError = () => ({
   type: FETCH_HOME_CATEGORIES_ERROR
 })
+const deletedOneHomeCategories = (categoryId, homes) => ({
+  type: DELETED_ONE_HOME_CATEGORIES,
+  categoryId,
+  homes
+})
 
 export const fetchAllHomeCategories = (
   homes,
@@ -202,6 +207,15 @@ export const fetchOneHomeCategory = (
   }
 }
 
+export const deleteOneHomeCategory = (categoryId, homes) => dispatch => {
+  try {
+    dispatch(fetchHomeCategoriesRequest())
+    dispatch(deletedOneHomeCategories(categoryId, homes))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 const initialState = {
   loaded: false,
   fetchingHomeCategories: false,
@@ -242,6 +256,17 @@ export default function(state = initialState, action) {
         loaded: false,
         fetchingHomeCategories: false,
         errorFetching: true
+      }
+    case DELETED_ONE_HOME_CATEGORIES:
+      const removedState = {...state}
+      action.homes.forEach(home => {
+        delete removedState[home.id][action.categoryId]
+      })
+      return {
+        ...removedState,
+        loaded: true,
+        fetchingHomeCategories: false,
+        errorFetching: false
       }
     default:
       return state
