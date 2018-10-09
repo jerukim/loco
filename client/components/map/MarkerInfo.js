@@ -25,7 +25,7 @@ class MarkerInfo extends React.Component {
               {image ? <img src={image} alt="Home image" /> : <div />}
               <h1>{name}</h1>
               <p>{address}</p>
-              <h5>{'$' + price}</h5>
+             {price ? (<h4>{'$' + price}</h4>) :<div />}
             </div>
           </InfoWindow>
         )}
