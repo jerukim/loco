@@ -40,11 +40,13 @@ const PlaceInfo = props => {
       {priorities.map(item => {
         const name = item.placeId
           ? item.label
-          : `${homeCategories[homeId][item.categoryId].name} (${item.label})`
+          : `${homeCategories.homeCategories[homeId][item.categoryId].name} (${
+              item.label
+            })`
 
         const info = item.placeId
           ? homePlaces[homeId][item.placeId]
-          : homeCategories[homeId][item.categoryId]
+          : homeCategories.homeCategories[homeId][item.categoryId]
         return (
           <ExpansionPanel key={item.priority}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
