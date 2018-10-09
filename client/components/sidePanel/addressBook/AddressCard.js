@@ -63,7 +63,7 @@ class AddressCard extends React.Component {
   }
 
   handleDelete = () => {
-    const {userId} = this.props
+    const {userId, homes} = this.props
     if (this.props.home) {
       const {id: homeId} = this.props.home
       this.props.deleteHome({userId, homeId})
@@ -125,7 +125,7 @@ AddressCard.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-const mapStateToProps = state => ({userId: state.user.id})
+const mapStateToProps = state => ({userId: state.user.id, homes: state.homes})
 
 const mapDispatchToProps = dispatch => ({
   deleteHome: payload => dispatch(deleteHome(payload)),
