@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import {withStyles, AppBar, Tabs, Tab} from '@material-ui/core/'
 import {HomeTab} from '../'
 import {getBounds} from '../../store'
+import {getHomeRankings} from '../../utilities'
 
 const styles = theme => ({
   root: {
@@ -13,11 +14,6 @@ const styles = theme => ({
   }
 })
 
-const dummyRank = {
-  0: 2, // value: homeId
-  1: 1
-}
-
 class RankingTabs extends React.Component {
   state = {
     value: 0
@@ -26,21 +22,34 @@ class RankingTabs extends React.Component {
   handleChange = (event, value, homeId) => {
     this.setState({value})
     const {markers, getBounds, homes} = this.props
-    const {lat, lng} = homes[homeId].location
-    let markersArr = []
-    for (let key in markers[homeId]) {
-      if (markers[homeId].hasOwnProperty(key)) {
-        for (let i = 0; i < 5; i++) {
-          markersArr.push(markers[key][i].geometry)
-        }
-      }
+    // const {lat, lng} = homes[homeId].location
+    // let markersArr = []
+    // for (let key in markers[homeId]) {
+    //   if (markers[homeId].hasOwnProperty(key)) {
+    //     for (let i = 0; i < 5; i++) {
+    //       markersArr.push(markers[key][i].geometry)
+    //     }
+    //   }
+    // }
+    // const bounds = getBounds(markersArr, {lat, lng})
+  }
+
+  getRankedHomeId = () => {
+    const {homeCategories, selectedCategories} = this.props
+    console.log('homeCategories', homeCategories)
+    console.log('selectedCategories', selectedCategories)
+    const homeCatKeys = Object.keys(homeCategories)
+    const selectedCatKeys = Object.keys(selectedCategories)
+    if (homeCatKeys.length > 0 && selectedCatKeys.length > 0) {
+      return getHomeRankings(homeCategories, selectedCategories)
     }
-    const bounds = getBounds(markersArr, {lat, lng})
   }
 
   render() {
     const {classes, homes} = this.props
     const {value} = this.state
+    const rankings = this.getRankedHomeId()
+    console.log('Rankings', rankings)
     return (
       <div className={classes.root}>
         <AppBar position="static" color="default">
@@ -52,10 +61,14 @@ class RankingTabs extends React.Component {
             scrollable
             scrollButtons="auto"
           >
-            {homes.map((home, i) => <Tab key={home.id} label={i + 1} />)}
+            {rankings &&
+              homes.map((home, i) => {
+                const homeId = rankings[i]
+                return <Tab key={homeId} label={i + 1} />
+              })}
           </Tabs>
         </AppBar>
-        <HomeTab homeId={dummyRank[value]} />
+        {rankings && <HomeTab homeId={rankings[value]} />}
       </div>
     )
   }
@@ -65,7 +78,9 @@ const mapState = state => {
   return {
     homes: state.homes,
     userId: state.user.id,
-    markers: state.categoryResults
+    markers: state.categoryResults,
+    homeCategories: state.homeCategories.homeCategories,
+    selectedCategories: state.selectedCategories.selectedCategories
   }
 }
 

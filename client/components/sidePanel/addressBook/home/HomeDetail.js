@@ -5,6 +5,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import NumberFormat from 'react-number-format'
 import {selectHomeId} from '../../../../store'
+import {removeCountry} from '../../../../utilities'
 
 const styles = () => ({
   media: {
@@ -34,12 +35,12 @@ class HomeDetail extends React.Component {
           {home.link ? (
             <a href={home.link} rel="noopener noreferrer" target="_blank">
               <Typography href="" variant="body2">
-                {address}
+                {removeCountry(address)}
               </Typography>
             </a>
           ) : (
             <Typography href="" variant="body2">
-              {address}
+              {removeCountry(address)}
             </Typography>
           )}
           <div className="flex-container space-between">

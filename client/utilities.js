@@ -112,6 +112,11 @@ export const flattenHomeCategoryResults = categoryResultsObj => {
   return markers
 }
 
+export const removeCountry = address => {
+  const arr = address.split(',')
+  return arr.slice(0, arr.length - 1).join(',')
+}
+
 export const states = [
   '',
   'AL',
@@ -174,3 +179,41 @@ export const states = [
   'WI',
   'WY'
 ]
+
+export const getHomeRankings = (homeCategories, selectedCategories) => {
+  const categoryWeights = selectedCategories.reduce(
+    (weights, category, index) => {
+      const key = category.categoryId || category.placeId
+      weights[key] = {weight: index + 1}
+      return weights
+    },
+    {}
+  )
+  const homeKeys = Object.keys(homeCategories)
+  const categoryKeys = Object.keys(homeCategories[homeKeys[0]])
+  const [results, scores] = getScores()
+  const ranks = scores.reduce((final, score, index) => {
+    final[index] = Number(results[score])
+    return final
+  }, {})
+
+  return ranks
+
+  function getScores() {
+    const results = {}
+    const scores = []
+    for (let i = 0; i < homeKeys.length; i++) {
+      let key = 0
+      const homeId = homeKeys[i]
+      for (let j = 0; j < categoryKeys.length; j++) {
+        const catId = categoryKeys[j]
+        const {distanceValue} = homeCategories[homeId][catId]
+        const score = categoryWeights[catId].weight * distanceValue
+        key = key + score
+        scores[i] = (scores[i] || 0) + score
+      }
+      results[key] = homeId
+    }
+    return [results, scores.sort()]
+  }
+}
