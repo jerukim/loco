@@ -35,7 +35,9 @@ const PlaceInfo = props => {
     priorities,
     categoryResults
   } = props
-  return homeCategories.loaded && categoryResults.loaded ? (
+  return homeCategories.loaded &&
+    categoryResults.loaded &&
+    homePlaces.loaded ? (
     <div className={classes.root}>
       {priorities.map(item => {
         if (

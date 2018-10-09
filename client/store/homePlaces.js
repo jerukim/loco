@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const FETCH_ALL_HOME_PLACES_SUCCESS = 'FETCH_ALL_HOME_PLACES_SUCCESS'
-const FETCH_ONE_HOME_PLACES_SUCCESS = 'FETCH_ONE_HOME_PLACES_SUCCESS'
+// const FETCH_ONE_HOME_PLACES_SUCCESS = 'FETCH_ONE_HOME_PLACES_SUCCESS'
 const ADDED_PLACE_FOR_ALL_HOMES = 'ADDED_PLACE_FOR_ALL_HOMES'
 const FETCH_HOME_PLACES_REQUEST = 'FETCH_HOME_PLACES_REQUEST'
 const FETCH_HOME_PLACES_ERROR = 'FETCH_HOME_PLACES_ERROR'
@@ -84,6 +84,8 @@ export const fetchOneHomePlaces = (userId, homeId) => async dispatch => {
     dispatch(fetchHomePlacesError())
   }
 }
+
+// gets homePlace for each home (adding new place)
 
 // remove home from homePlaces (remove home)
 export const deleteHomeInHomePlaces = homeId => dispatch => {
