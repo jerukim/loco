@@ -22,9 +22,9 @@ const locationData = [
     address: '1932 N Burling Street, Chicago, IL 60614, USA'
   },
   {
-    lat: 41.9163896,
-    lng: -87.6478731,
-    address: '1909 N Orchard Street, Chicago, IL 60614, USA'
+    lat: 41.8983855,
+    lng: -87.6317642,
+    address: '859 N Dearborn St Chicago, IL 60610, USA'
   },
   {
     lat: 41.8952701,
@@ -61,12 +61,12 @@ const homeData = [
   {
     locationId: 1,
     price: 50000000,
-    imageUrl: 'https://bit.ly/2R3GLFx'
+    imageUrl: 'https://photos.zillowstatic.com/p_f/ISi79n7e5lwahu0000000000.jpg'
   },
   {
     locationId: 2,
-    price: 15500000,
-    imageUrl: 'https://bit.ly/2N7GYnO'
+    price: 1500000,
+    imageUrl: 'https://photos.zillowstatic.com/p_h/ISy3xrxnaoxhjb1000000000.jpg'
   },
   {
     locationId: 7,

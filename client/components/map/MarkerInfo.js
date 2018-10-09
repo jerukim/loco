@@ -22,10 +22,14 @@ class MarkerInfo extends React.Component {
         {this.state.isOpen && (
           <InfoWindow onCloseClick={this.onToggleOpen}>
             <div>
-              {image ? <img src={image} alt="Home image" /> : <div />}
+              {image ? (
+                <img src={image} alt="Home image" height="256" width="256" />
+              ) : (
+                <div />
+              )}
               <h1>{name}</h1>
               <p>{address}</p>
-             {price ? (<h4>{'$' + price}</h4>) :<div />}
+              {price ? <h4>{'$' + price}</h4> : <div />}
             </div>
           </InfoWindow>
         )}
