@@ -21,7 +21,7 @@ class RankingTabs extends React.Component {
 
   handleChange = (event, value, homeId) => {
     this.setState({value})
-    // const {markers, getBounds, homes} = this.props
+    const {markers, getBounds, homes} = this.props
     // const {lat, lng} = homes[homeId].location
     // let markersArr = []
     // for (let key in markers[homeId]) {

@@ -4,7 +4,11 @@ import PropTypes from 'prop-types'
 import {withStyles} from '@material-ui/core/styles'
 import Chip from '@material-ui/core/Chip'
 import Avatar from '@material-ui/core/Avatar'
-import {deleteCategory} from '../../../store'
+import {
+  deleteCategory,
+  deleteOneCategoryResults,
+  deleteOneHomeCategory
+} from '../../../store'
 
 const styles = theme => ({
   root: {
@@ -27,8 +31,10 @@ const styles = theme => ({
 
 class CategoryChips extends React.Component {
   handleChipDelete = ({chipId, priority}) => {
-    const {userId, deleteCategory} = this.props
+    const {userId, deleteCategory, homes} = this.props
     deleteCategory({userId, categoryId: chipId, priority})
+    this.props.deleteOneHomeCategory(chipId, homes)
+    this.props.deleteOneCategoryResults(chipId, homes)
   }
 
   render() {
@@ -68,13 +74,18 @@ const mapStateToProps = state => {
   const {selectedCategories} = state.selectedCategories
   return {
     selectedCategories,
-    userId: state.user.id
+    userId: state.user.id,
+    homes: state.homes
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteCategory: payload => dispatch(deleteCategory(payload))
+    deleteCategory: payload => dispatch(deleteCategory(payload)),
+    deleteOneCategoryResults: (categoryId, homes) =>
+      dispatch(deleteOneCategoryResults(categoryId, homes)),
+    deleteOneHomeCategory: (categoryId, homes) =>
+      dispatch(deleteOneHomeCategory(categoryId, homes))
   }
 }
 

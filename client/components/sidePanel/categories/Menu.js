@@ -31,9 +31,9 @@ class Menu extends React.Component {
         categoryId: id,
         priority
       }
+      this.props.fetchOneCategoryResults(payload, homes)
       this.props.addFilter(payload)
       this.props.postCategory({userId, ...payload})
-      this.props.fetchOneCategoryResults(payload, homes)
     }
   }
 

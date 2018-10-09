@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {fetchHomePlaces} from '../store'
+import {fetchOneHomePlaces} from '../store'
 
 const GOT_PLACES = 'GOT_PLACES'
 const REMOVE_PLACES = 'REMOVE_PLACES'
@@ -48,7 +48,7 @@ export const postPlace = ({
     }
 
     // GET all home_places
-    await dispatch(fetchHomePlaces(userId))
+    await dispatch(fetchOneHomePlaces(userId))
 
     // GET all places
     const {data: {places}} = await axios.get(`/api/users/${userId}/places`)
