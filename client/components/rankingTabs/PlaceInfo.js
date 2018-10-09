@@ -43,7 +43,10 @@ const PlaceInfo = props => {
         }
         const name = item.placeId
           ? item.label
-          : `${homeCategories[homeId][item.categoryId].name} (${item.label})`
+          : `${homeCategories[homeId][item.categoryId].name} (${item.label
+              .split('_')
+              .map(word => word[0].toUpperCase() + word.slice(1))
+              .join(' ')})`
         const info = item.placeId
           ? homePlaces[homeId][item.placeId]
           : homeCategories[homeId][item.categoryId]
