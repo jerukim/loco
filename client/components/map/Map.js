@@ -38,46 +38,8 @@ class GMap extends React.Component {
     }
   }
 
-  // state = {
-  //   showingInfoWindow: false,
-  //   activeMarker: {},
-  //   selectedPlace: {}
-  // }
-
-  // INFO WINDOW
-  // onMarkerClick = (props, marker, e) =>
-  //   this.setState({
-  //     selectedPlace: props,
-  //     activeMarker: marker,
-  //     showingInfoWindow: true
-  //   })
-
-  //IDEAS
-  // var infowindow = new google.maps.InfoWindow({
-  //   content: contentString
-  // });
-
-  // var marker = new google.maps.Marker({
-  //   position: uluru,
-  //   map: map,
-  //   title: 'Uluru (Ayers Rock)'
-  // });
-  // marker.addListener('click', function() {
-  //   infowindow.open(map, marker);
-  // });
-
-  // withStateHandlers(() => ({
-  //   isOpen: false,
-  // }), {
-  //   onToggleOpen: ({ isOpen }) => () => ({
-  //     isOpen: !isOpen,
-  //   })
-  // })
-
-
   // Assigns the right icon depending on the category
   returnCategoryIcon = function(arr) {
-    console.log("HI", arr)
     let categories = {
       supermarket: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
       gym: 'http://maps.google.com/mapfiles/kml/pal2/icon57.png',
@@ -94,7 +56,6 @@ class GMap extends React.Component {
     }
 
     for (let i = 0; arr.length; i++) {
-      console.log(arr[i])
       if (Object.keys(categories).includes(arr[i])) {
         return categories[arr[i]]
       } else {
@@ -102,7 +63,6 @@ class GMap extends React.Component {
       }
     }
   }
-
 
   render() {
     const {places, homes, center, categoryResults} = this.props
@@ -160,6 +120,7 @@ class GMap extends React.Component {
             <Marker
               icon={'http://maps.google.com/mapfiles/kml/pal3/icon56.png'}
               position={{lat: marker.location.lat, lng: marker.location.lng}}
+              // onClick={this.onMarkerClick}
               key={marker.id}
             />
           ))}
@@ -167,6 +128,7 @@ class GMap extends React.Component {
           <Marker
             icon={'http://maps.google.com/mapfiles/kml/pal4/icon47.png'}
             position={{lat: marker.location.lat, lng: marker.location.lng}}
+            // onClick={this.onMarkerClick}
             key={marker.id}
           />
         ))}
