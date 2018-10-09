@@ -9,6 +9,7 @@ const FETCH_ALL_CATEGORY_RESULTS_SUCCESS = 'GOT_CATEGORY_RESULTS_SUCCESS'
 const FETCH_ONE_CATEGORY_RESULTS_SUCCESS = 'FETCH_ONE_CATEGORY_RESULTS_SUCCESS'
 const FETCH_CATEGORY_RESULTS_REQUEST = 'FETCH_CATEGORY_RESULTS_REQUEST'
 const FETCH_CATEGORY_RESULTS_ERROR = 'FETCH_CATEGORY_RESULTS_ERROR'
+const DELETED_ONE_CATEGORY_RESULTS = 'DELETED_ONE_CATEGORY_RESULTS'
 
 const fetchAllCategoryResultsSuccess = categoryResults => ({
   type: FETCH_ALL_CATEGORY_RESULTS_SUCCESS,
@@ -24,6 +25,11 @@ const fetchCategoryResultsRequest = () => ({
 })
 const fetchCategoryResultsError = () => ({
   type: FETCH_CATEGORY_RESULTS_ERROR
+})
+const deletedOneCategoryResults = (categoryId, homes) => ({
+  type: DELETED_ONE_CATEGORY_RESULTS,
+  categoryId,
+  homes
 })
 
 export const fetchAllCategoryResults = (userId, homes) => async dispatch => {
@@ -95,6 +101,17 @@ export const fetchOneCategoryResults = (category, homes) => async dispatch => {
   }
 }
 
+export const deleteOneCategoryResults = (
+  categoryId,
+  homes
+) => async dispatch => {
+  try {
+    dispatch(deletedOneCategoryResults(categoryId, homes))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 const initialState = {
   loaded: false,
   fetchingCategoryResults: false,
@@ -137,6 +154,12 @@ export default function(state = initialState, action) {
         fetchingCategoryResults: false,
         errorFetching: true
       }
+    case DELETED_ONE_CATEGORY_RESULTS:
+      const removedState = {...state}
+      action.homes.forEach(home => {
+        delete removedState[home.id][action.categoryId]
+      })
+      return removedState
     default:
       return state
   }
