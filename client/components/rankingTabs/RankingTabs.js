@@ -15,7 +15,8 @@ const styles = theme => ({
 
 const dummyRank = {
   0: 2, // value: homeId
-  1: 1
+  1: 1,
+  2: 8
 }
 
 class RankingTabs extends React.Component {
@@ -26,16 +27,16 @@ class RankingTabs extends React.Component {
   handleChange = (event, value, homeId) => {
     this.setState({value})
     const {markers, getBounds, homes} = this.props
-    const {lat, lng} = homes[homeId].location
-    let markersArr = []
-    for (let key in markers[homeId]) {
-      if (markers[homeId].hasOwnProperty(key)) {
-        for (let i = 0; i < 5; i++) {
-          markersArr.push(markers[key][i].geometry)
-        }
-      }
-    }
-    const bounds = getBounds(markersArr, {lat, lng})
+    // const {lat, lng} = homes[homeId].location
+    // let markersArr = []
+    // for (let key in markers[homeId]) {
+    //   if (markers[homeId].hasOwnProperty(key)) {
+    //     for (let i = 0; i < 5; i++) {
+    //       markersArr.push(markers[key][i].geometry)
+    //     }
+    //   }
+    // }
+    // const bounds = getBounds(markersArr, {lat, lng})
   }
 
   render() {
