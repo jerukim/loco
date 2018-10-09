@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const FETCH_ALL_HOME_PLACES_SUCCESS = 'FETCH_ALL_HOME_PLACES_SUCCESS'
-// const FETCH_ONE_HOME_PLACES_SUCCESS = 'FETCH_ONE_HOME_PLACES_SUCCESS'
+const FETCH_ONE_HOME_PLACES_SUCCESS = 'FETCH_ONE_HOME_PLACES_SUCCESS'
+const ADDED_PLACE_FOR_ALL_HOMES = 'ADDED_PLACE_FOR_ALL_HOMES'
 const FETCH_HOME_PLACES_REQUEST = 'FETCH_HOME_PLACES_REQUEST'
 const FETCH_HOME_PLACES_ERROR = 'FETCH_HOME_PLACES_ERROR'
 const DELETED_HOME_IN_HOME_PLACES = 'DELETED_HOME_IN_HOME_PLACES'
@@ -24,8 +25,23 @@ const deletedHomeInHomePlaces = homeId => ({
   type: DELETED_HOME_IN_HOME_PLACES,
   homeId
 })
+const addedPlaceForAllHomes = placeId => ({
+  type: ADDED_PLACE_FOR_ALL_HOMES,
+  placeId
+})
 
-// fetches all home_places for all homes on intial login
+// get homePlace for each home (adding place)
+export const addPlaceForAllHomes = placeId => async dispatch => {
+  try {
+    dispatch(fetchHomePlacesRequest())
+
+    dispatch(addedPlaceForAllHomes(placeId))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+// get all homePlaces for user upon login
 export const fetchAllHomePlaces = userId => async dispatch => {
   try {
     dispatch(fetchHomePlacesRequest())
@@ -69,6 +85,7 @@ export const fetchOneHomePlaces = (userId, homeId) => async dispatch => {
   }
 }
 
+// remove home from homePlaces (remove home)
 export const deleteHomeInHomePlaces = homeId => dispatch => {
   try {
     dispatch(deletedHomeInHomePlaces(homeId))
@@ -94,6 +111,8 @@ export default function(state = initialState, action) {
       }
     // case FETCH_ONE_HOME_PLACES_SUCCESS:
     //   return {...state}
+    case ADDED_PLACE_FOR_ALL_HOMES:
+      return
     case DELETED_HOME_IN_HOME_PLACES:
       const removedHomeState = {...state}
       delete removedHomeState[action.homeId]
