@@ -1,6 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {withGoogleMap, GoogleMap, withScriptjs, Marker} from 'react-google-maps'
+import {
+  withGoogleMap,
+  GoogleMap,
+  withScriptjs,
+  Marker,
+  InfoWindow
+} from 'react-google-maps'
 import {getBounds} from '../../store'
 import {flattenHomeCategoryResults} from '../../utilities'
 
@@ -32,39 +38,53 @@ class GMap extends React.Component {
     }
   }
 
-  // Assigns the right icon to each category
-  // returnCategoryIcon = function(arr) {
-  //   let categories = [
-  //     {supermarkets: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'},
-  //     {gym: 'http://maps.google.com/mapfiles/kml/pal2/icon57.png'},
-  //     {laundry: 'http://maps.google.com/mapfiles/kml/pal4/icon12.png'},
-  //     {pharmacy: 'http://maps.google.com/mapfiles/ms/micons/pharmacy-us.png'},
-  //     {library: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'},
-  //     {church: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'},
-  //     {mosque: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'},
-  //     {synagogue: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'},
-  //     {hindu_temple: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'},
-  //     {bus_station: 'http://maps.google.com/mapfiles/ms/micons/bus.png'},
-  //     {train_station: 'http://maps.google.com/mapfiles/ms/micons/rail.png'},
-  //     {subway_station: 'http://maps.google.com/mapfiles/ms/micons/subway.png'}
-  //   ]
-
-  //   for (let i = 0; arr.length; i++) {
-  //     if (Object.keys(categories).includes(arr[i])) {
-  //       return categories[arr[i]]
-  //     }
-  //   }
+  // state = {
+  //   showingInfoWindow: false,
+  //   activeMarker: {},
+  //   selectedPlace: {}
   // }
 
-  // Assigns the right icon to each category
+  // INFO WINDOW
+  // onMarkerClick = (props, marker, e) =>
+  //   this.setState({
+  //     selectedPlace: props,
+  //     activeMarker: marker,
+  //     showingInfoWindow: true
+  //   })
+
+  //IDEAS
+  // var infowindow = new google.maps.InfoWindow({
+  //   content: contentString
+  // });
+
+  // var marker = new google.maps.Marker({
+  //   position: uluru,
+  //   map: map,
+  //   title: 'Uluru (Ayers Rock)'
+  // });
+  // marker.addListener('click', function() {
+  //   infowindow.open(map, marker);
+  // });
+
+  // withStateHandlers(() => ({
+  //   isOpen: false,
+  // }), {
+  //   onToggleOpen: ({ isOpen }) => () => ({
+  //     isOpen: !isOpen,
+  //   })
+  // })
+
+
+  // Assigns the right icon depending on the category
   returnCategoryIcon = function(arr) {
+    console.log("HI", arr)
     let categories = {
-      supermarkets: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
+      supermarket: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
       gym: 'http://maps.google.com/mapfiles/kml/pal2/icon57.png',
       laundry: 'http://maps.google.com/mapfiles/kml/pal4/icon12.png',
       pharmacy: 'http://maps.google.com/mapfiles/ms/micons/pharmacy-us.png',
       library: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
-      church: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
+      church: 'http://maps.google.com/mapfiles/kml/pal2/icon11.png',
       mosque: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
       synagogue: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
       hindu_temple: 'http://maps.google.com/mapfiles/kml/pal3/icon26.png',
@@ -74,14 +94,17 @@ class GMap extends React.Component {
     }
 
     for (let i = 0; arr.length; i++) {
+      console.log(arr[i])
       if (Object.keys(categories).includes(arr[i])) {
         return categories[arr[i]]
+      } else {
+        return 'http://maps.google.com/mapfiles/kml/pal3/icon26.png'
       }
     }
   }
 
+
   render() {
-    console.log('PROPS:', this.props)
     const {places, homes, center, categoryResults} = this.props
 
     // Maps all locations into a single array
@@ -110,7 +133,7 @@ class GMap extends React.Component {
       )
     })
 
-    console.log('AFILTEREDARR: ', locationsForMarkers)
+    console.log('LOCATION FOR MARKERS', locationsForMarkers)
 
     return (
       <GoogleMap
@@ -151,12 +174,12 @@ class GMap extends React.Component {
         {locationsForMarkers &&
           locationsForMarkers.map(marker => (
             <Marker
-              icon={'http://www.google.com/mapfiles/marker.png'}
-              //icon={this.returnCategoryIcon(marker.types)}
+              icon={this.returnCategoryIcon(marker.types)}
               position={{
                 lat: marker.geometry.location.lat,
                 lng: marker.geometry.location.lng
               }}
+              // onClick={this.onMarkerClick}
               key={marker.id}
             />
           ))}
