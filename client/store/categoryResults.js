@@ -1,10 +1,15 @@
 import axios from 'axios'
-import {fetchAllHomeCategories, fetchOneHomeCategory} from './'
+import {
+  fetchAllHomeCategories,
+  fetchOneHomeCategory,
+  fetchHomeCategoriesRequest
+} from './'
 
 const FETCH_ALL_CATEGORY_RESULTS_SUCCESS = 'GOT_CATEGORY_RESULTS_SUCCESS'
 const FETCH_ONE_CATEGORY_RESULTS_SUCCESS = 'FETCH_ONE_CATEGORY_RESULTS_SUCCESS'
 const FETCH_CATEGORY_RESULTS_REQUEST = 'FETCH_CATEGORY_RESULTS_REQUEST'
 const FETCH_CATEGORY_RESULTS_ERROR = 'FETCH_CATEGORY_RESULTS_ERROR'
+const DELETED_ONE_CATEGORY_RESULTS = 'DELETED_ONE_CATEGORY_RESULTS'
 
 const fetchAllCategoryResultsSuccess = categoryResults => ({
   type: FETCH_ALL_CATEGORY_RESULTS_SUCCESS,
@@ -20,6 +25,11 @@ const fetchCategoryResultsRequest = () => ({
 })
 const fetchCategoryResultsError = () => ({
   type: FETCH_CATEGORY_RESULTS_ERROR
+})
+const deletedOneCategoryResults = (categoryId, homes) => ({
+  type: DELETED_ONE_CATEGORY_RESULTS,
+  categoryId,
+  homes
 })
 
 export const fetchAllCategoryResults = (userId, homes) => async dispatch => {
@@ -62,6 +72,7 @@ export const fetchAllCategoryResults = (userId, homes) => async dispatch => {
 export const fetchOneCategoryResults = (category, homes) => async dispatch => {
   try {
     dispatch(fetchCategoryResultsRequest())
+    dispatch(fetchHomeCategoriesRequest())
     const {label, categoryId} = category
 
     const categoryResults = {}
@@ -83,10 +94,21 @@ export const fetchOneCategoryResults = (category, homes) => async dispatch => {
     await Promise.all(homePromises)
 
     dispatch(fetchOneHomeCategory(homes, categoryResults, category))
-    dispatch(fetchOneCategoryResultsSuccess(categoryResults))
+    dispatch(fetchOneCategoryResultsSuccess(categoryResults, categoryId))
   } catch (err) {
     console.error(err)
     dispatch(fetchCategoryResultsError())
+  }
+}
+
+export const deleteOneCategoryResults = (
+  categoryId,
+  homes
+) => async dispatch => {
+  try {
+    dispatch(deletedOneCategoryResults(categoryId, homes))
+  } catch (err) {
+    console.error(err)
   }
 }
 
@@ -132,6 +154,12 @@ export default function(state = initialState, action) {
         fetchingCategoryResults: false,
         errorFetching: true
       }
+    case DELETED_ONE_CATEGORY_RESULTS:
+      const removedState = {...state}
+      action.homes.forEach(home => {
+        delete removedState[home.id][action.categoryId]
+      })
+      return removedState
     default:
       return state
   }
