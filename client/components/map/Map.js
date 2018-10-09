@@ -1,14 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {
-  withGoogleMap,
-  GoogleMap,
-  withScriptjs,
-  Marker,
-  InfoWindow
-} from 'react-google-maps'
+//import {compose, withProps, withStateHandlers} from 'recompose'
+import {withGoogleMap, GoogleMap, withScriptjs} from 'react-google-maps'
+import MarkerInfo from './MarkerInfo'
 import {getBounds} from '../../store'
 import {flattenHomeCategoryResults} from '../../utilities'
+//import MarkerItem from './MarkerInfo'
 
 class GMap extends React.Component {
   componentDidUpdate = async prevProps => {
@@ -66,6 +63,8 @@ class GMap extends React.Component {
 
   render() {
     const {places, homes, center, categoryResults} = this.props
+    console.log('HOMES: ', homes)
+    console.log('PLACES: ', places)
 
     // Maps all locations into a single array
     let allLocations = []
@@ -92,6 +91,7 @@ class GMap extends React.Component {
         })
       )
     })
+    console.log('ALL LOCATIONS', locationsForMarkers)
 
     return (
       <GoogleMap
@@ -115,31 +115,36 @@ class GMap extends React.Component {
       >
         {homes &&
           homes.map(marker => (
-            <Marker
+            <MarkerInfo
               icon={'http://maps.google.com/mapfiles/kml/pal3/icon56.png'}
               position={{lat: marker.location.lat, lng: marker.location.lng}}
-              // onClick={this.onMarkerClick}
+              image={marker.imgUrl}
+              name={marker.name}
+              address={marker.location.address}
+              price={marker.price}
               key={marker.id}
             />
           ))}
         {places.map(marker => (
-          <Marker
+          <MarkerInfo
             icon={'http://maps.google.com/mapfiles/kml/pal4/icon47.png'}
             position={{lat: marker.location.lat, lng: marker.location.lng}}
-            // onClick={this.onMarkerClick}
+            name={marker.name}
+            address={marker.location.address}
             key={marker.id}
           />
         ))}
 
         {locationsForMarkers &&
           locationsForMarkers.map(marker => (
-            <Marker
+            <MarkerInfo
               icon={this.returnCategoryIcon(marker.types)}
               position={{
                 lat: marker.geometry.location.lat,
                 lng: marker.geometry.location.lng
               }}
-              // onClick={this.onMarkerClick}
+              name={marker.name}
+              address={marker.vicinity}
               key={marker.id}
             />
           ))}
