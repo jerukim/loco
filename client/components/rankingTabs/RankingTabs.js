@@ -47,6 +47,7 @@ class RankingTabs extends React.Component {
     const {classes, homes} = this.props
     const {value} = this.state
     const rankings = this.getRankedHomeId()
+    console.log('Rankings', rankings)
     return (
       <div className={classes.root}>
         <AppBar position="static" color="default">
