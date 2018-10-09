@@ -40,8 +40,9 @@ export const getBounds = (markers, centerLatLng) => {
   return async dispatch => {
     if (markers[0]) {
       try {
+        const min = Math.min(markers.length, 5)
         const bounds = new google.maps.LatLngBounds()
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < min; i++) {
           const {lat, lng} = markers[i].location
           await bounds.extend({lat, lng})
         }
