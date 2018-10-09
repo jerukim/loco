@@ -19,42 +19,42 @@ const locationData = [
   {
     lat: 41.9171507,
     lng: -87.647284,
-    address: '1932 N Burling Street, Chicago, IL 60614'
+    address: '1932 N Burling Street, Chicago, IL 60614, USA'
   },
   {
     lat: 41.9163896,
     lng: -87.6478731,
-    address: '1909 N Orchard Street, Chicago, IL 60614'
+    address: '1909 N Orchard Street, Chicago, IL 60614, USA'
   },
   {
     lat: 41.8952701,
     lng: -87.6412238,
-    address: '405 W Superior St, Chicago, IL 60654'
+    address: '405 W Superior St, Chicago, IL 60654, USA'
   },
   {
     lat: 41.8844878,
     lng: -87.6338603,
-    address: '100 W Randolph St, Chicago, IL 60601'
+    address: '100 W Randolph St, Chicago, IL 60601, USA'
   },
   {
     lat: 41.9090381,
     lng: -87.629484,
-    address: '1443 N Astor St, Chicago, IL 60610'
+    address: '1443 N Astor St, Chicago, IL 60610, USA'
   },
   {
     lat: 41.922028,
     lng: -87.6467147,
-    address: '620 W Webster Ave, Chicago, IL 60614'
+    address: '620 W Webster Ave, Chicago, IL 60614, USA'
   },
   {
     lat: 41.897034,
     lng: -87.6257315,
-    address: '800 N Michigan Ave #5801 Park Tower, Chicago, IL 60611'
+    address: '800 N Michigan Ave #5801 Park Tower, Chicago, IL 60611, USA'
   },
   {
     lat: 41.8997054,
     lng: -87.6297925,
-    address: '11 E Walton St PH 5800, Chicago, IL 60611'
+    address: '11 E Walton St PH 5800, Chicago, IL 60611, USA'
   }
 ]
 const homeData = [

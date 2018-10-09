@@ -14,7 +14,7 @@ router.post('/categoryResults/', async (req, res, next) => {
   }
 })
 
-router.post('/categoryDistances', async (req, res, next) => {
+router.post('/distances', async (req, res, next) => {
   try {
     const {start, end, mode} = req.body
     const data = await getDistanceFromGoogle(start, end, mode)
