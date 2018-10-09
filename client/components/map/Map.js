@@ -93,8 +93,6 @@ class GMap extends React.Component {
       )
     })
 
-    console.log('LOCATION FOR MARKERS', locationsForMarkers)
-
     return (
       <GoogleMap
         ref="map"
