@@ -38,8 +38,6 @@ const PlaceInfo = props => {
   return homeCategories.loaded && categoryResults.loaded ? (
     <div className={classes.root}>
       {priorities.map(item => {
-        console.log('homeCategories with homeId', homeCategories[homeId])
-        console.log('homeId', homeId)
         if (
           !homeCategories.homeCategories[homeId][item.categoryId] &&
           !item.placeId
