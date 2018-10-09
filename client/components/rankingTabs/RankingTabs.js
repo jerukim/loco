@@ -14,11 +14,6 @@ const styles = theme => ({
   }
 })
 
-const dummyRank = {
-  0: 2, // value: homeId
-  1: 1
-}
-
 class RankingTabs extends React.Component {
   state = {
     value: 0
@@ -41,13 +36,18 @@ class RankingTabs extends React.Component {
 
   getRankedHomeId = () => {
     const {homeCategories, selectedCategories} = this.props
-    return getHomeRankings(homeCategories, selectedCategories)
+    const homeCatKeys = Object.keys(homeCategories)
+    const selectedCatKeys = Object.keys(selectedCategories)
+    if (homeCatKeys.length > 0 && selectedCatKeys > 0) {
+      return getHomeRankings(homeCategories, selectedCategories)
+    }
   }
 
   render() {
     const {classes, homes} = this.props
     const {value} = this.state
     const rankings = this.getRankedHomeId()
+    console.log('Ranks rerendered')
     return (
       <div className={classes.root}>
         <AppBar position="static" color="default">
@@ -65,7 +65,7 @@ class RankingTabs extends React.Component {
             })}
           </Tabs>
         </AppBar>
-        <HomeTab homeId={rankings[value]} />
+        {rankings && <HomeTab homeId={rankings[value]} />}
       </div>
     )
   }
