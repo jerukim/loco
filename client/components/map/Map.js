@@ -1,11 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-//import {compose, withProps, withStateHandlers} from 'recompose'
 import {withGoogleMap, GoogleMap, withScriptjs} from 'react-google-maps'
 import MarkerInfo from './MarkerInfo'
 import {getBounds} from '../../store'
 import {flattenHomeCategoryResults} from '../../utilities'
-//import MarkerItem from './MarkerInfo'
 
 class GMap extends React.Component {
   componentDidUpdate = async prevProps => {
@@ -63,8 +61,6 @@ class GMap extends React.Component {
 
   render() {
     const {places, homes, center, categoryResults} = this.props
-    console.log('HOMES: ', homes)
-    console.log('PLACES: ', places)
 
     // Maps all locations into a single array
     let allLocations = []
@@ -91,7 +87,6 @@ class GMap extends React.Component {
         })
       )
     })
-    console.log('ALL LOCATIONS', locationsForMarkers)
 
     return (
       <GoogleMap

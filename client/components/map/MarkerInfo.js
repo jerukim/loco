@@ -1,5 +1,4 @@
 import React from 'react'
-//import {compose, withProps, withStateHandlers} from 'recompose'
 import {Marker, InfoWindow} from 'react-google-maps'
 
 class MarkerInfo extends React.Component {
