@@ -38,7 +38,7 @@ class RankingTabs extends React.Component {
     const {homeCategories, selectedCategories} = this.props
     const homeCatKeys = Object.keys(homeCategories)
     const selectedCatKeys = Object.keys(selectedCategories)
-    if (homeCatKeys.length > 0 && selectedCatKeys > 0) {
+    if (homeCatKeys.length > 0 && selectedCatKeys.length > 0) {
       return getHomeRankings(homeCategories, selectedCategories)
     }
   }
@@ -47,7 +47,6 @@ class RankingTabs extends React.Component {
     const {classes, homes} = this.props
     const {value} = this.state
     const rankings = this.getRankedHomeId()
-    console.log('Ranks rerendered')
     return (
       <div className={classes.root}>
         <AppBar position="static" color="default">
@@ -59,10 +58,11 @@ class RankingTabs extends React.Component {
             scrollable
             scrollButtons="auto"
           >
-            {homes.map((home, i) => {
-              const homeId = rankings[i]
-              return <Tab key={homeId} label={i + 1} />
-            })}
+            {rankings &&
+              homes.map((home, i) => {
+                const homeId = rankings[i]
+                return <Tab key={homeId} label={i + 1} />
+              })}
           </Tabs>
         </AppBar>
         {rankings && <HomeTab homeId={rankings[value]} />}
