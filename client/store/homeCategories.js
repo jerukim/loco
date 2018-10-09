@@ -323,15 +323,18 @@ export default function(state = initialState, action) {
       }
     case FETCH_ALL_HOME_CATEGORIES_ONE_HOME_SUCCESS:
       return {
-        ...state,
-        [action.homeId]: action.homeCategories,
+        // ...state,
+        homeCategories: {
+          ...state.homeCategories,
+          [action.homeId]: action.homeCategories
+        },
         loaded: true,
         fetchingHomeCategories: false,
         errorFetching: false
       }
     case DELETED_HOME_IN_HOME_CATEGORIES:
       const removedHomeState = {...state}
-      delete removedHomeState[action.homeId]
+      delete removedHomeState.homeCategories[action.homeId]
       return removedHomeState
     case FETCH_HOME_CATEGORIES_REQUEST:
       return {
