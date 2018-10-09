@@ -3,11 +3,14 @@ import {
   fetchAllHomeCategories,
   fetchOneHomeCategory,
   fetchHomeCategoriesRequest,
-  deleteOneHomeCategory
+  deleteOneHomeCategory,
+  fetchAllHomeCategoriesOneHome
 } from './'
 
 const FETCH_ALL_CATEGORY_RESULTS_SUCCESS = 'GOT_CATEGORY_RESULTS_SUCCESS'
 const FETCH_ONE_CATEGORY_RESULTS_SUCCESS = 'FETCH_ONE_CATEGORY_RESULTS_SUCCESS'
+const FETCH_ALL_CATEGORY_RESULTS_ONE_HOME_SUCCESS =
+  'FETCH_ALL_CATEGORY_RESULTS_ONE_HOME_SUCCESS'
 const FETCH_CATEGORY_RESULTS_REQUEST = 'FETCH_CATEGORY_RESULTS_REQUEST'
 const FETCH_CATEGORY_RESULTS_ERROR = 'FETCH_CATEGORY_RESULTS_ERROR'
 const DELETED_ONE_CATEGORY_RESULTS = 'DELETED_ONE_CATEGORY_RESULTS'
@@ -70,6 +73,7 @@ export const fetchAllCategoryResults = (userId, homes) => async dispatch => {
   }
 }
 
+// gets categoryResults for all homes (add category)
 export const fetchOneCategoryResults = (category, homes) => async dispatch => {
   try {
     dispatch(fetchCategoryResultsRequest())
