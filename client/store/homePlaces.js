@@ -22,7 +22,8 @@ const deletedHomeInHomePlaces = homeId => ({
 })
 const deletedPlaceInHomePlaces = (placeId, homes) => ({
   type: DELETED_PLACE_IN_HOME_PLACES,
-  placeId
+  placeId,
+  homes
 })
 
 // get all homePlaces for user upon login
@@ -72,7 +73,7 @@ export const fetchOneHomePlaces = (userId, homeId) => async dispatch => {
 // delete place for all homes (remove place)
 export const deletePlaceInHomePlaces = (placeId, homes) => dispatch => {
   try {
-    dispatch(deletedPlaceInHomePlaces(placeId))
+    dispatch(deletedPlaceInHomePlaces(placeId, homes))
   } catch (err) {
     console.error(err)
   }

@@ -19,7 +19,9 @@ import {
   deletePlace,
   deleteHomeInHomePlaces,
   deleteHomeInCategoryResults,
-  deleteHomeInHomeCategory
+  deleteHomeInHomeCategory,
+  deletePlaceInHomePlaces,
+  fetchSelectedCategories
 } from '../../../store'
 
 const styles = theme => ({
@@ -73,6 +75,8 @@ class AddressCard extends React.Component {
     } else {
       const {id: placeId} = this.props.place
       this.props.deletePlace({userId, placeId})
+      this.props.deletePlaceInHomePlaces(placeId, homes)
+      this.props.fetchSelectedCategories(userId)
     }
   }
 
@@ -133,7 +137,11 @@ const mapDispatchToProps = dispatch => ({
   deleteHomeInHomePlaces: homeId => dispatch(deleteHomeInHomePlaces(homeId)),
   deleteHomeInCategoryResults: homeId =>
     dispatch(deleteHomeInCategoryResults(homeId)),
-  deleteHomeInHomeCategory: homeId => dispatch(deleteHomeInHomeCategory(homeId))
+  deleteHomeInHomeCategory: homeId =>
+    dispatch(deleteHomeInHomeCategory(homeId)),
+  deletePlaceInHomePlaces: (placeId, homes) =>
+    dispatch(deletePlaceInHomePlaces(placeId, homes)),
+  fetchSelectedCategories: userId => dispatch(fetchSelectedCategories(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(

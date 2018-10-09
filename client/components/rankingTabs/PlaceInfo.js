@@ -57,6 +57,11 @@ const PlaceInfo = props => {
         const info = item.placeId
           ? homePlaces[homeId][item.placeId]
           : homeCategories.homeCategories[homeId][item.categoryId]
+
+        if (info === undefined) {
+          return
+        }
+
         return (
           <ExpansionPanel key={item.priority}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
