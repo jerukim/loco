@@ -35,7 +35,9 @@ const PlaceInfo = props => {
     priorities,
     categoryResults
   } = props
-  return homeCategories.loaded && categoryResults.loaded ? (
+  return homeCategories.loaded &&
+    categoryResults.loaded &&
+    homePlaces.loaded ? (
     <div className={classes.root}>
       {priorities.map(item => {
         if (!homeCategories[homeId][item.categoryId] && !item.placeId) {
@@ -50,6 +52,10 @@ const PlaceInfo = props => {
         const info = item.placeId
           ? homePlaces[homeId][item.placeId]
           : homeCategories[homeId][item.categoryId]
+
+        if (!info) {
+          return
+        }
         return (
           <ExpansionPanel key={item.priority}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
