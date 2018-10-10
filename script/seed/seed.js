@@ -61,22 +61,22 @@ const homeData = [
   {
     locationId: 1,
     price: 50000000,
-    imageUrl: 'https://photos.zillowstatic.com/p_f/ISi79n7e5lwahu0000000000.jpg'
+    imgUrl: 'https://photos.zillowstatic.com/p_f/ISi79n7e5lwahu0000000000.jpg'
   },
   {
     locationId: 2,
     price: 1500000,
-    imageUrl: 'https://photos.zillowstatic.com/p_h/ISy3xrxnaoxhjb1000000000.jpg'
+    imgUrl: 'https://photos.zillowstatic.com/p_h/ISy3xrxnaoxhjb1000000000.jpg'
   },
   {
     locationId: 7,
     price: 11000000,
-    imageUrl: 'https://photos.zillowstatic.com/p_h/ISug4vtydsivdw1000000000.jpg'
+    imgUrl: 'https://photos.zillowstatic.com/p_h/ISug4vtydsivdw1000000000.jpg'
   },
   {
     locationId: 8,
     price: 10950000,
-    imageUrl: 'https://photos.zillowstatic.com/p_h/ISp1e5rrucehcn1000000000.jpg'
+    imgUrl: 'https://photos.zillowstatic.com/p_h/ISp1e5rrucehcn1000000000.jpg'
   }
 ]
 const placeData = [
