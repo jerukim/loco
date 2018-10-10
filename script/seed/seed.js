@@ -116,6 +116,8 @@ const categoryData = [
 const userHomeData = [
   {userId: 1, homeId: 1},
   {userId: 1, homeId: 2},
+  // {userId: 1, homeId: 3},
+  // {userId: 1, homeId: 4},
   {userId: 2, homeId: 3},
   {userId: 2, homeId: 4}
 ]
