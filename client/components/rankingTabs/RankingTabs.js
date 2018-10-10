@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {withStyles, AppBar, Tabs, Tab} from '@material-ui/core/'
 import {HomeTab} from '../'
 import {getBounds, getRanks} from '../../store'
-import {rankHomes} from '../../utilities'
+import {rankHomes as ranker} from '../../utilities'
 
 const styles = theme => ({
   root: {
@@ -22,22 +22,11 @@ class RankingTabs extends React.Component {
 
   handleChange = (event, value, homeId) => {
     this.setState({value})
-    const {markers, getBounds, homes} = this.props
-    // const {lat, lng} = homes[homeId].location
-    // let markersArr = []
-    // for (let key in markers[homeId]) {
-    //   if (markers[homeId].hasOwnProperty(key)) {
-    //     for (let i = 0; i < 5; i++) {
-    //       markersArr.push(markers[key][i].geometry)
-    //     }
-    //   }
-    // }
-    // const bounds = getBounds(markersArr, {lat, lng})
   }
 
   rankHomes = () => {
     const {homes, homeCategories, homePlaces, selectedCategories} = this.props
-    const data = rankHomes(
+    const data = ranker(
       homes,
       homeCategories,
       homePlaces,
@@ -56,13 +45,20 @@ class RankingTabs extends React.Component {
       rankings
     } = this.props
     const {value} = this.state
-    if (!rankings.called) {
-      const data = rankHomes(
+    if (
+      !rankings.called &&
+      homeCategories.loaded &&
+      homePlaces.loaded &&
+      !selectedCategories.selectedCategoriesFetching
+    ) {
+      // debugger
+      const data = this.rankHomes(
         homes,
         homeCategories,
         homePlaces,
         selectedCategories.selectedCategories
       )
+      console.log(data)
       this.props.getRanks(data)
     }
 
