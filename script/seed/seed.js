@@ -71,12 +71,12 @@ const homeData = [
   {
     locationId: 7,
     price: 11000000,
-    imageUrl: 'https://bit.ly/2Ilv7BX'
+    imageUrl: 'https://photos.zillowstatic.com/p_h/ISug4vtydsivdw1000000000.jpg'
   },
   {
     locationId: 8,
     price: 10950000,
-    imageUrl: 'https://bit.ly/2DzCuH1'
+    imageUrl: 'https://photos.zillowstatic.com/p_h/ISp1e5rrucehcn1000000000.jpg'
   }
 ]
 const placeData = [
