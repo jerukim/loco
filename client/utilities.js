@@ -217,3 +217,31 @@ export const getHomeRankings = (homeCategories, selectedCategories) => {
     return [results, scores.sort()]
   }
 }
+
+export const rankHomes = (homes, homeCategories, homePlaces, priorities) => {
+  const homeIdScores = {}
+
+  homes.forEach(home => {
+    let score = 0
+
+    priorities.forEach(item => {
+      if (item.placeId) {
+        score += homePlaces[home.id][item.placeId].distanceValue * item.priority
+      } else {
+        score +=
+          homeCategories[home.id][item.categoryId].distanceValue * item.priority
+      }
+    })
+
+    homeIdScores[score] = home.id
+  })
+
+  const sortedScores = Object.keys(homeIdScores).sort()
+
+  const rankings = {}
+  sortedScores.forEach((score, i) => {
+    rankings[i] = homeIdScores[score]
+  })
+
+  return rankings
+}
