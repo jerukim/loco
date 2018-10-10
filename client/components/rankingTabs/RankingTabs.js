@@ -14,6 +14,11 @@ const styles = theme => ({
   }
 })
 
+const dummyRank = {
+  0: 2, // value: homeId
+  1: 1
+}
+
 class RankingTabs extends React.Component {
   state = {
     value: 0
@@ -46,7 +51,7 @@ class RankingTabs extends React.Component {
   render() {
     const {classes, homes} = this.props
     const {value} = this.state
-    const rankings = this.getRankedHomeId()
+    // const rankings = this.getRankedHomeId()
     return (
       <div className={classes.root}>
         <AppBar position="static" color="default">
@@ -58,14 +63,16 @@ class RankingTabs extends React.Component {
             scrollable
             scrollButtons="auto"
           >
-            {rankings &&
+            {homes.map((home, i) => <Tab key={home.id} label={i + 1} />)}
+            {/* {rankings &&
               homes.map((home, i) => {
                 const homeId = rankings[i]
                 return <Tab key={homeId} label={i + 1} />
-              })}
+              })} */}
           </Tabs>
         </AppBar>
-        {rankings && <HomeTab homeId={rankings[value]} />}
+        <HomeTab homeId={dummyRank[value]} />
+        {/* {rankings && <HomeTab homeId={rankings[value]} />} */}
       </div>
     )
   }
