@@ -13,7 +13,6 @@ import categoryFilter from './categoryFilter'
 import homePlaces from './homePlaces'
 import categoryResults from './categoryResults'
 import homeCategories from './homeCategories'
-import priorities from './priorities'
 
 const persistConfig = {
   key: 'root',
@@ -29,8 +28,7 @@ const reducer = combineReducers({
   categoryFilter,
   homePlaces,
   categoryResults,
-  homeCategories,
-  priorities
+  homeCategories
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)
@@ -51,4 +49,3 @@ export * from './categoryFilter'
 export * from './homePlaces'
 export * from './categoryResults'
 export * from './homeCategories'
-export * from './priorities'
