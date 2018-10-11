@@ -12,7 +12,8 @@ import {putPlace} from '../../../../store'
 
 const styles = theme => ({
   textField: {
-    width: '100%'
+    width: '100%',
+    marginBottom: '25px'
   },
   input: {
     fontSize: '14px'
@@ -73,13 +74,13 @@ class PlaceForm extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <PlacesAutocomplete
+        {/* <PlacesAutocomplete
           value={address}
           onChange={this.handleAutoChange}
           onSelect={this.handleAutoSelect}
         >
           {renderFuncEdit}
-        </PlacesAutocomplete>
+        </PlacesAutocomplete> */}
         <TextField
           label="Label"
           className={classes.textField}
@@ -87,6 +88,13 @@ class PlaceForm extends React.Component {
           InputProps={{className: classes.input}}
           onChange={this.handleChange('name')}
         />
+        <PlacesAutocomplete
+          value={address}
+          onChange={this.handleAutoChange}
+          onSelect={this.handleAutoSelect}
+        >
+          {renderFuncEdit}
+        </PlacesAutocomplete>
         <div className="flex-container flex-end">
           <Button type="submit">Save</Button>
         </div>

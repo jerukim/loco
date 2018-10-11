@@ -29,7 +29,9 @@ class HomeDetail extends React.Component {
     return (
       <div className="flex-container">
         <div className="media-wrap">
-          <CardMedia image={home.imgUrl} className={classes.media} />
+          <a href={home.link} rel="noopener noreferrer" target="_blank">
+            <CardMedia image={home.imgUrl} className={classes.media} />
+          </a>
         </div>
         <div className="flex-wrap content-wrap card-title">
           {home.link ? (

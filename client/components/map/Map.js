@@ -6,11 +6,13 @@ import {getBounds} from '../../store'
 import {flattenHomeCategoryResults} from '../../utilities'
 
 class GMap extends React.Component {
+  state = {
+    toggleOpen: ''
+  }
   componentDidUpdate = async prevProps => {
     const {userId, homes, places, center, homeId, categoryResults} = this.props
     const homeDeleted = homes.length < prevProps.homes.length
     const placeDeleted = places.length < prevProps.places.length
-    const centerChanged = center !== prevProps.center
     let bounds
     try {
       if (!userId) {
@@ -129,7 +131,7 @@ class GMap extends React.Component {
             key={marker.id}
           />
         ))}
-
+        {('locationsForMarkers', console.log(locationsForMarkers))}
         {locationsForMarkers &&
           locationsForMarkers.map(marker => (
             <MarkerInfo

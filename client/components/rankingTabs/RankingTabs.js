@@ -1,7 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {withStyles, AppBar, Tabs, Tab} from '@material-ui/core/'
+import {withStyles} from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import StarIcon from '@material-ui/icons/Star'
 import {HomeTab} from '../'
 import {getBounds, getRanks} from '../../store'
 import {rankHomes as ranker} from '../../utilities'
@@ -11,6 +17,26 @@ const styles = theme => ({
     flexGrow: 1,
     width: '100%',
     backgroundColor: theme.palette.background.paper
+  },
+  indicator: {
+    height: '43px',
+    maxWidth: '43px',
+    left: '62px',
+    bottom: '3px',
+    opacity: '0.2',
+    borderRadius: '100px',
+    backgroundColor: 'white',
+    margin: '0 58px'
+  },
+  label: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '16px'
+  },
+  header: {
+    color: 'white',
+    marginLeft: '5px',
+    fontSize: '20px'
   }
 })
 
@@ -64,20 +90,43 @@ class RankingTabs extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="default">
+        <AppBar
+          position="relative"
+          color="default"
+          style={{
+            display: 'flex',
+            flexFlow: 'row',
+            backgroundColor: '#3f51b5'
+          }}
+        >
+          <Toolbar>
+            <StarIcon style={{color: 'yellow', fontSize: '36px'}} />
+            <Typography variant="display1" className={classes.header}>
+              Results
+            </Typography>
+          </Toolbar>
           <Tabs
             value={value}
             onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            scrollable
-            scrollButtons="auto"
+            style={{
+              backgroundColor: '#3f51b5',
+              width: '100%',
+              margin: 'auto 0'
+            }}
+            classes={{indicator: classes.indicator}}
           >
             {/* {homes.map((home, i) => <Tab key={home.id} label={i + 1} />)} */}
             {rankings.data &&
               homes.map((home, i) => {
                 const homeId = rankings.data[i]
-                return <Tab key={homeId} label={i + 1} />
+                return (
+                  <Tab
+                    disableRipple
+                    key={homeId}
+                    label={i + 1}
+                    style={{color: 'white', fontSize: '18px'}}
+                  />
+                )
               })}
           </Tabs>
         </AppBar>
