@@ -11,6 +11,7 @@ import DirectionsBike from '@material-ui/icons/DirectionsBike'
 import DirectionsCar from '@material-ui/icons/DirectionsCar'
 import DirectionsWalk from '@material-ui/icons/DirectionsWalk'
 import DirectionsTransit from '@material-ui/icons/DirectionsTransit'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styles = theme => ({
   root: {
@@ -29,6 +30,11 @@ const styles = theme => ({
     display: 'inline',
     marginLeft: '20px',
     lineHeight: 2
+  },
+  progress: {
+    position: 'absolute',
+    left: '60vw',
+    top: '90vh'
   }
 })
 
@@ -98,7 +104,9 @@ const PlaceInfo = props => {
       })}
     </div>
   ) : (
-    <div />
+    <div className="all-center">
+      <CircularProgress className={classes.progress} color="secondary" />
+    </div>
   )
 }
 

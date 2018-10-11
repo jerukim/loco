@@ -16,7 +16,8 @@ const styles = theme => ({
     width: '20px',
     height: '20px',
     minHeight: '38px',
-    minWidth: '38px'
+    minWidth: '38px',
+    backgroundColor: '#ff595e'
   }
 })
 

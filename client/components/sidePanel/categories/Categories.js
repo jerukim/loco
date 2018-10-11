@@ -23,7 +23,7 @@ const Categories = props => {
         <Menu />
       </div>
       <Typography
-        style={{textAlign: 'center', margin: '12px auto'}}
+        style={{textAlign: 'center', margin: '12px auto', maxWidth: '265px'}}
         variant="caption"
         gutterBottom
       >
