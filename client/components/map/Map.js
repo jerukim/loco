@@ -6,9 +6,6 @@ import {getBounds} from '../../store'
 import {flattenHomeCategoryResults} from '../../utilities'
 
 class GMap extends React.Component {
-  state = {
-    toggleOpen: ''
-  }
   componentDidUpdate = async prevProps => {
     const {userId, homes, places, center, homeId, categoryResults} = this.props
     const homeDeleted = homes.length < prevProps.homes.length

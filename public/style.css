@@ -200,7 +200,7 @@ label {
 
 .addressbook-display {
   overflow-y: auto;
-  height: calc(80vh - 200px);
+  height: calc(80vh - 250px);
   width: 100%;
 }
 
@@ -217,17 +217,6 @@ label {
   display: flex;
   flex-flow: column;
 }
-
-/* .auth-form:after {
-  content: '';
-  background-color: #d5d4d4;
-  position: absolute;
-  width: 1px;
-  height: 290px;
-  top: 224px;
-  display: block;
-  right: 282px;
-} */
 
 .divider {
   background-color: #d5d4d4;
@@ -263,4 +252,22 @@ label {
 .duration-wrapper {
   min-width: 40px;
   margin-right: 14px;
+}
+
+.image-wrap {
+  width: 100px;
+  text-align: left;
+  flex-flow: column;
+}
+
+.info-p {
+  margin: 0 0;
+}
+
+.marker-p {
+  margin-left: -32px;
+}
+
+.bold {
+  font-weight: 500;
 }

@@ -30,7 +30,7 @@ const DropDown = props => {
         onClick={handleMenuClick}
         color="secondary"
         variant="contained"
-        style={{marginTop: '8px', backgroundColor: '#ffba00'}}
+        style={{marginTop: '8px', backgroundColor: '#2dbccc'}}
       >
         <AddIcon style={{marginRight: '5px'}} />
         Select Nearby Places

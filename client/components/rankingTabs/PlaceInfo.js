@@ -30,6 +30,11 @@ const styles = theme => ({
     display: 'inline',
     marginLeft: '20px',
     lineHeight: 2
+  },
+  progress: {
+    position: 'absolute',
+    left: '60vw',
+    top: '90vh'
   }
 })
 
@@ -100,7 +105,7 @@ const PlaceInfo = props => {
     </div>
   ) : (
     <div className="all-center">
-      <CircularProgress color="secondary" />
+      <CircularProgress className={classes.progress} color="secondary" />
     </div>
   )
 }
