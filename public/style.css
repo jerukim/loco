@@ -97,13 +97,48 @@ label {
 
 #bottom {
   width: 100%;
+  min-height: 20vh;
 }
 
 #home-info {
   display: flex;
 }
-#ranking-tabs {
-  background-color: #f8f9f9;
+
+.rankings-appbar {
+  position: absolute;
+}
+
+.tab {
+  display: inline-block;
+  border-top-right-radius: 68px;
+  border-top-left-radius: 68px;
+  width: 130px;
+  font-size: 24px;
+  margin-left: -15px;
+  line-height: 65px;
+  color: white;
+  text-align: center;
+  height: 65px;
+  margin-top: -65px;
+}
+
+.blue {
+  background-color: #3f51b5;
+}
+
+.light-blue {
+  background-color: #707eca;
+}
+
+.result {
+  z-index: 1;
+}
+.overlap {
+  z-index: 2;
+}
+
+.selected {
+  z-index: 3;
 }
 
 .flex-container {

@@ -28,9 +28,9 @@ const DropDown = props => {
         aria-haspopup="true"
         aria-label="Add"
         onClick={handleMenuClick}
-        variant="outlined"
-        color="primary"
-        style={{marginTop: '8px', backgroundColor: 'white'}}
+        color="secondary"
+        variant="contained"
+        style={{marginTop: '8px', backgroundColor: '#ffba00'}}
       >
         <AddIcon style={{marginRight: '5px'}} />
         Select Nearby Places

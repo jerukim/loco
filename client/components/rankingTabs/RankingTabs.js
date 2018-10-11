@@ -2,9 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {withStyles} from '@material-ui/core/styles'
-import AppBar from '@material-ui/core/AppBar'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import StarIcon from '@material-ui/icons/Star'
@@ -45,11 +42,6 @@ class RankingTabs extends React.Component {
   state = {
     value: 0
   }
-
-  handleChange = (event, value, homeId) => {
-    this.setState({value})
-  }
-
   rankHomes = () => {
     const {homes, homeCategories, homePlaces, selectedCategories} = this.props
     const data = ranker(
@@ -90,47 +82,37 @@ class RankingTabs extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar
-          position="relative"
-          color="default"
-          style={{
-            display: 'flex',
-            flexFlow: 'row',
-            backgroundColor: '#3f51b5'
-          }}
-        >
-          <Toolbar>
-            <StarIcon style={{color: 'yellow', fontSize: '36px'}} />
+        <div className="flex-container rankings-appbar">
+          <Toolbar
+            className="tab"
+            style={{
+              backgroundColor: '#3f51b5',
+              borderTopRightRadius: '40px',
+              borderTopLeftRadius: '40px',
+              height: '65px'
+            }}
+          >
+            <StarIcon style={{color: '#ffba00', fontSize: '36px'}} />
             <Typography variant="display1" className={classes.header}>
               Results
             </Typography>
           </Toolbar>
-          <Tabs
-            value={value}
-            onChange={this.handleChange}
-            style={{
-              backgroundColor: '#3f51b5',
-              width: '100%',
-              margin: 'auto 0'
-            }}
-            classes={{indicator: classes.indicator}}
-          >
-            {/* {homes.map((home, i) => <Tab key={home.id} label={i + 1} />)} */}
-            {rankings.data &&
-              homes.map((home, i) => {
-                const homeId = rankings.data[i]
-                return (
-                  <Tab
-                    disableRipple
-                    key={homeId}
-                    label={i + 1}
-                    style={{color: 'white', fontSize: '18px'}}
-                  />
-                )
-              })}
-          </Tabs>
-        </AppBar>
-        {/* <HomeTab homeId={dummyRank[value]} /> */}
+          {rankings.data &&
+            homes.map((home, i) => {
+              const homeId = rankings.data[i]
+              const color = i % 2 === 0 ? 'light-blue' : 'blue'
+              const selected = this.state.value === i ? 'selected' : ''
+              return (
+                <li
+                  key={homeId}
+                  className={`tab result ${color} ${selected}`}
+                  onClick={() => this.setState({value: i})}
+                >
+                  {i + 1}
+                </li>
+              )
+            })}
+        </div>
         {rankings.data && <HomeTab homeId={rankings.data[value]} />}
       </div>
     )

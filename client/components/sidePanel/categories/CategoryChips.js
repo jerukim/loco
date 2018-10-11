@@ -22,7 +22,7 @@ const styles = theme => ({
     display: 'flex',
     position: 'relative',
     backgroundColor: 'white',
-    color: '#ae8b00'
+    color: '#555451'
   },
   left: {
     position: 'absolute',
