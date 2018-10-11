@@ -40,28 +40,22 @@ const PlaceInfo = props => {
     homePlaces.loaded ? (
     <div className={classes.root}>
       {priorities.map(item => {
-        if (
-          !homeCategories.homeCategories[homeId][item.categoryId] &&
-          !item.placeId
-        ) {
+        if (!homeCategories[homeId][item.categoryId] && !item.placeId) {
           return
         }
         const name = item.placeId
           ? item.label
-          : `${
-              homeCategories.homeCategories[homeId][item.categoryId].name
-            } (${item.label
+          : `${homeCategories[homeId][item.categoryId].name} (${item.label
               .split('_')
               .map(word => word[0].toUpperCase() + word.slice(1))
               .join(' ')})`
         const info = item.placeId
           ? homePlaces[homeId][item.placeId]
-          : homeCategories.homeCategories[homeId][item.categoryId]
+          : homeCategories[homeId][item.categoryId]
 
-        if (info === undefined) {
+        if (!info) {
           return
         }
-
         return (
           <ExpansionPanel key={item.priority}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>

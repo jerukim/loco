@@ -64,7 +64,7 @@ class AddressCard extends React.Component {
     this.setState(state => ({expanded: !state.expanded}))
   }
 
-  handleDelete = () => {
+  handleDelete = async () => {
     const {userId, homes} = this.props
     if (this.props.home) {
       const {id: homeId} = this.props.home
@@ -74,8 +74,8 @@ class AddressCard extends React.Component {
       this.props.deleteHomeInHomeCategory(homeId)
     } else {
       const {id: placeId} = this.props.place
-      this.props.deletePlace({userId, placeId})
-      this.props.deletePlaceInHomePlaces(placeId, homes)
+      await this.props.deletePlace({userId, placeId})
+      await this.props.deletePlaceInHomePlaces(placeId, homes)
       this.props.fetchSelectedCategories(userId)
     }
   }
