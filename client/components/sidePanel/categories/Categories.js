@@ -23,11 +23,12 @@ const Categories = props => {
         <Menu />
       </div>
       <Typography
-        style={{textAlign: 'center', marginTop: '12px'}}
+        style={{textAlign: 'center', margin: '12px auto'}}
         variant="caption"
         gutterBottom
       >
-        Select and prioritize the types of locations that matter to you
+        Drag and drop your preferences from most important to least important (1
+        = highest priority)
       </Typography>
       <SelectedCategories items={items} />
     </div>

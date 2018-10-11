@@ -93,7 +93,7 @@ class HomeForm extends React.Component {
         />
         <TextField
           label="URL"
-          helperText="Save a hyperlink to easily find more information"
+          helperText="Add a hyperlink to your home listing"
           value={link}
           className={classes.textField}
           InputProps={{className: classes.input}}

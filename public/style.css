@@ -159,7 +159,7 @@ label {
 }
 
 .menu-buttons {
-  justify-content: space-evenly;
+  justify-content: center;
   margin-top: 15px;
 }
 
