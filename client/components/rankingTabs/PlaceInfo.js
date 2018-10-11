@@ -11,6 +11,7 @@ import DirectionsBike from '@material-ui/icons/DirectionsBike'
 import DirectionsCar from '@material-ui/icons/DirectionsCar'
 import DirectionsWalk from '@material-ui/icons/DirectionsWalk'
 import DirectionsTransit from '@material-ui/icons/DirectionsTransit'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styles = theme => ({
   root: {
@@ -98,7 +99,9 @@ const PlaceInfo = props => {
       })}
     </div>
   ) : (
-    <div />
+    <div className="all-center">
+      <CircularProgress color="secondary" />
+    </div>
   )
 }
 

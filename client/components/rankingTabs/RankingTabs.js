@@ -89,10 +89,13 @@ class RankingTabs extends React.Component {
               backgroundColor: '#3f51b5',
               borderTopRightRadius: '40px',
               borderTopLeftRadius: '40px',
-              height: '65px'
+              height: '40px',
+              marginTop: '-64px'
             }}
           >
-            <StarIcon style={{color: '#ffba00', fontSize: '36px'}} />
+            <StarIcon
+              style={{color: '#ffba00', fontSize: '24px', marginLeft: '9px'}}
+            />
             <Typography variant="display1" className={classes.header}>
               Results
             </Typography>
