@@ -21,36 +21,26 @@ const styles = themes => ({
   }
 })
 
+const messages = [
+  'Welcome to Loco!',
+  'Save addresses to your ADDRESS BOOK to keep track of homes you are looking at and places you will need nearby (e.g. work, school)',
+  'Add and sort POINTS OF INTEREST that you would like to access around your next home and view the results in the RESULTS section'
+]
+
 class TipButton extends React.Component {
   queue = []
 
   state = {
-    open: false,
-    messageInfo: {}
+    open: true,
+    message: messages[0]
   }
 
-  handleClick = message => () => {
-    this.queue.push({
-      message,
-      key: new Date().getTime()
-    })
-
-    if (this.state.open) {
-      // immediately begin dismissing current message
-      // to start showing new one
-      this.setState({open: false})
-    } else {
-      this.processQueue()
-    }
+  toggleTips = () => {
+    this.setState({open: !this.state.open})
   }
 
-  processQueue = () => {
-    if (this.queue.length > 0) {
-      this.setState({
-        messageInfo: this.queue.shift(),
-        open: true
-      })
-    }
+  handleClick = index => () => {
+    this.setState({message: messages[index]})
   }
 
   handleClose = (event, reason) => {
@@ -60,10 +50,6 @@ class TipButton extends React.Component {
     this.setState({open: false})
   }
 
-  handleExited = () => {
-    this.processQueue()
-  }
-
   render() {
     const {classes} = this.props
     return (
@@ -71,7 +57,7 @@ class TipButton extends React.Component {
         <Button
           classes={{root: classes.root, label: classes.label}}
           className={classes.button}
-          onClick={this.handleClick('message a')}
+          onClick={this.toggleTips}
         >
           <div
             style={{
@@ -88,8 +74,7 @@ class TipButton extends React.Component {
         <TipBox
           handleClick={this.handleClick}
           handleClose={this.handleClose}
-          handleExited={this.handleExited}
-          messageInfo={this.state.message}
+          message={this.state.message}
           open={this.state.open}
         />
       </div>
