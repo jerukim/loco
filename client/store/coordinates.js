@@ -4,6 +4,8 @@ const GOT_CENTER = 'GET_CENTER'
 const GOT_BOUNDS = 'GOT_BOUNDS'
 const SELECT_HOME = 'SELECT_HOME'
 const UNSELECT_HOME = 'UNSELECT_HOME'
+const SELECT_PLACE = 'SELECT_PLACE'
+const UNSELECT_PLACE = 'UNSELECT_PLACE'
 
 export const gotCenter = payload => ({
   type: GOT_CENTER,
@@ -13,6 +15,11 @@ export const gotCenter = payload => ({
 export const selectHomeId = homeId => ({
   type: SELECT_HOME,
   homeId
+})
+
+export const selectPlaceId = placeId => ({
+  type: SELECT_PLACE,
+  placeId
 })
 
 const gotBounds = payload => ({
@@ -60,7 +67,8 @@ export const getBounds = (markers, centerLatLng) => {
 const initialState = {
   center: {},
   bounds: [],
-  selectedHomeId: null
+  selectedHomeId: null,
+  selectedPlaceId: null
 }
 
 const coordinatesReducer = (state = initialState, action) => {
@@ -72,6 +80,10 @@ const coordinatesReducer = (state = initialState, action) => {
     case SELECT_HOME:
       return {...state, selectedHomeId: action.homeId}
     case UNSELECT_HOME:
+      return {...state, selectedHomeId: null}
+    case SELECT_PLACE:
+      return {...state, selectedHomeId: action.homeId}
+    case UNSELECT_PLACE:
       return {...state, selectedHomeId: null}
     default:
       return state
