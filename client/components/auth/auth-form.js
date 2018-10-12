@@ -31,8 +31,7 @@ class AuthForm extends React.Component {
   }
 
   render() {
-    let {name, displayName, handleSubmit, error} = this.props
-    name = name || this.props.location.pathname.slice(1)
+    const {name, displayName, handleSubmit, error} = this.props
     return (
       <div className="welcome-col">
         <form onSubmit={handleSubmit} name={name} className="auth-form">
@@ -100,7 +99,16 @@ class AuthForm extends React.Component {
           >
             {displayName}
           </Button>
-
+          {name && (
+            <Button
+              style={{marginTop: '10px'}}
+              variant="contained"
+              color="secondary"
+              href="/auth/google"
+            >
+              {displayName} with Google
+            </Button>
+          )}
           {error && error.response && <div> {error.response.data} </div>}
         </form>
       </div>
