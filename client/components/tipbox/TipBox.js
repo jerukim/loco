@@ -11,7 +11,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import {changeTooltip} from '../../store'
 
 const messages = [
-  'Welcome to Loco!',
+  'Welcome to Loco! Click NEXT for tips',
   'Save addresses to your ADDRESS BOOK to keep track of homes you are looking at and places you will need nearby (e.g. work, school)',
   'Add and sort POINTS OF INTEREST that you would like to access around your next home and view the results in the RESULTS section'
 ]
@@ -57,7 +57,6 @@ class Tipbox extends React.Component {
                 size="small"
                 onClick={() => {
                   const next = index === 2 ? -1 : index
-                  console.log({next})
                   changeTooltip(next + 1)
                 }}
               >
