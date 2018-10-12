@@ -4,27 +4,30 @@ import {withStyles} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Snackbar from '@material-ui/core/Snackbar'
 import IconButton from '@material-ui/core/IconButton'
+import amber from '@material-ui/core/colors/amber'
 import CloseIcon from '@material-ui/icons/Close'
 
 const styles = theme => ({
   close: {
     padding: theme.spacing.unit / 2
+  },
+  button: {
+    backgroundColor: amber[700]
   }
 })
 
 class Tipbox extends React.Component {
   render() {
-    const {classes, handleClose, handleExited} = this.props
-    const {message, key} = this.state.messageInfo
+    const {classes, handleClose, handleExited, message, key, open} = this.props
     return (
       <div>
         <Snackbar
           key={key}
           anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'left'
+            horizontal: 'right'
           }}
-          open={this.state.open}
+          open={open}
           autoHideDuration={6000}
           onClose={handleClose}
           onExited={handleExited}
@@ -35,11 +38,11 @@ class Tipbox extends React.Component {
           action={[
             <Button
               key="undo"
-              color="secondary"
               size="small"
               onClick={handleClose}
+              className={classes.button}
             >
-              UNDO
+              NEXT
             </Button>,
             <IconButton
               key="close"
