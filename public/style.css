@@ -117,6 +117,7 @@ label {
 
 #home-info {
   display: flex;
+  background-color: #fcfcfc;
 }
 
 .rankings-appbar {
@@ -290,7 +291,7 @@ label {
 .rank-number {
   height: 60px;
   width: 60px;
-  background-color: #ffc357;
+  background-color: #f6af67;
   position: absolute;
   text-align: center;
   top: 6px;
