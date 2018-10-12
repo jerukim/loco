@@ -13,7 +13,8 @@ import {removeCountry} from '../../utilities'
 
 const styles = {
   card: {
-    maxWidth: 345
+    maxWidth: 345,
+    margin: '25px'
   },
   media: {
     height: 300

@@ -285,7 +285,18 @@ label {
   font-weight: 500;
 }
 
-.duration-group {
+/* .duration-group {
   position: absolute;
   left: 28vw;
+} */
+
+.rank-number {
+  height: 60px;
+  width: 60px;
+  background-color: #ffc357;
+  position: absolute;
+  text-align: center;
+  top: 6px;
+  left: 261px;
+  border-radius: 100px;
 }
