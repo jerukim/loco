@@ -18,35 +18,59 @@ const styles = {
   },
   media: {
     height: 300
+  },
+  label: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '16px'
+  },
+  rank: {
+    color: 'white',
+    fontWeight: 'bold',
+    lineHeight: '0px'
   }
 }
 
 const HomeCard = props => {
-  const {classes, homes, homeId} = props
+  const {classes, homes, homeId, rank} = props
   const home = homes.find(home => home.id === homeId)
   return home ? (
-    <Card className={classes.card}>
-      <CardMedia className={classes.media} image={home.imgUrl} />
-      <CardContent>
-        <Typography gutterBottom variant="headline" component="h2">
-          {removeCountry(home.location.address)}
+    <div style={{position: 'relative'}}>
+      <div className="rank-number">
+        <Typography
+          style={{lineHeight: '39px'}}
+          className={classes.label}
+          variant="subheading"
+        >
+          Rank
         </Typography>
-        <Typography variant="subheading" component="h2">
-          <NumberFormat
-            value={home.price}
-            displayType="text"
-            thousandSeparator={true}
-            prefix="$"
-          />
+        <Typography className={classes.rank} variant="title">
+          #{rank}
         </Typography>
-      </CardContent>
+      </div>
+      <Card className={classes.card}>
+        <CardMedia className={classes.media} image={home.imgUrl} />
+        <CardContent>
+          <Typography gutterBottom variant="headline" component="h2">
+            {removeCountry(home.location.address)}
+          </Typography>
+          <Typography variant="subheading" component="h2">
+            <NumberFormat
+              value={home.price}
+              displayType="text"
+              thousandSeparator={true}
+              prefix="$"
+            />
+          </Typography>
+        </CardContent>
 
-      <CardActions>
-        <Button size="small" color="primary">
-          More Info
-        </Button>
-      </CardActions>
-    </Card>
+        <CardActions>
+          <Button size="small" color="primary">
+            More Info
+          </Button>
+        </CardActions>
+      </Card>
+    </div>
   ) : (
     <div />
   )

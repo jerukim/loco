@@ -30,11 +30,6 @@ const styles = theme => ({
     fontWeight: 'bold',
     fontSize: '16px'
   },
-  rank: {
-    color: 'white',
-    fontWeight: 'bold',
-    lineHeight: '0px'
-  },
   header: {
     color: 'white',
     marginLeft: '5px',
@@ -119,21 +114,7 @@ class RankingTabs extends React.Component {
             })}
         </div>
         {rankings.data && (
-          <div style={{position: 'relative'}}>
-            <div className="rank-number">
-              <Typography
-                style={{lineHeight: '39px'}}
-                className={classes.label}
-                variant="subheading"
-              >
-                Rank
-              </Typography>
-              <Typography className={classes.rank} variant="title">
-                #{value + 1}
-              </Typography>
-            </div>
-            <HomeTab homeId={rankings.data[value]} />
-          </div>
+          <HomeTab rank={value + 1} homeId={rankings.data[value]} />
         )}
       </div>
     )
