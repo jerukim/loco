@@ -36,7 +36,6 @@ class List extends React.Component {
             )
           })}
         </ul>
-        {console.log('fetching', fetching)}
         {
           fetching &&
           <div className="flex-container menu-buttons">
