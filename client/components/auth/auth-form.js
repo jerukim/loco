@@ -31,7 +31,8 @@ class AuthForm extends React.Component {
   }
 
   render() {
-    const {name, displayName, handleSubmit, error} = this.props
+    let {name, displayName, handleSubmit, error} = this.props
+    name = name || this.props.location.pathname.slice(1)
     return (
       <div className="welcome-col">
         <form onSubmit={handleSubmit} name={name} className="auth-form">
@@ -124,12 +125,10 @@ const mapSignup = state => {
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-  const {history, handleSlide} = ownProps
-  console.log('ownprops', ownProps)
+  const {history} = ownProps
   return {
     handleSubmit(evt) {
       evt.preventDefault()
-      handleSlide()
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value

@@ -46,7 +46,6 @@ class ModalAbout extends React.Component {
           aria-describedby="simple-modal-description"
           open={!center.lat || pathname === '/about'}
           onBackdropClick={() => {
-            console.log('pathname', pathname)
             pathname === '/about' && history.push('/home')
           }}
         >
