@@ -211,6 +211,5 @@ export const rankHomes = (homes, homeCategories, homePlaces, priorities) => {
   sortedScores.forEach((score, i) => {
     rankings[i] = homeIdScores[score]
   })
-  console.log('RAN RANK FUNCTION')
   return rankings
 }

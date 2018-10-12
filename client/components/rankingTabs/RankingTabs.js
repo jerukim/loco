@@ -69,14 +69,12 @@ class RankingTabs extends React.Component {
       homePlaces.loaded &&
       !selectedCategories.selectedCategoriesFetching
     ) {
-      // debugger
       const data = this.rankHomes(
         homes,
         homeCategories,
         homePlaces,
         selectedCategories.selectedCategories
       )
-      console.log(data)
       this.props.getRanks(data)
     }
 

@@ -6,7 +6,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import {DragDropContext} from 'react-beautiful-dnd'
-import {fetchSelectedCategoriesSuccess} from '../../store'
+import {fetchSelectedCategoriesSuccess, changeTooltip} from '../../store'
 import {reorderAndShift, updateCategoriesInDb} from '../../utilities'
 
 const styles = theme => ({
@@ -36,6 +36,7 @@ class ScreensSidePanel extends React.Component {
 
   handleChange = (event, value) => {
     this.setState({value})
+    this.props.changeTooltip(value + 1)
   }
 
   onDragEnd = result => {
@@ -80,7 +81,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  reorderList: payload => dispatch(fetchSelectedCategoriesSuccess(payload))
+  reorderList: payload => dispatch(fetchSelectedCategoriesSuccess(payload)),
+  changeTooltip: index => dispatch(changeTooltip(index))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(

@@ -99,7 +99,16 @@ class AuthForm extends React.Component {
           >
             {displayName}
           </Button>
-
+          {name && (
+            <Button
+              style={{marginTop: '10px'}}
+              variant="contained"
+              color="secondary"
+              href="/auth/google"
+            >
+              {displayName} with Google
+            </Button>
+          )}
           {error && error.response && <div> {error.response.data} </div>}
         </form>
       </div>
@@ -124,12 +133,10 @@ const mapSignup = state => {
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-  const {history, handleSlide} = ownProps
-  console.log('ownprops', ownProps)
+  const {history} = ownProps
   return {
     handleSubmit(evt) {
       evt.preventDefault()
-      handleSlide()
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
