@@ -18,6 +18,9 @@ const styles = theme => ({
   },
   indicator: {
     height: 0
+  },
+  selected: {
+    color: 'black'
   }
 })
 
@@ -47,14 +50,23 @@ class AddressBook extends React.Component {
           <AppBar position="static" style={{backgroundColor: '#f1f1f1'}}>
             <Tabs
               classes={{indicator: classes.indicator}}
-              indicatorColor="secondary"
-              textColor="secondary"
+              style={{color: 'gray'}}
               centered={true}
               value={value}
               onChange={this.handleChange}
             >
-              <Tab disableRipple label="Homes" icon={<HomeIcon />} />
-              <Tab disableRipple label="My Places" icon={<StarIcon />} />
+              <Tab
+                disableRipple
+                classes={{selected: classes.selected}}
+                label="Homes"
+                icon={<HomeIcon />}
+              />
+              <Tab
+                disableRipple
+                classes={{selected: classes.selected}}
+                label="My Places"
+                icon={<StarIcon />}
+              />
             </Tabs>
 
             <Autocomplete
