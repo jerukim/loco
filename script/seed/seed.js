@@ -2,9 +2,9 @@
 
 const userData = [
   {
-    firstName: 'Cody',
-    lastName: 'Pug',
-    email: 'cody@email.com',
+    firstName: 'Grace',
+    lastName: 'Hopper',
+    email: 'amazinggrace@navy.mil',
     password: '123'
   }
 ]
