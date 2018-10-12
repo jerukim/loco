@@ -27,7 +27,7 @@ class GMap extends React.Component {
       this.refs.map.fitBounds(bounds)
     } catch (err) {
       console.error(
-        'An error occurred in Google maps --- map working, review bug later'
+        'An error occurred in Google maps'
       )
     }
   }
@@ -126,7 +126,6 @@ class GMap extends React.Component {
             key={marker.id}
           />
         ))}
-        {('locationsForMarkers', console.log(locationsForMarkers))}
         {locationsForMarkers &&
           locationsForMarkers.map(marker => (
             <MarkerInfo

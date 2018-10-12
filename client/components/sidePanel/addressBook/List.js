@@ -1,12 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {withStyles} from '@material-ui/core/styles'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import {fetchHomes, fetchPlaces} from '../../../store'
 import AddressCard from './AddressCard'
 import {sort} from '../../../utilities'
 
+const styles = theme => ({
+  progress: {
+    position: 'absolute',
+    
+  }
+})
+
 class List extends React.Component {
   render() {
-    const {userId, list, name, children} = this.props
+    const {userId, list, name, children, classes, fetching} = this.props
 
     return !userId || !list ? (
       children
@@ -27,6 +36,16 @@ class List extends React.Component {
             )
           })}
         </ul>
+        {console.log('fetching', fetching)}
+        {
+          fetching &&
+          <div className="flex-container menu-buttons">
+            <CircularProgress
+              className={classes.progress}
+              color="secondary"
+            />
+          </div>
+        }
       </div>
     )
   }
@@ -36,13 +55,14 @@ const mapHomes = state => ({
   userId: state.user.id,
   list: state.homes,
   places: state.places,
-  name: 'homes'
+  name: 'homes',
 })
 
 const mapPlaces = state => ({
   userId: state.user.id,
   list: state.places,
-  name: 'places'
+  name: 'places',
+  fetching: state.selectedCategories.selectedCategoriesFetching
 })
 
 const mapHomesDispatch = dispatch => {
@@ -57,5 +77,5 @@ const mapPlacesDispatch = dispatch => {
   }
 }
 
-export const HomesList = connect(mapHomes, mapHomesDispatch)(List)
-export const PlacesList = connect(mapPlaces, mapPlacesDispatch)(List)
+export const HomesList = connect(mapHomes, mapHomesDispatch)(withStyles(styles)(List))
+export const PlacesList = connect(mapPlaces, mapPlacesDispatch)(withStyles(styles)(List))
