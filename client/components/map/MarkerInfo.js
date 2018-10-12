@@ -1,5 +1,6 @@
 import React from 'react'
 import {Marker, InfoWindow} from 'react-google-maps'
+import NumberFormat from 'react-number-format'
 
 class MarkerInfo extends React.Component {
   state = {
@@ -19,16 +20,33 @@ class MarkerInfo extends React.Component {
         onClick={this.onMarkerClick}
       >
         {this.state.isOpen && (
-          <InfoWindow onCloseClick={this.onToggleOpen}>
-            <div>
-              {image ? (
-                <img src={image} alt="Home image" height="256" width="256" />
-              ) : (
-                <div />
+          <InfoWindow
+            onCloseClick={this.onToggleOpen}
+            onPositionChanged={this.onToggleOpen}
+            style={{justifyContent: 'flex-start', overlow: 'unset'}}
+          >
+            <div className="all-center image-wrap">
+              {image && (
+                <img
+                  height="75"
+                  width="75"
+                  src={image}
+                  alt="Home image"
+                  style={{marginLeft: '-21px'}}
+                />
               )}
-              <h1>{name}</h1>
-              <p>{address}</p>
-              {price ? <h4>{'$' + price}</h4> : <div />}
+              <p className="info-p bold">{name}</p>
+              <p className={`info-p ${image && `bold`}`}>{address}</p>
+              {price && (
+                <p className="info-p marker-p">
+                  <NumberFormat
+                    value={price}
+                    displayType="text"
+                    thousandSeparator={true}
+                    prefix="$"
+                  />
+                </p>
+              )}
             </div>
           </InfoWindow>
         )}
