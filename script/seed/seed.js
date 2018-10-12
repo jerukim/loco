@@ -2,10 +2,10 @@
 
 const userData = [
   {
-    firstName: 'Cody',
-    lastName: 'Pug',
-    email: 'cody@email.com',
-    password: '123'
+    firstName: 'Grace',
+    lastName: 'Hopper',
+    email: 'amazinggrace@navy.mil',
+    password: 'password'
   }
 ]
 
@@ -29,7 +29,7 @@ const locationData = [
 const homeData = [
   {
     locationId: 1,
-    price: 50000000,
+    price: 5000000,
     imgUrl: 'https://photos.zillowstatic.com/p_f/ISi79n7e5lwahu0000000000.jpg'
   },
   {
