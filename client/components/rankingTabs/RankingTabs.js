@@ -76,6 +76,7 @@ class RankingTabs extends React.Component {
         homePlaces,
         selectedCategories.selectedCategories
       )
+      console.log(data)
       this.props.getRanks(data)
     }
 
