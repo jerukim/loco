@@ -14,8 +14,8 @@ const styles = theme => ({
 
 class Tipbox extends React.Component {
   render() {
-    const {classes, handleClose, handleExited} = this.props
-    const {message, key} = this.state.messageInfo
+    const {classes, handleClose, handleExited, messageInfo, open} = this.props
+    const {message, key} = messageInfo
     return (
       <div>
         <Snackbar
@@ -24,7 +24,7 @@ class Tipbox extends React.Component {
             vertical: 'bottom',
             horizontal: 'left'
           }}
-          open={this.state.open}
+          open={open}
           autoHideDuration={6000}
           onClose={handleClose}
           onExited={handleExited}

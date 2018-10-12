@@ -51,9 +51,11 @@ class TipButton extends React.Component {
         <Button onClick={this.handleClick('message a')}>Show message A</Button>
         <Button onClick={this.handleClick('message b')}>Show message B</Button>
         <Tipbox
+          messageInfo={this.state.messageInfo}
           handleClick={this.handleClick}
           handleClose={this.handleClose}
           handleExited={this.handleExited}
+          open={this.state.open}
         />
       </div>
     )
