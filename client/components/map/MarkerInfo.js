@@ -1,15 +1,24 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {Marker, InfoWindow} from 'react-google-maps'
 import NumberFormat from 'react-number-format'
+import {gotCenter} from '../../store'
 
 class MarkerInfo extends React.Component {
+  // state = {
+  //   isOpen: this.props.selectedMarker === this.props.markerId
+  // }
+
   state = {
     isOpen: false
   }
 
-  onMarkerClick = () => {
-    this.setState({isOpen: !this.state.isOpen})
-  }
+  // onMarkerClick = () => {
+  //   const {position} = this.props.position
+  //   this.setState({isOpen: !this.state.isOpen})
+  //   this.props.gotCenter({...position})
+  //   this.props.toggleMarker(this.props.markerId)
+  // }
 
   render() {
     const {address, icon, image, name, position, price} = this.props
@@ -18,6 +27,7 @@ class MarkerInfo extends React.Component {
         icon={icon}
         position={{lat: position.lat, lng: position.lng}}
         onClick={this.onMarkerClick}
+        style={{width: '30px', height: '30px'}}
       >
         {this.state.isOpen && (
           <InfoWindow
@@ -55,4 +65,8 @@ class MarkerInfo extends React.Component {
   }
 }
 
-export default MarkerInfo
+const mapDispatch = dispatch => ({
+  gotCenter: payload => dispatch(gotCenter(payload))
+})
+
+export default connect(null, mapDispatch)(MarkerInfo)
