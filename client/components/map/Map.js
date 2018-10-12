@@ -6,10 +6,6 @@ import {getBounds} from '../../store'
 import {flattenHomeCategoryResults} from '../../utilities'
 
 class GMap extends React.Component {
-  // state = {
-  //   marker: ''
-  // }
-
   componentDidUpdate = async prevProps => {
     const {userId, homes, places, homeId, categoryResults} = this.props
     const homeDeleted = homes.length < prevProps.homes.length
@@ -39,7 +35,7 @@ class GMap extends React.Component {
   // Assigns the right icon depending on the category
   returnCategoryIcon = function(arr) {
     let categories = {
-      supermarket: 'icons/groceries.png',
+      supermarket: 'icons/carrot.png',
       gym: 'icons/dumbbell.png',
       laundry: 'icons/washing-machine.png',
       pharmacy: 'icons/medicine.png',
@@ -59,10 +55,6 @@ class GMap extends React.Component {
       }
     }
   }
-
-  // toggleMarker = marker => {
-  //   this.setState({marker})
-  // }
 
   render() {
     const {places, homes, center, categoryResults} = this.props
@@ -92,6 +84,7 @@ class GMap extends React.Component {
         })
       )
     })
+
     return (
       <GoogleMap
         ref="map"
@@ -122,9 +115,6 @@ class GMap extends React.Component {
               address={marker.location.address}
               price={marker.price}
               key={marker.id}
-              markerId={marker.id}
-              // toggleMarker={this.toggleMarker}
-              // selectedMarker={this.state.marker}
             />
           ))}
         {places.map(marker => (
@@ -134,9 +124,6 @@ class GMap extends React.Component {
             name={marker.name}
             address={marker.location.address}
             key={marker.id}
-            markerId={marker.id}
-            // toggleMarker={this.toggleMarker}
-            // selectedMarker={this.state.marker}
           />
         ))}
         {('locationsForMarkers', console.log(locationsForMarkers))}
@@ -151,9 +138,6 @@ class GMap extends React.Component {
               name={marker.name}
               address={marker.vicinity}
               key={marker.id}
-              markerId={marker.id}
-              // toggleMarker={this.toggleMarker}
-              // selectedMarker={this.state.marker}
             />
           ))}
       </GoogleMap>
