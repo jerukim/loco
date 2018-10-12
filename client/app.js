@@ -11,7 +11,7 @@ import Routes from './routes'
 const App = () => {
   return (
     <div id="main">
-     // <TipButton /> gucci!
+      {/* <TipButton /> */}
       <ScreensNavbar />
       <div id="top">
         <ScreensSidePanel />
