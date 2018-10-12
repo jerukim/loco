@@ -1,12 +1,15 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {withStyles} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import WbIncandescentIcon from '@material-ui/icons/WbIncandescent'
 import TipBox from './TipBox'
+import {changeTooltip} from '../../store'
 
 const styles = themes => ({
   root: {
-    backgroundColor: '#f7bd00'
+    backgroundColor: '#f7bd00',
+    borderRadius: '15px'
   },
   button: {
     width: '50px',
@@ -21,18 +24,9 @@ const styles = themes => ({
   }
 })
 
-const messages = [
-  'Welcome to Loco!',
-  'Save addresses to your ADDRESS BOOK to keep track of homes you are looking at and places you will need nearby (e.g. work, school)',
-  'Add and sort POINTS OF INTEREST that you would like to access around your next home and view the results in the RESULTS section'
-]
-
 class TipButton extends React.Component {
-  queue = []
-
   state = {
-    open: true,
-    message: messages[0]
+    open: true
   }
 
   toggleTips = () => {
@@ -40,7 +34,7 @@ class TipButton extends React.Component {
   }
 
   handleClick = index => () => {
-    this.setState({message: messages[index]})
+    this.setState({open: !this.state.open})
   }
 
   handleClose = (event, reason) => {
@@ -82,4 +76,8 @@ class TipButton extends React.Component {
   }
 }
 
-export default withStyles(styles)(TipButton)
+const mapDispatch = dispatch => ({
+  changeTooltip: index => dispatch(changeTooltip(index))
+})
+
+export default connect(null, mapDispatch)(withStyles(styles)(TipButton))
