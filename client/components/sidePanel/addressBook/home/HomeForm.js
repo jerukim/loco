@@ -103,7 +103,9 @@ class HomeForm extends React.Component {
           onChange={this.handleChange('link')}
         />
         <div className="flex-container flex-end">
-          <Button type="submit">Save</Button>
+          <Button color="primary" variant="contained" type="submit">
+            Save
+          </Button>
         </div>
       </form>
     )
