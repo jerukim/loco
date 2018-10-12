@@ -17,14 +17,7 @@ const styles = theme => ({
     textTransform: 'capitalize'
   },
   indicator: {
-    height: '66px',
-    maxWidth: '97px',
-    left: '62px',
-    bottom: '3px',
-    opacity: '0.2',
-    borderRadius: '187px',
-    backgroundColor: '#b2b8d8',
-    margin: '0 31px'
+    height: 0
   }
 })
 
@@ -51,12 +44,11 @@ class AddressBook extends React.Component {
     return (
       <div>
         <div className="addressbook-select">
-          <AppBar
-            position="static"
-            style={{backgroundColor: '#f1f1f1', color: 'black'}}
-          >
+          <AppBar position="static" style={{backgroundColor: '#f1f1f1'}}>
             <Tabs
               classes={{indicator: classes.indicator}}
+              indicatorColor="secondary"
+              textColor="secondary"
               centered={true}
               value={value}
               onChange={this.handleChange}
