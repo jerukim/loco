@@ -108,7 +108,7 @@ class RankingTabs extends React.Component {
                   className={`tab result ${color} ${selected}`}
                   onClick={() => this.setState({value: i})}
                 >
-                  {i + 1}
+                  {home.location.address.slice(0, 18).concat('...')}
                 </li>
               )
             })}
