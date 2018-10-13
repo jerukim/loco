@@ -13,7 +13,8 @@ import {changeTooltip} from '../../store'
 const messages = [
   'Welcome to Loco! Click NEXT for tips',
   'Save addresses to your ADDRESS BOOK to keep track of homes you are looking at and places you will need nearby (e.g. work, school)',
-  'Add and sort POINTS OF INTEREST that you would like to access around your next home and view the results in the RESULTS section'
+  'Add and sort POINTS OF INTEREST that you would like to access around your next home and view your closest matches within RESULTS',
+  'Explore the neighborhoods around your saved homes in the MAP'
 ]
 
 const styles = theme => ({
@@ -56,7 +57,7 @@ class Tipbox extends React.Component {
                 style={{color: 'gray'}}
                 size="small"
                 onClick={() => {
-                  const next = index === 2 ? -1 : index
+                  const next = index === 3 ? -1 : index
                   changeTooltip(next + 1)
                 }}
               >

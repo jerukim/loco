@@ -15,7 +15,8 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styles = theme => ({
   root: {
-    width: '100%'
+    width: '100%',
+    margin: '25px 0 0 14px'
   },
   icon: {
     margin: theme.spacing.unit,
