@@ -38,7 +38,6 @@ const styles = theme => ({
 })
 
 class RankingTabs extends React.Component {
-  // replace this ranking store
   state = {
     value: 0
   }
@@ -102,7 +101,7 @@ class RankingTabs extends React.Component {
             homes.map((home, i) => {
               const homeId = rankings.data[i]
               const color = i % 2 === 0 ? 'light-blue' : 'blue'
-              const selected = this.state.value === i ? 'selected' : ''
+              const selected = value === i ? 'selected' : ''
               return (
                 <li
                   key={homeId}
@@ -114,7 +113,9 @@ class RankingTabs extends React.Component {
               )
             })}
         </div>
-        {rankings.data && <HomeTab homeId={rankings.data[value]} />}
+        {rankings.data && (
+          <HomeTab rank={value + 1} homeId={rankings.data[value]} />
+        )}
       </div>
     )
   }
