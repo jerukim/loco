@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import StarIcon from '@material-ui/icons/Star'
 import {HomeTab} from '../'
 import {getBounds, getRanks} from '../../store'
-import {rankHomes as ranker} from '../../utilities'
+import {rankHomes as ranker, sort} from '../../utilities'
 
 const styles = theme => ({
   root: {
@@ -77,6 +77,8 @@ class RankingTabs extends React.Component {
       this.props.getRanks(data)
     }
 
+    console.log(rankings.data)
+
     return (
       <div className={classes.root}>
         <div className="flex-container rankings-appbar">
@@ -97,18 +99,21 @@ class RankingTabs extends React.Component {
               Results
             </Typography>
           </Toolbar>
-          {rankings.data &&
-            homes.map((home, i) => {
-              const homeId = rankings.data[i]
+          {Object.keys(rankings.data).length > 0 &&
+            sort(Object.keys(rankings.data)).map((homeKey, i) => {
+              const home = homes.filter(
+                home => home.id === rankings.data[homeKey]
+              )
+
               const color = i % 2 === 0 ? 'light-blue' : 'blue'
               const selected = value === i ? 'selected' : ''
               return (
                 <li
-                  key={homeId}
+                  key={home[0].id}
                   className={`tab result ${color} ${selected}`}
                   onClick={() => this.setState({value: i})}
                 >
-                  {home.location.address.slice(0, 18).concat('...')}
+                  {home[0].location.address.slice(0, 18).concat('...')}
                 </li>
               )
             })}
