@@ -77,8 +77,6 @@ class RankingTabs extends React.Component {
       this.props.getRanks(data)
     }
 
-    console.log(rankings.data)
-
     return (
       <div className={classes.root}>
         <div className="flex-container rankings-appbar">
